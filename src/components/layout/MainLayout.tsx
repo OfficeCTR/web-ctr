@@ -13,6 +13,7 @@ interface MainLayoutProps {
 const MainLayout = ({ children }: MainLayoutProps) => {
   const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -66,7 +67,10 @@ const MainLayout = ({ children }: MainLayoutProps) => {
                 </Link>
               ))}
             </div>
-            <button className={`md:hidden ${isScrolled ? "text-gray-600" : "text-white"}`}>
+            <button 
+              className={`md:hidden ${isScrolled ? "text-gray-600" : "text-white"}`}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
               <svg
                 className="w-6 h-6"
                 fill="none"
@@ -84,6 +88,35 @@ const MainLayout = ({ children }: MainLayoutProps) => {
           </div>
         </nav>
       </header>
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          className="fixed top-20 left-0 w-full bg-white shadow-lg md:hidden z-40"
+        >
+          <div className="container mx-auto px-4 py-4">
+            <div className="flex flex-col space-y-4">
+              {navItems.map((item) => (
+                <Link
+                  key={item.path}
+                  href={item.path}
+                  className={`${
+                    router.pathname === item.path
+                      ? "text-primary font-semibold"
+                      : "text-gray-600 hover:text-primary"
+                  } transition-colors duration-200 py-2`}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+      )}
 
       <main className="flex-grow">{children}</main>
 

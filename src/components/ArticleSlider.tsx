@@ -80,15 +80,16 @@ const ArticleSlider = ({ articles }: ArticleSliderProps) => {
                 <Link
                   key={article.id}
                   href={`/blog/${article.slug}`}
-                  className="group"
+                  className="group block"
                 >
-                  <div className="bg-white rounded-lg shadow-md overflow-hidden h-full">
-                    <div className="relative h-48">
+                  <div className="bg-white rounded-lg shadow-md overflow-hidden h-full transform transition-all duration-300 hover:shadow-lg">
+                    <div className="relative h-56 md:h-48">
                       <Image
                         src={article.coverImage}
                         alt={article.title}
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        sizes="(max-width: 768px) 100vw, 50vw"
                       />
                     </div>
                     <div className="p-6">
@@ -101,7 +102,7 @@ const ArticleSlider = ({ articles }: ArticleSliderProps) => {
                           {new Date(article.publishedAt).toLocaleDateString('ro-RO')}
                         </span>
                       </div>
-                      <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors line-clamp-2">
                         {article.title}
                       </h3>
                       <p className="text-gray-600 line-clamp-2">{article.excerpt}</p>
