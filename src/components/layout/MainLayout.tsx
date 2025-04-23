@@ -29,6 +29,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
     { name: "Despre Noi", path: "/despre" },
     { name: "Proiecte", path: "/proiecte" },
     { name: "Membri", path: "/membri" },
+    { name: "Susține-ne", path: "/support" },
     { name: "Contact", path: "/contact" },
   ];
 
@@ -151,7 +152,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
           </div>
           <div className="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400">
             <p>&copy; {new Date().getFullYear()} CTR. Toate drepturile rezervate.</p>
-            <p>Creat cu &#x2661; de <a href="https://ftcluj.ro">Federația de Tineret Cluj</a></p>
+            <p>Creat cu &#x2661; de <a href="https://ftcluj.ro">Federația Tinerilor din Cluj</a></p>
           </div>
         </div>
       </footer>

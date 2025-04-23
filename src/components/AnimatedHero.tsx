@@ -106,7 +106,7 @@ const AnimatedHero = () => {
               className="flex gap-6 justify-center pt-8"
             >
               <button className="bg-yellow-400 text-[#0B1C3D] px-8 py-4 rounded-full font-semibold hover:bg-yellow-300 transition-colors text-lg">
-                Implică-te
+                Susține-ne
               </button>
               <button className="bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-full font-semibold hover:bg-white/20 transition-colors text-lg">
                 Află mai multe

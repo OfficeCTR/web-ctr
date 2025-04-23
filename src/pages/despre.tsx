@@ -18,8 +18,8 @@ const teamMembers: TeamMember[] = [
     id: 1,
     name: 'Rafael Barac Bologa',
     position: 'Președinte',
-    email: 'rafael.bologa@ctr.ro',
-    photo: '/assets/team/placeholder.jpg',
+    email: 'rafael.barac@ctr.ro',
+    photo: '/assets/team/Bologa.png',
     department: 'leadership'
   },
   {
@@ -27,7 +27,7 @@ const teamMembers: TeamMember[] = [
     name: 'Tudor Miu',
     position: 'Secretar General',
     email: 'tudor.miu@ctr.ro',
-    photo: '/assets/team/placeholder.jpg',
+    photo: '/assets/team/Miu.png',
     department: 'leadership'
   },
   {
@@ -35,15 +35,15 @@ const teamMembers: TeamMember[] = [
     name: 'Cătălin Ilieș',
     position: 'Vicepreședinte',
     email: 'catalin.ilies@ctr.ro',
-    photo: '/assets/team/placeholder.jpg',
+    photo: '/assets/team/Ilies.png',
     department: 'leadership'
   },
   {
     id: 4,
-    name: 'Alexandru Popa',
+    name: 'Cristina Carciuc',
     position: 'Vicepreședinte',
-    email: 'alexandru.popa@ctr.ro',
-    photo: '/assets/team/placeholder.jpg',
+    email: 'cristina.carciuc@ctr.ro',
+    photo: '/assets/team/Cristina.png',
     department: 'leadership'
   },
   {
@@ -64,36 +64,20 @@ const teamMembers: TeamMember[] = [
   },
   {
     id: 7,
-    name: 'Cristina Gheorghe',
-    position: 'Coordonator Proiecte',
-    email: 'cristina.gheorghe@ctr.ro',
+    name: 'Larisa Bejan',
+    position: 'Director Departament Relații Internaționale',
+    email: 'larisa.bejan@ctr.ro',
     photo: '/assets/team/placeholder.jpg',
     department: 'executive'
   },
   {
     id: 8,
-    name: 'Radu Popescu',
-    position: 'Responsabil Financiar',
-    email: 'radu.popescu@ctr.ro',
+    name: 'Alexandru Cazac',
+    position: 'Director Departament Fundraising',
+    email: 'alexandru.cazac@ctr.ro',
     photo: '/assets/team/placeholder.jpg',
     department: 'executive'
-  },
-  {
-    id: 9,
-    name: 'Rareș Andrei',
-    position: 'Vicepreședinte',
-    email: 'alexandru.popa@ctr.ro',
-    photo: '/assets/team/placeholder.jpg',
-    department: 'leadership'
-  },
-  {
-    id: 10,
-    name: 'Rareș Cotoi',
-    position: 'Vicepreședinte',
-    email: 'alexandru.popa@ctr.ro',
-    photo: '/assets/team/placeholder.jpg',
-    department: 'leadership'
-  },
+  }
 ];
 
 // Carousel image paths - to be replaced with real images
@@ -134,7 +118,7 @@ export default function DesprePage() {
       </Head>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-gradient-to-b from-primary/10 to-white">
+      <section className="pt-32 pb-16 bg-gradient-to-b from-blue-800/80 to-white">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -297,7 +281,7 @@ export default function DesprePage() {
                     src={member.photo}
                     alt={member.name}
                     fill
-                    style={{ objectFit: 'cover' }}
+                    style={{ objectFit: 'cover', objectPosition: 'center 30%' }}
                   />
                 </div>
                 <div className="p-6">
