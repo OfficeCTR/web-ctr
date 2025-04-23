@@ -4,6 +4,7 @@ import AnimatedHero from "../components/AnimatedHero";
 import ArticleSlider from "../components/ArticleSlider";
 import AboutSection from "../components/AboutSection";
 import PartnersSection from "../components/Afilliations";
+import CapitalaTineretuluiSection from "../components/CapitalaTineretuluiSection";
 import { getAllArticles, Article } from "../utils/markdown";
 
 interface HomeProps {
@@ -15,6 +16,7 @@ const Home: NextPage<HomeProps> = ({ articles }) => {
     <MainLayout>
       <AnimatedHero />
       <AboutSection />
+      <CapitalaTineretuluiSection />
       <PartnersSection />
       <section className="py-16">
         <div className="container mx-auto px-4">
