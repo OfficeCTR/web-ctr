@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { motion } from 'framer-motion';
 import MainLayout from '../components/layout/MainLayout';
 import { getOpportunities, type Opportunity } from '../utils/googleSheets';
+import OpportunityModal from '../components/OpportunityModal';
 
 const categories = [
   { id: 'all', label: 'Toate' },
@@ -19,6 +20,7 @@ export default function Opportunities() {
   const [opportunities, setOpportunities] = useState<Opportunity[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedOpportunity, setSelectedOpportunity] = useState<Opportunity | null>(null);
 
   useEffect(() => {
     async function loadOpportunities() {
@@ -39,7 +41,7 @@ export default function Opportunities() {
   const filteredOpportunities = opportunities.filter(opp => {
     const matchesCategory = selectedCategory === 'all' || opp.category === selectedCategory;
     const matchesSearch = opp.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         opp.description.toLowerCase().includes(searchQuery.toLowerCase());
+                         opp.shortDescription.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
@@ -160,26 +162,22 @@ export default function Opportunities() {
                   </div>
                   
                   <p className="text-gray-600 mb-4">
-                    {opportunity.description}
+                    {opportunity.shortDescription}
                   </p>
                   
                   <div className="flex justify-between items-center">
                     <div className="text-sm text-gray-500">
                       Termen limită: {new Date(opportunity.deadline).toLocaleDateString('ro-RO')}
                     </div>
-                    {opportunity.link && (
-                      <a
-                        href={opportunity.link}
-                        className="text-primary hover:text-primary/80 font-medium inline-flex items-center"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Află mai multe
-                        <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </a>
-                    )}
+                    <button
+                      onClick={() => setSelectedOpportunity(opportunity)}
+                      className="text-primary hover:text-primary/80 font-medium inline-flex items-center"
+                    >
+                      Află mai multe
+                      <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
                   </div>
                 </motion.div>
               ))}
@@ -195,6 +193,12 @@ export default function Opportunities() {
           )}
         </div>
       </main>
+
+      {/* Opportunity Modal */}
+      <OpportunityModal
+        opportunity={selectedOpportunity}
+        onClose={() => setSelectedOpportunity(null)}
+      />
     </MainLayout>
   );
 } 
