@@ -1,49 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { motion } from 'framer-motion';
 import MainLayout from '../components/layout/MainLayout';
-
-// Types for our opportunities
-type Opportunity = {
-  id: string;
-  title: string;
-  description: string;
-  deadline: string;
-  isActive: boolean;
-  category: 'scholarship' | 'internship' | 'competition' | 'volunteer' | 'other';
-  link?: string;
-};
-
-// Sample data - in a real app, this would come from a CMS or API
-const opportunities: Opportunity[] = [
-  {
-    id: '1',
-    title: 'Bursă de Excelență pentru Tineri Talenți',
-    description: 'Oportunitate unică pentru studenții excepționali să-și continue studiile cu sprijin financiar.',
-    deadline: '2024-06-30',
-    isActive: true,
-    category: 'scholarship',
-    link: '#'
-  },
-  {
-    id: '2',
-    title: 'Internship la Google',
-    description: 'Program de internship pentru studenți pasionați de tehnologie și inovație.',
-    deadline: '2024-05-15',
-    isActive: true,
-    category: 'internship',
-    link: '#'
-  },
-  {
-    id: '3',
-    title: 'Concurs de Inovație Socială',
-    description: 'Concurs pentru tineri cu idei inovatoare care pot rezolva probleme sociale.',
-    deadline: '2024-04-30',
-    isActive: true,
-    category: 'competition',
-    link: '#'
-  },
-];
+import { getOpportunities, type Opportunity } from '../utils/googleSheets';
 
 const categories = [
   { id: 'all', label: 'Toate' },
@@ -57,6 +16,25 @@ const categories = [
 export default function Opportunities() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [opportunities, setOpportunities] = useState<Opportunity[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function loadOpportunities() {
+      try {
+        const data = await getOpportunities();
+        setOpportunities(data);
+      } catch (err) {
+        setError('Nu am putut încărca oportunitățile. Vă rugăm să încercați din nou mai târziu.');
+        console.error('Error loading opportunities:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    loadOpportunities();
+  }, []);
 
   const filteredOpportunities = opportunities.filter(opp => {
     const matchesCategory = selectedCategory === 'all' || opp.category === selectedCategory;
@@ -140,56 +118,75 @@ export default function Opportunities() {
             </div>
           </div>
 
-          {/* Opportunities Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredOpportunities.map((opportunity, index) => (
-              <motion.div
-                key={opportunity.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-6 border border-gray-100"
-              >
-                <div className="flex justify-between items-start mb-4">
-                  <h3 className="text-xl font-semibold text-gray-900">
-                    {opportunity.title}
-                  </h3>
-                  <span
-                    className={`px-3 py-1 rounded-full text-xs font-medium
-                      ${opportunity.isActive
-                        ? 'bg-green-100 text-green-800'
-                        : 'bg-red-100 text-red-800'
-                      }`}
-                  >
-                    {opportunity.isActive ? 'Activ' : 'Expirat'}
-                  </span>
-                </div>
-                
-                <p className="text-gray-600 mb-4">
-                  {opportunity.description}
-                </p>
-                
-                <div className="flex justify-between items-center">
-                  <div className="text-sm text-gray-500">
-                    Termen limită: {new Date(opportunity.deadline).toLocaleDateString('ro-RO')}
-                  </div>
-                  {opportunity.link && (
-                    <a
-                      href={opportunity.link}
-                      className="text-primary hover:text-primary/80 font-medium inline-flex items-center"
-                    >
-                      Află mai multe
-                      <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </a>
-                  )}
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          {/* Loading State */}
+          {isLoading && (
+            <div className="text-center py-12">
+              <div className="inline-block animate-spin rounded-full h-8 w-8 border-4 border-primary border-t-transparent"></div>
+              <p className="mt-4 text-gray-600">Se încarcă oportunitățile...</p>
+            </div>
+          )}
 
-          {filteredOpportunities.length === 0 && (
+          {/* Error State */}
+          {error && (
+            <div className="text-center py-12">
+              <p className="text-red-600">{error}</p>
+            </div>
+          )}
+
+          {/* Opportunities Grid */}
+          {!isLoading && !error && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredOpportunities.map((opportunity, index) => (
+                <motion.div
+                  key={opportunity.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-6 border border-gray-100"
+                >
+                  <div className="flex justify-between items-start mb-4">
+                    <h3 className="text-xl font-semibold text-gray-900">
+                      {opportunity.title}
+                    </h3>
+                    <span
+                      className={`px-3 py-1 rounded-full text-xs font-medium
+                        ${opportunity.isActive
+                          ? 'bg-green-100 text-green-800'
+                          : 'bg-red-100 text-red-800'
+                        }`}
+                    >
+                      {opportunity.isActive ? 'Activ' : 'Expirat'}
+                    </span>
+                  </div>
+                  
+                  <p className="text-gray-600 mb-4">
+                    {opportunity.description}
+                  </p>
+                  
+                  <div className="flex justify-between items-center">
+                    <div className="text-sm text-gray-500">
+                      Termen limită: {new Date(opportunity.deadline).toLocaleDateString('ro-RO')}
+                    </div>
+                    {opportunity.link && (
+                      <a
+                        href={opportunity.link}
+                        className="text-primary hover:text-primary/80 font-medium inline-flex items-center"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Află mai multe
+                        <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </a>
+                    )}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          )}
+
+          {!isLoading && !error && filteredOpportunities.length === 0 && (
             <div className="text-center py-12">
               <p className="text-gray-500 text-lg">
                 Nu am găsit oportunități care să corespundă criteriilor tale.
