@@ -27,6 +27,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
   const navItems = [
     { name: "Acasă", path: "/" },
     { name: "Despre Noi", path: "/despre" },
+    { name: "Oportunități", path: "/oportunitati" },
     { name: "Proiecte", path: "/proiecte" },
     { name: "Membri", path: "/membri" },
     { name: "Susține-ne", path: "/support" },
