@@ -15,8 +15,10 @@
     "framer-motion": "^10.16.4",
     "gray-matter": "^4.0.3",
     "next": "13.4.19",
+    "nodemailer": "^6.10.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-icons": "^5.5.0",
     "react-intersection-observer": "^9.5.2",
     "react-markdown": "^10.1.0",
     "remark-gfm": "^4.0.1",
@@ -25,6 +27,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.8.9",
+    "@types/nodemailer": "^6.4.17",
     "@types/react": "^18.2.33",
     "@types/react-dom": "^18.2.14",
     "autoprefixer": "^10.4.16",

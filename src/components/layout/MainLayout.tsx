@@ -2,7 +2,7 @@
 
 import { type ReactNode, useState, useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
@@ -11,7 +11,7 @@ interface MainLayoutProps {
 }
 
 const MainLayout = ({ children }: MainLayoutProps) => {
-  const router = useRouter();
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -31,7 +31,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
     { name: "Proiecte", path: "/proiecte" },
     { name: "Membri", path: "/membri" },
     { name: "Susține-ne", path: "/support" },
-    { name: "Contact", path: "/contact" },
+    { name: "Contact", path: "/contact-page" },
   ];
 
   return (
@@ -59,13 +59,17 @@ const MainLayout = ({ children }: MainLayoutProps) => {
                 <Link
                   key={item.path}
                   href={item.path}
-                  className={`${
-                    router.pathname === item.path
-                      ? isScrolled ? "text-primary font-semibold" : "text-yellow-400 font-semibold"
-                      : isScrolled ? "text-gray-600 hover:text-primary" : "text-white hover:text-yellow-400"
-                  } transition-colors duration-200`}
+                  legacyBehavior
                 >
-                  {item.name}
+                  <a
+                    className={`${
+                      pathname === item.path
+                        ? isScrolled ? "text-primary font-semibold" : "text-yellow-400 font-semibold"
+                        : isScrolled ? "text-gray-600 hover:text-primary" : "text-white hover:text-yellow-400"
+                    } transition-colors duration-200`}
+                  >
+                    {item.name}
+                  </a>
                 </Link>
               ))}
             </div>
@@ -105,14 +109,18 @@ const MainLayout = ({ children }: MainLayoutProps) => {
                 <Link
                   key={item.path}
                   href={item.path}
-                  className={`${
-                    router.pathname === item.path
-                      ? "text-primary font-semibold"
-                      : "text-gray-600 hover:text-primary"
-                  } transition-colors duration-200 py-2`}
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  legacyBehavior
                 >
-                  {item.name}
+                  <a
+                    className={`${
+                      pathname === item.path
+                        ? "text-primary font-semibold"
+                        : "text-gray-600 hover:text-primary"
+                    } transition-colors duration-200 py-2`}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item.name}
+                  </a>
                 </Link>
               ))}
             </div>

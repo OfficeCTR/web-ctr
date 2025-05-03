@@ -118,7 +118,7 @@ export default function DesprePage() {
       </Head>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-gradient-to-b from-blue-800/80 to-white">
+      <section className="pt-32 pb-16 bg-primary">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -126,9 +126,9 @@ export default function DesprePage() {
             transition={{ duration: 0.6 }}
             className="text-center"
           >
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Despre Noi</h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">Despre Noi</h1>
             <div className="max-w-3xl mx-auto">
-              <p className="text-lg text-gray-700 mb-8">
+              <p className="text-lg text-white/90 mb-8">
                 Consiliul Tinerilor din România (CTR) este o organizație dedicată reprezentării intereselor tinerilor și dezvoltării de politici și proiecte care să îmbunătățească calitatea vieții acestora. Prin activitățile noastre, vizăm să creăm un mediu în care tinerii să își poată atinge potențialul maxim.
               </p>
             </div>
