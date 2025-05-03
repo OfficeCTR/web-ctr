@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import MainLayout from '../components/layout/MainLayout';
+import { ChevronDownIcon } from '@heroicons/react/24/solid';
 
 // Define organization types as per the old website
 const organizationTypes = [
@@ -10,6 +11,14 @@ const organizationTypes = [
   'national',
   'regional'
 ];
+
+// Type labels for display
+const typeDisplayLabels = {
+  all: 'Toate organizațiile',
+  international: 'Afiliate internațional',
+  national: 'Nivel național',
+  regional: 'Regionale/Județene'
+};
 
 interface Organization {
   id: number;
@@ -182,13 +191,23 @@ const typeLabels = {
 };
 
 export default function MembriPage() {
-  const [activeTab, setActiveTab] = useState('all');
+  const [activeTab, setActiveTab] = useState('national');
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   
   // Filter organizations based on active tab
   const filteredOrganizations = activeTab === 'all' 
     ? organizations 
     : organizations.filter(org => org.type === activeTab);
+    
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+  
+  const selectType = (type: string) => {
+    setActiveTab(type);
+    setIsDropdownOpen(false);
+  };
 
   return (
     <MainLayout>
@@ -227,10 +246,11 @@ export default function MembriPage() {
         </div>
       </section>
 
-      {/* Organizations Filter Tabs */}
+      {/* Organizations Filter Tabs - Desktop and Mobile Versions */}
       <section className="py-12 bg-white">
         <div className="container mx-auto px-4">
-          <div className="flex justify-center mb-12 overflow-x-auto">
+          {/* Desktop Tabs - Hidden on Mobile */}
+          <div className="hidden md:flex justify-center mb-12">
             <div className="inline-flex bg-gray-100 rounded-full p-1">
               <button
                 onClick={() => setActiveTab('all')}
@@ -248,11 +268,48 @@ export default function MembriPage() {
                     activeTab === type ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-200'
                   }`}
                 >
-                  {type === 'international' && 'Afiliate internațional'}
-                  {type === 'national' && 'Nivel național'}
-                  {type === 'regional' && 'Regionale/Județene'}
+                  {typeDisplayLabels[type as keyof typeof typeDisplayLabels]}
                 </button>
               ))}
+            </div>
+          </div>
+          
+          {/* Mobile Dropdown - Hidden on Desktop */}
+          <div className="md:hidden mb-12">
+            <div className="relative">
+              <button 
+                onClick={toggleDropdown}
+                className="w-full flex items-center justify-between bg-primary text-white px-5 py-3 rounded-lg shadow"
+              >
+                <span>{typeDisplayLabels[activeTab as keyof typeof typeDisplayLabels]}</span>
+                <ChevronDownIcon className={`w-5 h-5 transform transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
+              
+              {isDropdownOpen && (
+                <div className="absolute z-10 w-full mt-1 bg-white rounded-lg shadow-lg overflow-hidden">
+                  <div className="py-1">
+                    <button
+                      onClick={() => selectType('all')}
+                      className={`w-full text-left px-4 py-3 text-sm ${
+                        activeTab === 'all' ? 'bg-gray-100 font-medium' : 'hover:bg-gray-50'
+                      }`}
+                    >
+                      Toate organizațiile
+                    </button>
+                    {organizationTypes.map((type) => (
+                      <button
+                        key={type}
+                        onClick={() => selectType(type)}
+                        className={`w-full text-left px-4 py-3 text-sm ${
+                          activeTab === type ? 'bg-gray-100 font-medium' : 'hover:bg-gray-50'
+                        }`}
+                      >
+                        {typeDisplayLabels[type as keyof typeof typeDisplayLabels]}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 

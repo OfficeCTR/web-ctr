@@ -35,7 +35,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col overflow-x-hidden w-full">
       <header 
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${
           isScrolled 
@@ -45,7 +45,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       >
         <nav className="container mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
-            <Link href="/" className="relative w-16 h-16">
+            <Link href="/" className="relative w-16 h-16 flex-shrink-0 md:block">
               <Image
                 src="/assets/ctr-logo.png"
                 alt="CTR Logo"
@@ -74,7 +74,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
               ))}
             </div>
             <button 
-              className={`md:hidden ${isScrolled ? "text-gray-600" : "text-white"}`}
+              className={`md:hidden ${isScrolled ? "text-gray-600" : "text-white"} flex-shrink-0`}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               <svg
@@ -128,7 +128,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
         </motion.div>
       )}
 
-      <main className="flex-grow">{children}</main>
+      <main className="flex-grow overflow-x-hidden">{children}</main>
 
       <footer className="bg-gray-900 text-white py-8">
         <div className="container mx-auto px-4">
