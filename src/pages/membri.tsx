@@ -33,15 +33,15 @@ const organizations: Organization[] = [
   // International Organizations
   {
     id: 1,
-    name: 'AEGEE',
+    name: 'AEGEE București',
     type: 'international',
-    logo: '/assets/organizations/placeholder.png'
+    logo: '/assets/organizations/aegee_bucuresti.jpg'
   },
   {
     id: 2,
-    name: 'AIESEC',
+    name: 'ANSR Tineret',
     type: 'international',
-    logo: '/assets/organizations/placeholder.png'
+    logo: '/assets/organizations/ansr_tineret.png'
   },
   
   // National Organizations
@@ -49,138 +49,132 @@ const organizations: Organization[] = [
     id: 3,
     name: 'Alianța Națională a Organizațiilor Studențești din România (ANOSR)',
     type: 'national',
-    logo: '/assets/organizations/placeholder.png'
+    logo: '/assets/organizations/anosr.png'
   },
   {
     id: 4,
-    name: 'Asociația Cercetașii României',
+    name: 'Organizația Națională „Cercetașii României” (ONCR)',
     type: 'national',
-    logo: '/assets/organizations/placeholder.png'
+    logo: '/assets/organizations/oncr.png'
   },
   {
     id: 5,
-    name: 'Consiliul Național al Elevilor (CNE)',
+    name: 'Asociația MIERT',
     type: 'national',
-    logo: '/assets/organizations/placeholder.png'
+    logo: '/assets/organizations/miert.png'
   },
   {
     id: 6,
-    name: 'Federația Organizațiilor Neguvernamentale de Tineret (FONT)',
+    name: 'FFederația Tinerilor Basarabeni - FTB',
     type: 'national',
-    logo: '/assets/organizations/placeholder.png'
+    logo: '/assets/organizations/ftb.jpg'
   },
+  // Regional/County Organizations
   {
     id: 7,
-    name: 'Uniunea Studenților din România (USR)',
-    type: 'national',
-    logo: '/assets/organizations/placeholder.png'
+    name: 'Federația Tinerilor din Cluj (FTC)',
+    type: 'regional',
+    region: 'CLUJ',
+    logo: '/assets/organizations/ftc.jpg'
   },
   {
     id: 8,
-    name: 'Uniunea Națională a Studenților din România (UNSR)',
-    type: 'national',
-    logo: '/assets/organizations/placeholder.png'
+    name: 'Fundaţia pentru Tineret a Municipiului Bucureşti (FTMB)',
+    type: 'regional',
+    region: 'BUCUREȘTI',
+    logo: '/assets/organizations/ftmb.png'
   },
-  
-  // Regional/County Organizations
   {
     id: 9,
-    name: 'Federația Tinerilor din Bacău',
+    name: 'Fundaţia Judeţeană pentru Tineret Dâmboviţa',
     type: 'regional',
-    region: 'BACĂU',
-    logo: '/assets/organizations/placeholder.png'
+    region: 'DÂMBOVIȚA',
+    logo: '/assets/organizations/fjt_db.jpg'
   },
   {
     id: 10,
-    name: 'Federația Asociațiilor de Tineret din Botoșani',
+    name: 'Federația Organizațiilor Neguvernamentale de Tineret din Maramureș (FONT)',
     type: 'regional',
-    region: 'BOTOȘANI',
-    logo: '/assets/organizations/placeholder.png'
+    region: 'MARAMUREȘ',
+    logo: '/assets/organizations/font_mm.jpg'
   },
   {
     id: 11,
-    name: 'Federația Organizațiilor Neguvernamentale de Tineret din București',
+    name: 'Fundaţia pentru Tineret Mehedinţi',
     type: 'regional',
-    region: 'BUCUREȘTI',
-    logo: '/assets/organizations/placeholder.png'
+    region: 'MEHEDINȚI',
+    logo: '/assets/organizations/fjt_mh.jpg'
   },
   {
     id: 12,
-    name: 'Federația Tinerilor din Cluj',
+    name: 'Fundaţia Judeţeană pentru Tineret Olt',
     type: 'regional',
-    region: 'CLUJ',
-    logo: '/assets/organizations/placeholder.png'
+    region: 'OLT',
+    logo: '/assets/organizations/fjt_ot.jpg'
   },
   {
     id: 13,
-    name: 'Asociația Județeană de Tineret Covasna',
+    name: 'Fundaţia Judeţeană pentru Tineret Vâlcea',
+    type: 'regional',
+    region: 'VÂLCEA',
+    logo: '/assets/organizations/fjt_vl.jpg'
+  },
+  {
+    id: 14,
+    name: 'Federația Tinerilor din Bacău',
+    type: 'regional',
+    region: 'BACĂU',
+    logo: '/assets/organizations/ft_bacau.png'
+  },
+  {
+    id: 15,
+    name: 'Federația Organizațiilor Neguvernamentale de Tineret din Iași (FONTIS)',
+    type: 'regional',
+    region: 'IAȘI',
+    logo: '/assets/organizations/fontis.jpg'
+  },
+  {
+    id: 16,
+    name: 'Fundaţia Judeţeană pentru Tineret Botoşani',
+    type: 'regional',
+    region: 'BOTOȘANI',
+    logo: '/assets/organizations/fjt_bt.jpg'
+  },
+  {
+    id: 17,
+    name: 'Fundația Județeană pentru Tineret Covasna ',
     type: 'regional',
     region: 'COVASNA',
     logo: '/assets/organizations/placeholder.png'
   },
   {
-    id: 14,
-    name: 'Forumul Tinerilor din Dâmbovița',
-    type: 'regional',
-    region: 'DÂMBOVIȚA',
-    logo: '/assets/organizations/placeholder.png'
-  },
-  {
-    id: 15,
-    name: 'Forumul Tinerilor din Gorj',
-    type: 'regional',
-    region: 'GORJ',
-    logo: '/assets/organizations/placeholder.png'
-  },
-  {
-    id: 16,
-    name: 'Consiliul Județean al Tinerilor din Maramureș',
-    type: 'regional',
-    region: 'MARAMUREȘ',
-    logo: '/assets/organizations/placeholder.png'
-  },
-  {
-    id: 17,
-    name: 'Asociația Județeană a Tinerilor din Mehedinți',
-    type: 'regional',
-    region: 'MEHEDINȚI',
-    logo: '/assets/organizations/placeholder.png'
-  },
-  {
     id: 18,
-    name: 'Asociația Județeană de Tineret Olt',
+    name: 'Fundaţia Judeţeană pentru Tineret Tulcea ',
     type: 'regional',
-    region: 'OLT',
-    logo: '/assets/organizations/placeholder.png'
+    region: 'TULCEA',
+    logo: '/assets/organizations/fjt_tl.jpg'
   },
   {
     id: 19,
     name: 'Fundația Județeană pentru Tineret Suceava',
     type: 'regional',
     region: 'SUCEAVA',
-    logo: '/assets/organizations/placeholder.png'
+    logo: '/assets/organizations/fjt_sv.png'
   },
   {
     id: 20,
-    name: 'Fundația Județeană pentru Tineret Timiș',
+    name: 'Fundația Județeană pentru Tineret Gorj',
     type: 'regional',
-    region: 'TIMIȘ',
-    logo: '/assets/organizations/placeholder.png'
+    region: 'GORJ',
+    logo: '/assets/organizations/fjt_gj.png'
   },
   {
     id: 21,
-    name: 'Asociația Județeană a Tinerilor din Tulcea',
+    name: 'Fundația Județeană pentru Tineret Ialomița',
     type: 'regional',
-    region: 'TULCEA',
-    logo: '/assets/organizations/placeholder.png'
+    region: 'IALOMIȚA',
+    logo: '/assets/organizations/fjt_il.jpg'
   },
-  {
-    id: 22,
-    name: 'Asociația Județeană de Tineret Vâlcea',
-    type: 'regional',
-    region: 'VÂLCEA',
-    logo: '/assets/organizations/placeholder.png'
-  }
 ];
 
 // Type labels in Romanian
@@ -227,20 +221,44 @@ export default function MembriPage() {
           >
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">Structuri membre CTR</h1>
             <div className="max-w-3xl mx-auto">
+
               <p className="text-lg text-gray-100 mb-8">
-                Consiliul Tineretului din România are o Adunare Generală formată din 22 de organizații federative de nivel național și județean și asociații afiliate internațional, formând împreună o rețea de peste 500 de organizații de și pentru tineret.
+                Consiliul Tineretului din România are o Adunare Generală formată din{' '}
+                <span className="font-semibold text-yellow-300">{organizations.length}</span>{' '}
+                de organizații federative de nivel național și județean și asociații afiliate internațional, formând împreună o rețea de peste 500 de organizații de și pentru tineret.
               </p>
+
               <div className="flex flex-wrap justify-center gap-4">
+
                 <div className="bg-white/10 backdrop-blur-sm py-2 px-4 rounded-full shadow-md border border-white/20">
-                  <span className="font-semibold text-yellow-300">2</span> <span className="text-white">structuri neguvernamentale de tineret afiliate internațional</span>
+                  <span className="font-semibold text-yellow-300">
+                    {organizations.filter(org => org.type === 'international').length}
+                  </span>{' '}
+                  <span className="text-white">
+                    structuri neguvernamentale de tineret afiliate internațional
+                  </span>
                 </div>
+
                 <div className="bg-white/10 backdrop-blur-sm py-2 px-4 rounded-full shadow-md border border-white/20">
-                  <span className="font-semibold text-yellow-300">6</span> <span className="text-white">structuri neguvernamentale de tineret cu activitate și reprezentativitate la nivel național</span>
+                  <span className="font-semibold text-yellow-300">
+                    {organizations.filter(org => org.type === 'national').length}
+                  </span>{' '}
+                  <span className="text-white">
+                    structuri neguvernamentale de tineret cu activitate și reprezentativitate la nivel național
+                  </span>
                 </div>
+
                 <div className="bg-white/10 backdrop-blur-sm py-2 px-4 rounded-full shadow-md border border-white/20">
-                  <span className="font-semibold text-yellow-300">14</span> <span className="text-white">structuri neguvernamentale de tineret cu activitate și reprezentativitate regională sau județeană</span>
+                  <span className="font-semibold text-yellow-300">
+                    {organizations.filter(org => org.type === 'regional').length}
+                  </span>{' '}
+                  <span className="text-white">
+                    structuri neguvernamentale de tineret cu activitate și reprezentativitate regională sau județeană
+                  </span>
                 </div>
+
               </div>
+
             </div>
           </motion.div>
         </div>
