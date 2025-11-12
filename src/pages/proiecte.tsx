@@ -212,6 +212,23 @@ const sampleProjects: Project[] = [
       '/assets/projects/capitala-tineretului-2016.jpg',
       '/assets/projects/capitala-tineretului-2016-2.jpg',
     ]
+  },
+  {
+    id: '11',
+    title: 'Summitul Tinerilor X "Încotro?"',
+    shortDescription: 'tbd',
+    fullDescription: 'tbd',
+    year: 2025,
+    location: 'Vaslui, România',
+    duration: '5 zile',
+    participants: '240+ tineri beneficiari direcți',
+    impact: '',
+    partners: ['Primăria Municipiului Vaslui', 'Consiliul Tineretului din România', 'Federația Tinerilor din Județul Vaslui'],
+    imageUrl: '/assets/projects/placeholder.jpg',
+    galleryImages: [
+        '/assets/projects/placeholder.jpg',
+        '/assets/projects/placeholder-2.jpg',
+    ]
   }
 ];
 

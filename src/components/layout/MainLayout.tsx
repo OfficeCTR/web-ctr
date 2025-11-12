@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import contactInfo from "../../content/contact";
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -136,27 +137,33 @@ const MainLayout = ({ children }: MainLayoutProps) => {
             <div>
               <h3 className="text-xl font-bold mb-4">CTR</h3>
               <p className="text-gray-400">
-                Organizație de tineret dedicată dezvoltării comunității.
+                #CuȘiDespreTineri
               </p>
             </div>
             <div>
               <h3 className="text-xl font-bold mb-4">Contact</h3>
-              <p className="text-gray-400">Email: contact@ctr.ro</p>
-              <p className="text-gray-400">Telefon: +40 123 456 789</p>
+              <p className="text-gray-400">
+                {contactInfo.labels.email}: {contactInfo.email}
+              </p>
+              <p className="text-gray-400">
+                {contactInfo.labels.phone}: {contactInfo.phone}
+              </p>
             </div>
             <div>
               <h3 className="text-xl font-bold mb-4">Urmărește-ne</h3>
-              <div className="flex space-x-4">
-                <a href="#" className="text-gray-400 hover:text-white">
-                  Facebook
-                </a>
-                <a href="#" className="text-gray-400 hover:text-white">
-                  Instagram
-                </a>
-                <a href="#" className="text-gray-400 hover:text-white">
-                  LinkedIn
-                </a>
-              </div>
+                <div className="flex space-x-4">
+                    {contactInfo.socials.map((social) => (
+                        <a
+                            key={social.name}
+                            href={social.url}
+                            className="text-gray-400 hover:text-white"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            {social.name}
+                        </a>
+                    ))}
+                </div>
             </div>
           </div>
           <div className="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400">

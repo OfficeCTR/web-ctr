@@ -225,7 +225,7 @@ export default function MembriPage() {
               <p className="text-lg text-gray-100 mb-8">
                 Consiliul Tineretului din România are o Adunare Generală formată din{' '}
                 <span className="font-semibold text-yellow-300">{organizations.length}</span>{' '}
-                de organizații federative de nivel național și județean și asociații afiliate internațional, formând împreună o rețea de peste 500 de organizații de și pentru tineret.
+                de organizații federative de nivel național și județean și asociații afiliate internațional, formând împreună o rețea de peste <span className="font-semibold text-yellow-300">500</span>{' '} de organizații de și pentru tineret.
               </p>
 
               <div className="flex flex-wrap justify-center gap-4">
