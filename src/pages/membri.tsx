@@ -65,7 +65,7 @@ const organizations: Organization[] = [
   },
   {
     id: 6,
-    name: 'FFederația Tinerilor Basarabeni - FTB',
+    name: 'Federația Tinerilor Basarabeni - FTB',
     type: 'national',
     logo: '/assets/organizations/ftb.jpg'
   },
@@ -185,12 +185,12 @@ const typeLabels = {
 };
 
 export default function MembriPage() {
-  const [activeTab, setActiveTab] = useState('national');
+  const [activeTab, setActiveTab] = useState('all');
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   
   // Filter organizations based on active tab
-  const filteredOrganizations = activeTab === 'all' 
+  const filteredOrganizations = activeTab === 'all'
     ? organizations 
     : organizations.filter(org => org.type === activeTab);
     

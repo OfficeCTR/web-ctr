@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaFacebook, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import MainLayout from '../components/layout/MainLayout';
-import contactInfo from "../content/contact";
+import dataInfo from "../content/data";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -107,7 +107,7 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 text-xl">Email</h3>
-                    <p className="text-gray-600 text-lg">{contactInfo.email}</p>
+                    <p className="text-gray-600 text-lg">{dataInfo.email}</p>
                   </div>
                 </div>
 
@@ -117,7 +117,7 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 text-xl">Telefon</h3>
-                    <p className="text-gray-600 text-lg">{contactInfo.phone}</p>
+                    <p className="text-gray-600 text-lg">{dataInfo.phone}</p>
                   </div>
                 </div>
 
@@ -127,7 +127,7 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 text-xl">Adresă</h3>
-                    <p className="text-gray-600 text-lg">{contactInfo.address}</p>
+                    <p className="text-gray-600 text-lg">{dataInfo.address}</p>
                   </div>
                 </div>
               </div>
@@ -135,7 +135,7 @@ const ContactPage = () => {
               <div className="mt-10">
                 <h3 className="font-semibold text-gray-900 text-xl mb-5">Urmărește-ne</h3>
                   <div className="flex space-x-5">
-                      {contactInfo.socials.map((social) => {
+                      {dataInfo.socials.map((social) => {
                           const Icon =
                               social.name === "Facebook"
                                   ? FaFacebook

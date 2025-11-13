@@ -7,10 +7,9 @@ import OpportunityModal from '../components/OpportunityModal';
 
 const categories = [
   { id: 'all', label: 'Toate' },
-  { id: 'scholarship', label: 'Burse' },
-  { id: 'internship', label: 'Internship-uri' },
-  { id: 'competition', label: 'Concursuri' },
-  { id: 'volunteer', label: 'Voluntariat' },
+  { id: 'for_youth', label: 'Pentru tineri' },
+  { id: 'for_ngos', label: 'Pentru ONG-uri' },
+  { id: 'for_communities', label: 'Pentru comunități' },
   { id: 'other', label: 'Altele' },
 ];
 
@@ -49,7 +48,7 @@ export default function Opportunities() {
     <MainLayout>
       <Head>
         <title>Oportunități pentru Tineri | CTR</title>
-        <meta name="description" content="Descoperă oportunități pentru tineri în România - burse, internship-uri, concursuri și multe altele." />
+        <meta name="description" content="Descoperă cele mai bune oportunități pentru dezvoltarea ta personală și profesională" />
       </Head>
 
       {/* Hero Section */}
@@ -66,7 +65,7 @@ export default function Opportunities() {
               animate={{ opacity: 1, y: 0 }}
               className="text-4xl md:text-6xl font-bold text-white mb-6"
             >
-              Oportunități pentru Tineri
+              Oportunități
             </motion.h1>
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
@@ -74,7 +73,7 @@ export default function Opportunities() {
               transition={{ delay: 0.2 }}
               className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto mb-8"
             >
-              Descoperă cele mai bune oportunități pentru dezvoltarea ta personală și profesională
+              pentru tine, organizația ta și comunitatea ta
             </motion.p>
             
             <motion.div 
@@ -83,7 +82,7 @@ export default function Opportunities() {
               transition={{ delay: 0.4 }}
               className="flex flex-wrap justify-center gap-4"
             >
-              {categories.slice(1).map((category) => (
+              {categories.slice(0).map((category) => (
                 <button
                   key={category.id}
                   onClick={() => setSelectedCategory(category.id)}

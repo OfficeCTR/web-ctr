@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import contactInfo from "../../content/contact";
+import dataInfo from "../../content/data";
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -143,16 +143,16 @@ const MainLayout = ({ children }: MainLayoutProps) => {
             <div>
               <h3 className="text-xl font-bold mb-4">Contact</h3>
               <p className="text-gray-400">
-                {contactInfo.labels.email}: {contactInfo.email}
+                {dataInfo.labels.email}: {dataInfo.email}
               </p>
               <p className="text-gray-400">
-                {contactInfo.labels.phone}: {contactInfo.phone}
+                {dataInfo.labels.phone}: {dataInfo.phone}
               </p>
             </div>
             <div>
               <h3 className="text-xl font-bold mb-4">Urmărește-ne</h3>
                 <div className="flex space-x-4">
-                    {contactInfo.socials.map((social) => (
+                    {dataInfo.socials.map((social) => (
                         <a
                             key={social.name}
                             href={social.url}
