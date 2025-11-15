@@ -5,6 +5,9 @@ import { motion } from 'framer-motion';
 import MainLayout from '../components/layout/MainLayout';
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
 
+import { ComposableMap, Geographies, Geography } from "react-simple-maps";
+import romaniaMap from "../utils/ro_judete_poligon.json"; // topojson for Romania
+
 // Define organization types as per the old website
 const organizationTypes = [
   'international',
@@ -65,7 +68,7 @@ const organizations: Organization[] = [
   },
   {
     id: 6,
-    name: 'FFederația Tinerilor Basarabeni - FTB',
+    name: 'Federația Tinerilor Basarabeni - FTB',
     type: 'national',
     logo: '/assets/organizations/ftb.jpg'
   },
@@ -185,12 +188,12 @@ const typeLabels = {
 };
 
 export default function MembriPage() {
-  const [activeTab, setActiveTab] = useState('national');
+  const [activeTab, setActiveTab] = useState('all');
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  
+
   // Filter organizations based on active tab
-  const filteredOrganizations = activeTab === 'all' 
+  const filteredOrganizations = activeTab === 'all'
     ? organizations 
     : organizations.filter(org => org.type === activeTab);
     
@@ -201,6 +204,24 @@ export default function MembriPage() {
   const selectType = (type: string) => {
     setActiveTab(type);
     setIsDropdownOpen(false);
+  };
+
+  const [hoveredRegion, setHoveredRegion] = useState<string | null>(null);
+  const [tooltipPosition, setTooltipPosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const [tooltipSide, setTooltipSide] = useState<'right' | 'left'>('right');
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const padding = 20; // distance from edge
+    const tooltipWidth = 250; // approximate tooltip width
+
+    // Determine side
+    if (e.clientX + tooltipWidth + padding > window.innerWidth) {
+      setTooltipSide('left');
+    } else {
+      setTooltipSide('right');
+    }
+
+    setTooltipPosition({ x: e.clientX, y: e.clientY });
   };
 
   return (
@@ -225,7 +246,7 @@ export default function MembriPage() {
               <p className="text-lg text-gray-100 mb-8">
                 Consiliul Tineretului din România are o Adunare Generală formată din{' '}
                 <span className="font-semibold text-yellow-300">{organizations.length}</span>{' '}
-                de organizații federative de nivel național și județean și asociații afiliate internațional, formând împreună o rețea de peste 500 de organizații de și pentru tineret.
+                de organizații federative de nivel național și județean și asociații afiliate internațional, formând împreună o rețea de peste <span className="font-semibold text-yellow-300">500</span>{' '} de organizații de și pentru tineret.
               </p>
 
               <div className="flex flex-wrap justify-center gap-4">
@@ -379,19 +400,119 @@ export default function MembriPage() {
         </div>
       </section>
 
-      {/* Regional Map Section (for regional organizations) */}
+      {/* interactive map */}
+
+      {hoveredRegion && (
+        <div
+          className="fixed z-50 p-3 bg-white rounded-lg shadow-lg border border-gray-200 max-w-xs pointer-events-none"
+          style={{ top: tooltipPosition.y + 10, left: tooltipPosition.x + 10 }}
+        >
+          <h4 className="font-bold mb-2 text-sm">Organizații din {hoveredRegion}</h4>
+          <ul className="space-y-1 text-xs max-h-48 overflow-y-auto">
+            {organizations
+              .filter(org => (org.region?.toUpperCase() || "") === hoveredRegion.toUpperCase())
+              .map(org => (
+                <li key={org.id} className="flex items-center gap-2">
+                  <div className="w-5 h-5 relative">
+                    <Image src={org.logo} alt={org.name} fill className="object-contain" />
+                  </div>
+                  <span>{org.name}</span>
+                </li>
+              ))}
+          </ul>
+        </div>
+      )}
+
+
+
       {activeTab === 'regional' && (
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center mb-10">Distribuția Organizațiilor Regionale</h2>
-            <div className="max-w-4xl mx-auto relative aspect-[5/3] rounded-lg overflow-hidden shadow-lg">
-              <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
-                <p className="text-gray-500">Hartă interactivă în dezvoltare</p>
-              </div>
+            <h2 className="text-3xl font-bold text-center mb-10">
+              Distribuția Organizațiilor Regionale
+            </h2>
+
+            {/* Responsive large map container */}
+            <div className="w-full h-[600px] md:h-[800px] lg:h-[900px] mx-auto">
+              <ComposableMap
+                projection="geoMercator"
+                projectionConfig={{
+                  scale: 5000,
+                  center: [25, 45.75],
+                }}
+                width={1000}
+                height={800}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                }}
+              >
+                {/*<Geographies geography={romaniaMap}>*/}
+                {/*  {({ geographies }) =>*/}
+                {/*    geographies.map((geo) => {*/}
+                {/*      const orgsInRegion = organizations.filter(*/}
+                {/*        (org) => (org.region?.toUpperCase() || "") === geo.properties.name.toUpperCase()*/}
+                {/*      );*/}
+
+                {/*      return (*/}
+                {/*        <Geography*/}
+                {/*          key={geo.rsmKey}*/}
+                {/*          geography={geo}*/}
+                {/*          fill={orgsInRegion.length ? "#3B82F6" : "#E5E7EB"}*/}
+                {/*          stroke="#ffffff"*/}
+                {/*          style={{*/}
+                {/*            default: { outline: "none" },*/}
+                {/*            hover: { fill: "#2563EB", outline: "none", cursor: 'pointer' },*/}
+                {/*            pressed: { outline: "none" },*/}
+                {/*          }}*/}
+                {/*          onClick={() => orgsInRegion.length && handleRegionClick(geo.properties.name)}*/}
+                {/*        />*/}
+                {/*      );*/}
+                {/*    })*/}
+                {/*  }*/}
+                {/*</Geographies>*/}
+                <Geographies geography={romaniaMap}>
+                  {({ geographies }) =>
+                    geographies.map((geo) => {
+                      const orgsInRegion = organizations.filter(
+                        (org) => (org.region?.toUpperCase() || "") === geo.properties.name.toUpperCase()
+                      );
+
+                      return (
+                        <Geography
+                          key={geo.rsmKey}
+                          geography={geo}
+                          fill={orgsInRegion.length ? "#3B82F6" : "#E5E7EB"}
+                          stroke="#ffffff"
+                          style={{
+                            default: { outline: "none" },
+                            hover: { fill: "#2563EB", outline: "none", cursor: orgsInRegion.length ? 'pointer' : 'default' },
+                            pressed: { outline: "none" },
+                          }}
+                          onMouseEnter={(e) => {
+                            if (orgsInRegion.length) {
+                              setHoveredRegion(geo.properties.name);
+                              handleMouseMove(e as any);
+                            }
+                          }}
+                          onMouseMove={(e) => {
+                            if (orgsInRegion.length) handleMouseMove(e as any);
+                          }}
+                          onMouseLeave={() => setHoveredRegion(null)}
+
+                        />
+                      );
+                    })
+                  }
+                </Geographies>
+
+
+              </ComposableMap>
             </div>
           </div>
         </section>
       )}
+
 
       {/* Join Us Section */}
       <section className="py-16 bg-gradient-to-b from-white to-blue-50">

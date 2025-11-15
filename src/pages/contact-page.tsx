@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaFacebook, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import MainLayout from '../components/layout/MainLayout';
+import dataInfo from "../content/data";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -106,7 +107,7 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 text-xl">Email</h3>
-                    <p className="text-gray-600 text-lg">office@ctr.ro</p>
+                    <p className="text-gray-600 text-lg">{dataInfo.email}</p>
                   </div>
                 </div>
 
@@ -116,7 +117,7 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 text-xl">Telefon</h3>
-                    <p className="text-gray-600 text-lg">+40 123 456 789</p>
+                    <p className="text-gray-600 text-lg">{dataInfo.phone}</p>
                   </div>
                 </div>
 
@@ -126,24 +127,42 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 text-xl">Adresă</h3>
-                    <p className="text-gray-600 text-lg">Strada Exemplu, Nr. 123, București</p>
+                    <p className="text-gray-600 text-lg">{dataInfo.address}</p>
                   </div>
                 </div>
               </div>
 
               <div className="mt-10">
                 <h3 className="font-semibold text-gray-900 text-xl mb-5">Urmărește-ne</h3>
-                <div className="flex space-x-5">
-                  <a href="#" className="bg-gray-100 p-4 rounded-full hover:bg-red-100 transition-colors">
-                    <FaFacebook className="text-gray-600 hover:text-red-600 text-2xl" />
-                  </a>
-                  <a href="#" className="bg-gray-100 p-4 rounded-full hover:bg-yellow-100 transition-colors">
-                    <FaInstagram className="text-gray-600 hover:text-yellow-600 text-2xl" />
-                  </a>
-                  <a href="#" className="bg-gray-100 p-4 rounded-full hover:bg-red-100 transition-colors">
-                    <FaLinkedin className="text-gray-600 hover:text-red-600 text-2xl" />
-                  </a>
-                </div>
+                  <div className="flex space-x-5">
+                      {dataInfo.socials.map((social) => {
+                          const Icon =
+                              social.name === "Facebook"
+                                  ? FaFacebook
+                                  : social.name === "Instagram"
+                                      ? FaInstagram
+                                      : FaLinkedin;
+
+                          const hoverColor =
+                              social.name === "Facebook"
+                                  ? "hover:bg-red-100 hover:text-red-600"
+                                  : social.name === "Instagram"
+                                      ? "hover:bg-yellow-100 hover:text-yellow-600"
+                                      : "hover:bg-red-100 hover:text-red-600";
+
+                          return (
+                              <a
+                                  key={social.name}
+                                  href={social.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className={`bg-gray-100 p-4 rounded-full transition-colors ${hoverColor}`}
+                              >
+                                  <Icon className="text-gray-600 text-2xl" />
+                              </a>
+                          );
+                      })}
+                  </div>
               </div>
             </motion.div>
 

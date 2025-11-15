@@ -14,14 +14,14 @@ const mockPartners: Partner[] = [
   // National
   { id: '1', name: 'Consiliul Național pentru Tineret', logo: '/assets/afiliere/cnpt.png', type: 'national' },
   { id: '2', name: 'Grupul Național de Lucru Dialogul UE cu Tinerii', logo: '/assets/afiliere/GNL_color.png', type: 'national' },
-  { id: '3', name: 'Consiliul Economic și Social', logo: '/assets/afiliere/ces.jpg', type: 'national' },
-  { id: '4', name: 'Coaliția România Sustenabilă', logo: '/assets/afiliere/crs.png', type: 'national' },
-  { id: '5', name: 'Parteneriatul pentru Guvernare Deschisă România', logo: '/assets/afiliere/ogp.png', type: 'national' },
+  { id: '6', name: 'Comitetul de monitorizare a programului Tranziție Justă 2021-2027', logo: '/assets/afiliere/tranzitie_justa.jpg', type: 'national' },
+  { id: '7', name: 'Comitetului interinstituțional de monitorizare și implementare a SNOFM', logo: '/assets/afiliere/anofm.png', type: 'national' },
   // International
-  { id: '6', name: 'Forumul European pentru Tineret\n (European Youth Forum)', logo: '/assets/afiliere/youth_forum.png', type: 'international' },
-  { id: '7', name: 'Organizația Mondială pentru Tineret\n (World Assembly of Youth)', logo: '/assets/afiliere/way.png', type: 'international' },
-  { id: '8', name: 'Consiliul Consultativ pentru Tineret al Consiliului Europei', logo: '/assets/afiliere/coe.png', type: 'international' },
-];
+  { id: '3', name: 'Forumul European pentru Tineret\n (European Youth Forum)', logo: '/assets/afiliere/youth_forum.png', type: 'international' },
+  { id: '4', name: 'Organizația Mondială pentru Tineret\n (World Assembly of Youth)', logo: '/assets/afiliere/way.png', type: 'international' },
+  { id: '5', name: 'The European Youth Advisory Board', logo: '/assets/afiliere/youth-4-europe.webp', type: 'international' },
+  { id: '8', name: 'EU Youth Stakeholders Group', logo: '/assets/afiliere/EU-Youth-Stakeholders-Group-1.png', type: 'international' },
+  ];
 
 const PartnersSection = () => {
   const nationalPartners = mockPartners.filter(partner => partner.type === 'national');
@@ -56,7 +56,7 @@ const PartnersSection = () => {
           >
             La nivel național
           </motion.h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             {nationalPartners.map((partner, index) => (
               <motion.div
                 key={partner.id}
@@ -95,7 +95,7 @@ const PartnersSection = () => {
           >
             La nivel internațional
           </motion.h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {internationalPartners.map((partner, index) => (
               <motion.div
                 key={partner.id}

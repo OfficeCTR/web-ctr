@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import MainLayout from "../components/layout/MainLayout";
+import dataInfo from "../content/data.js";
 
 const Support: NextPage = () => {
   return (
@@ -119,12 +120,12 @@ const Support: NextPage = () => {
                 <div className="bg-gray-100 rounded-lg p-6 mb-8">
                   <h3 className="font-bold text-gray-800 mb-4">Detalii bancare:</h3>
                   <ul className="space-y-3 text-gray-700">
-                    <li><span className="font-medium">Beneficiar:</span> Consiliul Tineretului din România</li>
-                    <li><span className="font-medium">Banca:</span> Banca Transilvania</li>
-                    <li><span className="font-medium">IBAN (RON):</span> RO12 BTRL RONC RT00 0000 0000</li>
-                    <li><span className="font-medium">IBAN (EUR):</span> RO12 BTRL EURC RT00 0000 0000</li>
-                    <li><span className="font-medium">Cod Swift:</span> BTRLRO22</li>
-                    <li><span className="font-medium">CUI/CIF:</span> 12345678</li>
+                    <li><span className="font-medium">Beneficiar:</span> {dataInfo.bank.beneficiary}</li>
+                    <li><span className="font-medium">Banca:</span> {dataInfo.bank.name} </li>
+                    <li><span className="font-medium">IBAN (RON):</span> {dataInfo.bank.iban_ron}</li>
+                    <li><span className="font-medium">IBAN (EUR):</span> {dataInfo.bank.iban_eur}</li>
+                    <li><span className="font-medium">Cod Swift:</span> {dataInfo.bank.swift}</li>
+                    <li><span className="font-medium">CUI/CIF:</span> {dataInfo.vat}</li>
                   </ul>
                 </div>
                 
