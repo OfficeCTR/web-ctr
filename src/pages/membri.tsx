@@ -78,7 +78,7 @@ const organizations: Organization[] = [
     name: 'Federația Tinerilor din Cluj (FTC)',
     type: 'regional',
     region: 'CLUJ',
-    logo: '/assets/organizations/ftc.jpg'
+    logo: '/assets/organizations/ftc-logo.png'
   },
   {
     id: 8,
@@ -405,7 +405,11 @@ export default function MembriPage() {
       {hoveredRegion && (
         <div
           className="fixed z-50 p-3 bg-white rounded-lg shadow-lg border border-gray-200 max-w-xs pointer-events-none"
-          style={{ top: tooltipPosition.y + 10, left: tooltipPosition.x + 10 }}
+          style={{
+            top: window.innerWidth < 768 ? "50%" : tooltipPosition.y + 10,
+            left: window.innerWidth < 768 ? "50%" : tooltipSide === 'right' ? tooltipPosition.x + 10 : tooltipPosition.x - 260,
+            transform: window.innerWidth < 768 ? "translate(-50%, -50%)" : "none",
+          }}
         >
           <h4 className="font-bold mb-2 text-sm">Organizații din {hoveredRegion}</h4>
           <ul className="space-y-1 text-xs max-h-48 overflow-y-auto">
@@ -422,6 +426,7 @@ export default function MembriPage() {
           </ul>
         </div>
       )}
+
 
 
 
