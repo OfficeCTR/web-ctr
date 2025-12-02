@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { Project } from '~/pages/proiecte';
+import { Project } from '~/content/data';
 
 interface ProjectModalProps {
   project: Project | null;
