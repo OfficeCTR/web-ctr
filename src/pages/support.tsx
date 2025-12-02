@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import MainLayout from "../components/layout/MainLayout";
 import PageHero from "../components/PageHero";
-import dataInfo from "../content/data.js";
+import dataInfo from "../content/data";
 
 const Support: NextPage = () => {
   return (

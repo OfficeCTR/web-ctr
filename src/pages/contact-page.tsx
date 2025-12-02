@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaFacebook, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import MainLayout from '../components/layout/MainLayout';
 import PageHero from '../components/PageHero';
-import dataInfo from "../content/data";
+import { dataInfo } from "../content/data";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({

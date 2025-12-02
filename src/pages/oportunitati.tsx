@@ -6,14 +6,7 @@ import MainLayout from '../components/layout/MainLayout';
 import PageHero from '../components/PageHero';
 import { getOpportunities, type Opportunity } from '../utils/googleSheets';
 import OpportunityModal from '../components/OpportunityModal';
-
-const categories = [
-  { id: 'all', label: 'Toate' },
-  { id: 'for_youth', label: 'Pentru tineri' },
-  { id: 'for_ngos', label: 'Pentru ONG-uri' },
-  { id: 'for_communities', label: 'Pentru comunități' },
-  { id: 'other', label: 'Altele' },
-];
+import { opportunityCategories } from '../content/data';
 
 interface OpportunitiesProps {
   initialOpportunities: Opportunity[];
@@ -75,7 +68,7 @@ export default function Opportunities({ initialOpportunities, fetchError }: Oppo
           
           {/* Categories */}
           <div className="flex flex-wrap justify-center gap-4 mb-12">
-            {categories.map((category) => (
+            {opportunityCategories.map((category) => (
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}

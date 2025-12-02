@@ -5,188 +5,15 @@ import { motion } from 'framer-motion';
 import MainLayout from '../components/layout/MainLayout';
 import PageHero from '../components/PageHero';
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
+import { 
+  organizations, 
+  organizationTypes, 
+  typeDisplayLabels, 
+  typeLabels 
+} from '../content/data';
 
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 import romaniaMap from "../utils/ro_judete_poligon.json"; // topojson for Romania
-
-// Define organization types as per the old website
-const organizationTypes = [
-  'international',
-  'national',
-  'regional'
-];
-
-// Type labels for display
-const typeDisplayLabels = {
-  all: 'Toate organizațiile',
-  international: 'Afiliate internațional',
-  national: 'Nivel național',
-  regional: 'Regionale/Județene'
-};
-
-interface Organization {
-  id: number;
-  name: string;
-  type: string;
-  region?: string;
-  logo: string;
-}
-
-// Organization data based on the old website content
-const organizations: Organization[] = [
-  // International Organizations
-  {
-    id: 1,
-    name: 'AEGEE București',
-    type: 'international',
-    logo: '/assets/organizations/aegee_bucuresti.jpg'
-  },
-  {
-    id: 2,
-    name: 'ANSR Tineret',
-    type: 'international',
-    logo: '/assets/organizations/ansr_tineret.png'
-  },
-  
-  // National Organizations
-  {
-    id: 3,
-    name: 'Alianța Națională a Organizațiilor Studențești din România (ANOSR)',
-    type: 'national',
-    logo: '/assets/organizations/anosr.png'
-  },
-  {
-    id: 4,
-    name: 'Organizația Națională „Cercetașii României” (ONCR)',
-    type: 'national',
-    logo: '/assets/organizations/oncr.png'
-  },
-  {
-    id: 5,
-    name: 'Asociația MIERT',
-    type: 'national',
-    logo: '/assets/organizations/miert.png'
-  },
-  {
-    id: 6,
-    name: 'Federația Tinerilor Basarabeni - FTB',
-    type: 'national',
-    logo: '/assets/organizations/ftb.jpg'
-  },
-  // Regional/County Organizations
-  {
-    id: 7,
-    name: 'Federația Tinerilor din Cluj (FTC)',
-    type: 'regional',
-    region: 'CLUJ',
-    logo: '/assets/organizations/ftc-logo.png'
-  },
-  {
-    id: 8,
-    name: 'Fundaţia pentru Tineret a Municipiului Bucureşti (FTMB)',
-    type: 'regional',
-    region: 'BUCUREȘTI',
-    logo: '/assets/organizations/ftmb.png'
-  },
-  {
-    id: 9,
-    name: 'Fundaţia Judeţeană pentru Tineret Dâmboviţa',
-    type: 'regional',
-    region: 'DÂMBOVIȚA',
-    logo: '/assets/organizations/fjt_db.jpg'
-  },
-  {
-    id: 10,
-    name: 'Federația Organizațiilor Neguvernamentale de Tineret din Maramureș (FONT)',
-    type: 'regional',
-    region: 'MARAMUREȘ',
-    logo: '/assets/organizations/font_mm.jpg'
-  },
-  {
-    id: 11,
-    name: 'Fundaţia pentru Tineret Mehedinţi',
-    type: 'regional',
-    region: 'MEHEDINȚI',
-    logo: '/assets/organizations/fjt_mh.jpg'
-  },
-  {
-    id: 12,
-    name: 'Fundaţia Judeţeană pentru Tineret Olt',
-    type: 'regional',
-    region: 'OLT',
-    logo: '/assets/organizations/fjt_ot.jpg'
-  },
-  {
-    id: 13,
-    name: 'Fundaţia Judeţeană pentru Tineret Vâlcea',
-    type: 'regional',
-    region: 'VÂLCEA',
-    logo: '/assets/organizations/fjt_vl.jpg'
-  },
-  {
-    id: 14,
-    name: 'Federația Tinerilor din Bacău',
-    type: 'regional',
-    region: 'BACĂU',
-    logo: '/assets/organizations/ft_bacau.png'
-  },
-  {
-    id: 15,
-    name: 'Federația Organizațiilor Neguvernamentale de Tineret din Iași (FONTIS)',
-    type: 'regional',
-    region: 'IAȘI',
-    logo: '/assets/organizations/fontis.jpg'
-  },
-  {
-    id: 16,
-    name: 'Fundaţia Judeţeană pentru Tineret Botoşani',
-    type: 'regional',
-    region: 'BOTOȘANI',
-    logo: '/assets/organizations/fjt_bt.jpg'
-  },
-  {
-    id: 17,
-    name: 'Fundația Județeană pentru Tineret Covasna ',
-    type: 'regional',
-    region: 'COVASNA',
-    logo: '/assets/organizations/placeholder.png'
-  },
-  {
-    id: 18,
-    name: 'Fundaţia Judeţeană pentru Tineret Tulcea ',
-    type: 'regional',
-    region: 'TULCEA',
-    logo: '/assets/organizations/fjt_tl.jpg'
-  },
-  {
-    id: 19,
-    name: 'Fundația Județeană pentru Tineret Suceava',
-    type: 'regional',
-    region: 'SUCEAVA',
-    logo: '/assets/organizations/fjt_sv.png'
-  },
-  {
-    id: 20,
-    name: 'Fundația Județeană pentru Tineret Gorj',
-    type: 'regional',
-    region: 'GORJ',
-    logo: '/assets/organizations/fjt_gj.png'
-  },
-  {
-    id: 21,
-    name: 'Fundația Județeană pentru Tineret Ialomița',
-    type: 'regional',
-    region: 'IALOMIȚA',
-    logo: '/assets/organizations/fjt_il.jpg'
-  },
-];
-
-// Type labels in Romanian
-const typeLabels = {
-  international: 'Structuri neguvernamentale de tineret afiliate internațional',
-  national: 'Organizații neguvernamentale de Tineret de nivel național',
-  regional: 'Structuri neguvernamentale de tineret cu activitate și reprezentativitate regională sau județeană'
-};
 
 export default function MembriPage() {
   const [activeTab, setActiveTab] = useState('all');
@@ -212,10 +39,9 @@ export default function MembriPage() {
   const [tooltipSide, setTooltipSide] = useState<'right' | 'left'>('right');
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    const padding = 20; // distance from edge
-    const tooltipWidth = 250; // approximate tooltip width
+    const padding = 20;
+    const tooltipWidth = 250;
 
-    // Determine side
     if (e.clientX + tooltipWidth + padding > window.innerWidth) {
       setTooltipSide('left');
     } else {
@@ -232,13 +58,11 @@ export default function MembriPage() {
         <meta name="description" content="Organizațiile membre ale Consiliului Tineretului din România" />
       </Head>
 
-      {/* Hero Section */}
       <PageHero 
         title="Structuri membre CTR"
         description="Consiliul Tineretului din România reunește structuri de tineret din toată țara pentru a reprezenta interesele tinerilor."
       />
 
-      {/* Stats Section */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
