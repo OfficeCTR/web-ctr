@@ -1,7 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Head from 'next/head';
 import { motion } from 'framer-motion';
+import { GetStaticProps } from 'next';
 import MainLayout from '../components/layout/MainLayout';
+import PageHero from '../components/PageHero';
 import { getOpportunities, type Opportunity } from '../utils/googleSheets';
 import OpportunityModal from '../components/OpportunityModal';
 
@@ -13,31 +15,41 @@ const categories = [
   { id: 'other', label: 'Altele' },
 ];
 
-export default function Opportunities() {
+interface OpportunitiesProps {
+  initialOpportunities: Opportunity[];
+  fetchError?: string;
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  try {
+    const data = await getOpportunities();
+    // Serialize data to remove undefined values which Next.js does not support in getStaticProps
+    const serializedData = JSON.parse(JSON.stringify(data));
+    
+    return {
+      props: {
+        initialOpportunities: serializedData,
+      },
+      revalidate: 3600, // Revalidate every hour
+    };
+  } catch (err) {
+    console.error('Error loading opportunities:', err);
+    return {
+      props: {
+        initialOpportunities: [],
+        fetchError: 'Nu am putut încărca oportunitățile. Vă rugăm să încercați din nou mai târziu.',
+      },
+      revalidate: 3600,
+    };
+  }
+};
+
+export default function Opportunities({ initialOpportunities, fetchError }: OpportunitiesProps) {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [opportunities, setOpportunities] = useState<Opportunity[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [selectedOpportunity, setSelectedOpportunity] = useState<Opportunity | null>(null);
 
-  useEffect(() => {
-    async function loadOpportunities() {
-      try {
-        const data = await getOpportunities();
-        setOpportunities(data);
-      } catch (err) {
-        setError('Nu am putut încărca oportunitățile. Vă rugăm să încercați din nou mai târziu.');
-        console.error('Error loading opportunities:', err);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
-    loadOpportunities();
-  }, []);
-
-  const filteredOpportunities = opportunities.filter(opp => {
+  const filteredOpportunities = initialOpportunities.filter(opp => {
     const matchesCategory = selectedCategory === 'all' || opp.category === selectedCategory;
     const matchesSearch = opp.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          opp.shortDescription.toLowerCase().includes(searchQuery.toLowerCase());
@@ -52,53 +64,32 @@ export default function Opportunities() {
       </Head>
 
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-r from-primary to-secondary py-24 overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-secondary/90" />
-          <div className="absolute inset-0 bg-[url('/assets/pattern.svg')] opacity-10" />
-        </div>
-        
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <motion.h1 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-4xl md:text-6xl font-bold text-white mb-6"
-            >
-              Oportunități
-            </motion.h1>
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto mb-8"
-            >
-              pentru tine, organizația ta și comunitatea ta
-            </motion.p>
-            
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="flex flex-wrap justify-center gap-4"
-            >
-              {categories.slice(0).map((category) => (
-                <button
-                  key={category.id}
-                  onClick={() => setSelectedCategory(category.id)}
-                  className="px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors duration-200"
-                >
-                  {category.label}
-                </button>
-              ))}
-            </motion.div>
-          </div>
-        </div>
-      </div>
+      <PageHero 
+        title="Oportunități"
+        description="Oportunități pentru tine, organizația ta și comunitatea ta"
+      />
 
       {/* Main Content */}
       <main className="bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
+          
+          {/* Categories */}
+          <div className="flex flex-wrap justify-center gap-4 mb-12">
+            {categories.map((category) => (
+              <button
+                key={category.id}
+                onClick={() => setSelectedCategory(category.id)}
+                className={`px-6 py-3 rounded-full transition-all duration-200 font-medium shadow-sm
+                  ${selectedCategory === category.id
+                    ? 'bg-primary text-white shadow-md'
+                    : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+                  }`}
+              >
+                {category.label}
+              </button>
+            ))}
+          </div>
+
           {/* Search Bar */}
           <div className="mb-8">
             <div className="flex justify-center">
@@ -119,30 +110,19 @@ export default function Opportunities() {
             </div>
           </div>
 
-          {/* Loading State */}
-          {isLoading && (
-            <div className="text-center py-12">
-              <div className="inline-block animate-spin rounded-full h-8 w-8 border-4 border-primary border-t-transparent"></div>
-              <p className="mt-4 text-gray-600">Se încarcă oportunitățile...</p>
-            </div>
-          )}
-
           {/* Error State */}
-          {error && (
+          {fetchError && (
             <div className="text-center py-12">
-              <p className="text-red-600">{error}</p>
+              <p className="text-red-600">{fetchError}</p>
             </div>
           )}
 
           {/* Opportunities Grid */}
-          {!isLoading && !error && (
+          {!fetchError && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredOpportunities.map((opportunity, index) => (
-                <motion.div
+              {filteredOpportunities.map((opportunity) => (
+                <div
                   key={opportunity.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
                   className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-6 border border-gray-100"
                 >
                   <div className="flex justify-between items-start mb-4">
@@ -178,12 +158,12 @@ export default function Opportunities() {
                       </svg>
                     </button>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           )}
 
-          {!isLoading && !error && filteredOpportunities.length === 0 && (
+          {!fetchError && filteredOpportunities.length === 0 && (
             <div className="text-center py-12">
               <p className="text-gray-500 text-lg">
                 Nu am găsit oportunități care să corespundă criteriilor tale.

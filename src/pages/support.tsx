@@ -3,35 +3,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import MainLayout from "../components/layout/MainLayout";
+import PageHero from "../components/PageHero";
 import dataInfo from "../content/data.js";
 
 const Support: NextPage = () => {
   return (
     <MainLayout>
       {/* Hero Section */}
-      <section className="pt-24 pb-12 bg-gradient-to-b from-blue-900 to-blue-800 text-white">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col items-center text-center">
-            <motion.h1 
-              className="text-4xl md:text-5xl font-bold mb-4"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              Susține Consiliul Tineretului din România
-            </motion.h1>
-            <motion.p 
-              className="text-lg md:text-xl max-w-3xl mb-8"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              CTR este o organizație independentă, care își desfășoară activitatea pe baza voluntariatului. 
-              Ajută-ne să dezvoltăm împreună programe și inițiative care sprijină tinerii din România.
-            </motion.p>
-          </div>
-        </div>
-      </section>
+      <PageHero 
+        title="Susține Consiliul Tineretului din România"
+        description="CTR este o organizație independentă, care își desfășoară activitatea pe baza voluntariatului. Ajută-ne să dezvoltăm împreună programe și inițiative care sprijină tinerii din România."
+      />
 
       {/* Support Methods Section */}
       <section className="py-16">
@@ -43,7 +25,7 @@ const Support: NextPage = () => {
               className="relative overflow-hidden rounded-2xl shadow-xl border-2 border-yellow-400"
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
             >
               <div className="bg-blue-900 text-white p-8 md:p-10">
                 <div className="absolute top-0 right-0">
@@ -105,7 +87,7 @@ const Support: NextPage = () => {
               className="bg-white rounded-2xl shadow-lg overflow-hidden"
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+              transition={{ duration: 0.3, delay: 0.2 }}
             >
               <div className="p-8 md:p-10">
                 <h2 className="text-3xl font-bold text-gray-800 mb-6">
@@ -162,7 +144,7 @@ const Support: NextPage = () => {
               className="bg-white p-6 rounded-xl shadow-md"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.2 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
             >
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4 mx-auto">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -179,7 +161,7 @@ const Support: NextPage = () => {
               className="bg-white p-6 rounded-xl shadow-md"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.4 }}
+              transition={{ duration: 0.3, delay: 0.2 }}
             >
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4 mx-auto">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -196,7 +178,7 @@ const Support: NextPage = () => {
               className="bg-white p-6 rounded-xl shadow-md"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.6 }}
+              transition={{ duration: 0.3, delay: 0.3 }}
             >
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4 mx-auto">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">

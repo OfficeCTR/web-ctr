@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import MainLayout from '../components/layout/MainLayout';
+import PageHero from '../components/PageHero';
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
 
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
@@ -232,56 +233,50 @@ export default function MembriPage() {
       </Head>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-to-r from-red-700 via-red-800 to-blue-900">
+      <PageHero 
+        title="Structuri membre CTR"
+        description="Consiliul Tineretului din România reunește structuri de tineret din toată țara pentru a reprezenta interesele tinerilor."
+      />
+
+      {/* Stats Section */}
+      <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center"
-          >
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">Structuri membre CTR</h1>
-            <div className="max-w-3xl mx-auto">
+          <div className="max-w-4xl mx-auto text-center">
+            <p className="text-lg md:text-xl text-gray-700 mb-12 leading-relaxed">
+              Consiliul Tineretului din România are o Adunare Generală formată din{' '}
+              <span className="font-bold text-blue-900">{organizations.length}</span>{' '}
+              de organizații federative de nivel național și județean și asociații afiliate internațional, formând împreună o rețea de peste <span className="font-bold text-blue-900">500</span>{' '} de organizații de și pentru tineret.
+            </p>
 
-              <p className="text-lg text-gray-100 mb-8">
-                Consiliul Tineretului din România are o Adunare Generală formată din{' '}
-                <span className="font-semibold text-yellow-300">{organizations.length}</span>{' '}
-                de organizații federative de nivel național și județean și asociații afiliate internațional, formând împreună o rețea de peste <span className="font-semibold text-yellow-300">500</span>{' '} de organizații de și pentru tineret.
-              </p>
-
-              <div className="flex flex-wrap justify-center gap-4">
-
-                <div className="bg-white/10 backdrop-blur-sm py-2 px-4 rounded-full shadow-md border border-white/20">
-                  <span className="font-semibold text-yellow-300">
-                    {organizations.filter(org => org.type === 'international').length}
-                  </span>{' '}
-                  <span className="text-white">
-                    structuri neguvernamentale de tineret afiliate internațional
-                  </span>
-                </div>
-
-                <div className="bg-white/10 backdrop-blur-sm py-2 px-4 rounded-full shadow-md border border-white/20">
-                  <span className="font-semibold text-yellow-300">
-                    {organizations.filter(org => org.type === 'national').length}
-                  </span>{' '}
-                  <span className="text-white">
-                    structuri neguvernamentale de tineret cu activitate și reprezentativitate la nivel național
-                  </span>
-                </div>
-
-                <div className="bg-white/10 backdrop-blur-sm py-2 px-4 rounded-full shadow-md border border-white/20">
-                  <span className="font-semibold text-yellow-300">
-                    {organizations.filter(org => org.type === 'regional').length}
-                  </span>{' '}
-                  <span className="text-white">
-                    structuri neguvernamentale de tineret cu activitate și reprezentativitate regională sau județeană
-                  </span>
-                </div>
-
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="bg-white p-6 rounded-xl shadow-md border-t-4 border-blue-900 hover:shadow-lg transition-shadow">
+                <span className="block text-4xl font-bold text-blue-900 mb-3">
+                  {organizations.filter(org => org.type === 'international').length}
+                </span>
+                <span className="text-gray-600 text-sm font-medium">
+                  structuri neguvernamentale de tineret afiliate internațional
+                </span>
               </div>
 
+              <div className="bg-white p-6 rounded-xl shadow-md border-t-4 border-blue-900 hover:shadow-lg transition-shadow">
+                <span className="block text-4xl font-bold text-blue-900 mb-3">
+                  {organizations.filter(org => org.type === 'national').length}
+                </span>
+                <span className="text-gray-600 text-sm font-medium">
+                  structuri neguvernamentale de tineret cu activitate și reprezentativitate la nivel național
+                </span>
+              </div>
+
+              <div className="bg-white p-6 rounded-xl shadow-md border-t-4 border-blue-900 hover:shadow-lg transition-shadow">
+                <span className="block text-4xl font-bold text-blue-900 mb-3">
+                  {organizations.filter(org => org.type === 'regional').length}
+                </span>
+                <span className="text-gray-600 text-sm font-medium">
+                  structuri neguvernamentale de tineret cu activitate și reprezentativitate regională sau județeană
+                </span>
+              </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -370,7 +365,7 @@ export default function MembriPage() {
                 key={org.id}
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
                 whileHover={{ scale: 1.05 }}
                 onMouseEnter={() => setHoveredCard(org.id)}
                 onMouseLeave={() => setHoveredCard(null)}

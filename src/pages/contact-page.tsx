@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaFacebook, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import MainLayout from '../components/layout/MainLayout';
+import PageHero from '../components/PageHero';
 import dataInfo from "../content/data";
 
 const ContactPage = () => {
@@ -71,24 +72,13 @@ const ContactPage = () => {
 
   return (
     <MainLayout>
-      {/* Hero Background for Menu Visibility */}
-      <div className="bg-gradient-to-br from-blue-600 via-blue-500 to-blue-400 h-96 w-full absolute top-0 left-0 z-0"></div>
+      <PageHero 
+        title="Contactează-ne"
+        description="Suntem aici să răspundem la întrebările tale și să te ajutăm cu orice informații ai nevoie."
+      />
       
-      <div className="min-h-screen pt-32 pb-16 relative z-10">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-center mb-16 pt-6 pb-10 bg-white rounded-xl shadow-lg max-w-6xl mx-auto"
-          >
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Contactează-ne
-            </h1>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Suntem aici să răspundem la întrebările tale și să te ajutăm cu orice informații ai nevoie.
-            </p>
-          </motion.div>
+      <div className="min-h-screen pb-16 relative z-10">
+        <div className="container mx-auto px-6 pt-16">
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
             {/* Contact Information - Increase padding and font sizes */}

@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import MainLayout from '../components/layout/MainLayout';
+import PageHero from '../components/PageHero';
 
 interface TeamMember {
   id: number;
@@ -118,23 +119,10 @@ export default function DesprePage() {
       </Head>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-primary">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center"
-          >
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">Despre Noi</h1>
-            <div className="max-w-3xl mx-auto">
-              <p className="text-lg text-white/90 mb-8">
-                Consiliul Tinerilor din România (CTR) este o organizație dedicată reprezentării intereselor tinerilor și dezvoltării de politici și proiecte care să îmbunătățească calitatea vieții acestora. Prin activitățile noastre, vizăm să creăm un mediu în care tinerii să își poată atinge potențialul maxim.
-              </p>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      <PageHero 
+        title="Despre Noi"
+        description="Consiliul Tinerilor din România (CTR) este o organizație dedicată reprezentării intereselor tinerilor și dezvoltării de politici și proiecte care să îmbunătățească calitatea vieții acestora. Prin activitățile noastre, vizăm să creăm un mediu în care tinerii să își poată atinge potențialul maxim."
+      />
 
       {/* Photo Carousel */}
       <section className="py-16 bg-white">
@@ -145,7 +133,7 @@ export default function DesprePage() {
             {carouselImages.map((image, index) => (
               <div
                 key={index}
-                className={`absolute w-full h-full transition-all duration-500 ease-in-out transform ${
+                className={`absolute w-full h-full transition-all duration-300 ease-in-out transform ${
                   index === currentSlide ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'
                 }`}
               >
@@ -203,7 +191,7 @@ export default function DesprePage() {
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.4 }}
               viewport={{ once: true }}
               className="bg-white p-8 rounded-lg shadow-md"
             >
@@ -216,7 +204,7 @@ export default function DesprePage() {
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
               viewport={{ once: true }}
               className="bg-white p-8 rounded-lg shadow-md"
             >
@@ -267,14 +255,9 @@ export default function DesprePage() {
           {/* Team Members Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {filteredMembers.map((member) => (
-              <motion.div
+              <div
                 key={member.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                viewport={{ once: true, margin: "-50px" }}
-                whileHover={{ y: -10 }}
-                className="bg-white rounded-xl shadow-md overflow-hidden transform transition-all duration-300"
+                className="bg-white rounded-xl shadow-md overflow-hidden transform transition-all duration-300 hover:-translate-y-2"
               >
                 <div className="relative h-64 w-full bg-gray-200">
                   <Image
@@ -296,7 +279,7 @@ export default function DesprePage() {
                     </a>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -311,7 +294,7 @@ export default function DesprePage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.3 }}
               viewport={{ once: true }}
               className="bg-white p-8 rounded-xl shadow-md text-center"
             >
@@ -329,7 +312,7 @@ export default function DesprePage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
               viewport={{ once: true }}
               className="bg-white p-8 rounded-xl shadow-md text-center"
             >
@@ -347,7 +330,7 @@ export default function DesprePage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
+              transition={{ duration: 0.3, delay: 0.2 }}
               viewport={{ once: true }}
               className="bg-white p-8 rounded-xl shadow-md text-center"
             >

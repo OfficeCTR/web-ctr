@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Head from 'next/head';
 import { motion } from 'framer-motion';
 import MainLayout from '~/components/layout/MainLayout';
+import PageHero from '~/components/PageHero';
 import ProjectModal from '~/components/ProjectModal';
 import Image from 'next/image';
 
@@ -545,30 +546,21 @@ export default function Projects() {
         <meta name="description" content="Descoperă proiectele implementate de organizația noastră de tineret de-a lungul anilor." />
       </Head>
 
-      {/* Hero Section with Interactive Timeline */}
-      <div className="relative bg-gray-900 py-24 overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gray-900/90" />
-          <div className="absolute inset-0 bg-[url('/assets/pattern.svg')] opacity-10" />
-        </div>
-        
+      {/* Hero Section */}
+      <PageHero 
+        title="Proiectele Noastre"
+        description="Descoperă proiectele prin care facem o diferență în comunitățile noastre"
+      />
+
+      {/* Timeline Section */}
+      <div className="relative bg-gray-50 pt-12 pb-8 overflow-hidden border-b border-gray-200">
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center"
-          >
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-              Proiectele Noastre
-            </h1>
-            <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto mb-12">
-              Descoperă proiectele prin care facem o diferență în comunitățile noastre
-            </p>
+          <div className="text-center">
             
             {/* Interactive Timeline */}
-            <div className="relative mt-16">
+            <div className="relative">
               {/* Line connecting all years */}
-              <div className="absolute left-0 right-0 h-1 bg-gray-700 top-1/2 transform -translate-y-1/2 hidden md:block"></div>
+              <div className="absolute left-0 right-0 h-1 bg-gray-300 top-1/2 transform -translate-y-1/2 hidden md:block"></div>
               
               <div className="flex items-center justify-between relative px-4 max-w-5xl mx-auto overflow-x-auto md:overflow-visible pb-4 md:pb-0 scrollbar-hide">
                 {/* All button first */}
@@ -578,13 +570,13 @@ export default function Projects() {
                   onClick={() => setActiveYear('all')}
                   className={`relative z-10 flex flex-col items-center mx-3 md:mx-0 flex-shrink-0`}
                 >
-                  <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center 
+                  <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-all duration-300
                     ${activeYear === 'all' 
-                      ? `bg-gradient-to-r from-primary to-secondary shadow-lg` 
-                      : 'bg-gray-700 hover:bg-gray-600'}`}>
-                    <span className="text-white font-bold text-xs md:text-sm">All</span>
+                      ? `bg-gradient-to-r from-primary to-secondary shadow-lg text-white ring-2 ring-offset-2 ring-primary` 
+                      : 'bg-white border-2 border-gray-300 text-gray-500 hover:border-primary hover:text-primary'}`}>
+                    <span className="font-bold text-xs md:text-sm">All</span>
                   </div>
-                  <span className={`mt-2 text-sm md:text-base font-medium ${activeYear === 'all' ? 'text-white' : 'text-gray-400'}`}>
+                  <span className={`mt-2 text-sm md:text-base font-medium ${activeYear === 'all' ? 'text-primary' : 'text-gray-500'}`}>
                     Toate
                   </span>
                 </motion.button>
@@ -602,15 +594,15 @@ export default function Projects() {
                       onClick={() => setActiveYear(year.toString())}
                       className={`relative z-10 flex flex-col items-center mx-3 md:mx-0 flex-shrink-0`}
                     >
-                      <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center shadow-md
+                      <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center shadow-sm transition-all duration-300
                       ${isActive 
-                        ? `bg-gradient-to-r ${colorTheme.gradient} shadow-lg shadow-${colorTheme.badge}/30` 
-                        : 'bg-gray-700 hover:bg-gray-600'}`}>
-                        <span className="text-white font-bold">
+                        ? `bg-gradient-to-r ${colorTheme.gradient} shadow-lg text-white ring-2 ring-offset-2 ring-${colorTheme.badge.replace('bg-', '')}` 
+                        : 'bg-white border-2 border-gray-300 text-gray-500 hover:border-gray-400'}`}>
+                        <span className="font-bold">
                           {year.toString().substring(2)}
                         </span>
                       </div>
-                      <span className={`mt-2 text-sm md:text-base font-medium ${isActive ? 'text-white' : 'text-gray-400'}`}>
+                      <span className={`mt-2 text-sm md:text-base font-medium ${isActive ? 'text-gray-900' : 'text-gray-400'}`}>
                         {year}
                       </span>
                     </motion.button>
@@ -618,7 +610,7 @@ export default function Projects() {
                 })}
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
 
@@ -632,10 +624,7 @@ export default function Projects() {
               
               return (
                 <div key={year} className="mb-24 last:mb-0">
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: yearIndex * 0.1 }}
+                  <div
                     className="relative mb-12"
                   >
                     {/* Decorative elements */}
@@ -650,7 +639,7 @@ export default function Projects() {
                     {/* Year decoration */}
                     <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-8 h-8 rounded-full bg-gray-200"></div>
                     <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-8 h-8 rounded-full bg-gray-200"></div>
-                  </motion.div>
+                  </div>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {projectsByYear[year].map((project, index) => (
@@ -710,10 +699,7 @@ const ProjectCard = ({ project, index, colorTheme, onClick }: ProjectCardProps) 
   const colorName = colorTheme.badge.replace('bg-', '');
   
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1 }}
+    <div
       className="group bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden cursor-pointer h-full flex flex-col"
       onClick={onClick}
     >
@@ -764,6 +750,6 @@ const ProjectCard = ({ project, index, colorTheme, onClick }: ProjectCardProps) 
           </svg>
         </button>
       </div>
-    </motion.div>
+    </div>
   );
 }; 
