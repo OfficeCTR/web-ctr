@@ -47,38 +47,38 @@ const teamMembers: TeamMember[] = [
     photo: '/assets/team/Cristina.png',
     department: 'leadership'
   },
-  {
-    id: 5,
-    name: 'Maria Stanescu',
-    position: 'Coordonator Media',
-    email: 'maria.stanescu@ctr.ro',
-    photo: '/assets/team/placeholder.jpg',
-    department: 'media'
-  },
-  {
-    id: 6,
-    name: 'Andrei Munteanu',
-    position: 'Designer Grafic',
-    email: 'andrei.munteanu@ctr.ro',
-    photo: '/assets/team/placeholder.jpg',
-    department: 'media'
-  },
-  {
-    id: 7,
-    name: 'Larisa Bejan',
-    position: 'Director Departament Relații Internaționale',
-    email: 'larisa.bejan@ctr.ro',
-    photo: '/assets/team/placeholder.jpg',
-    department: 'executive'
-  },
-  {
-    id: 8,
-    name: 'Alexandru Cazac',
-    position: 'Director Departament Fundraising',
-    email: 'alexandru.cazac@ctr.ro',
-    photo: '/assets/team/placeholder.jpg',
-    department: 'executive'
-  }
+  // {
+  //   id: 5,
+  //   name: 'Maria Stanescu',
+  //   position: 'Coordonator Media',
+  //   email: 'maria.stanescu@ctr.ro',
+  //   photo: '/assets/team/placeholder.jpg',
+  //   department: 'media'
+  // },
+  // {
+  //   id: 6,
+  //   name: 'Andrei Munteanu',
+  //   position: 'Designer Grafic',
+  //   email: 'andrei.munteanu@ctr.ro',
+  //   photo: '/assets/team/placeholder.jpg',
+  //   department: 'media'
+  // },
+  // {
+  //   id: 7,
+  //   name: 'Larisa Bejan',
+  //   position: 'Director Departament Relații Internaționale',
+  //   email: 'larisa.bejan@ctr.ro',
+  //   photo: '/assets/team/placeholder.jpg',
+  //   department: 'executive'
+  // },
+  // {
+  //   id: 8,
+  //   name: 'Alexandru Cazac',
+  //   position: 'Director Departament Fundraising',
+  //   email: 'alexandru.cazac@ctr.ro',
+  //   photo: '/assets/team/placeholder.jpg',
+  //   department: 'executive'
+  // }
 ];
 
 // Carousel image paths - to be replaced with real images
@@ -300,12 +300,12 @@ export default function DesprePage() {
             >
               <div className="w-16 h-16 mx-auto mb-6 bg-primary/10 rounded-full flex items-center justify-center">
                 <svg className="w-8 h-8 text-primary" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                  <path fillRule="evenodd" d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a1 1 0 10-2 0A5 5 0 015 8a1 1 0 00-2 0 7.001 7.001 0 006 6.93V17H6a1 1 0 100 2h8a1 1 0 100-2h-3v-2.07z" clipRule="evenodd" />
+                  <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold mb-3">Transparență</h3>
+              <h3 className="text-xl font-bold mb-3">Dezvoltare</h3>
               <p className="text-gray-600">
-                Credem în comunicarea deschisă și onestă a activităților și deciziilor noastre.
+                Construim oportunități pentru creșterea personală și profesională a tinerilor din România.
               </p>
             </motion.div>
             
