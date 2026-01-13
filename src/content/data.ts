@@ -107,7 +107,7 @@ export const organizations: Organization[] = [
     name: 'Federația Tinerilor din Cluj (FTC)',
     type: 'regional',
     region: 'CLUJ',
-    logo: '/assets/organizations/ftc.jpg'
+    logo: '/assets/organizations/ftc-logo.png'
   },
   {
     id: 8,
