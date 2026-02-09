@@ -1,20 +1,19 @@
 import { type AppType } from "next/app";
-import { Inter } from "next/font/google";
+import { Space_Grotesk } from "next/font/google";
 
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-space-grotesk",
 });
 
 import "../styles/globals.css";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
-    <main className={`${inter.variable} font-sans`}>
+    <main className={`${spaceGrotesk.variable} font-sans`}>
       <Component {...pageProps} />
     </main>
   );
 };
 
-export default MyApp; 
+export default MyApp;

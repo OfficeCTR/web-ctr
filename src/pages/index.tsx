@@ -18,7 +18,7 @@ const Home: NextPage<HomeProps> = ({ articles }) => {
       <AboutSection />
       <CapitalaTineretuluiSection />
       <PartnersSection />
-      <section className="py-16">
+      <section className="py-24 bg-white">
         <div className="container mx-auto px-4">
           <ArticleSlider articles={articles} />
         </div>
@@ -37,4 +37,4 @@ export const getStaticProps: GetStaticProps = async () => {
   };
 };
 
-export default Home; 
+export default Home;

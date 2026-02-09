@@ -23,56 +23,41 @@ const ArticleSlider = ({ articles }: ArticleSliderProps) => {
 
   return (
     <div className="relative w-full">
-      <div className="flex justify-between items-center mb-8">
-        <h2 className="text-3xl font-bold">Ultimele Articole</h2>
-        <div className="flex space-x-4">
+      <div className="flex justify-between items-end mb-10">
+        <div>
+          <span className="text-ctr-red font-semibold tracking-[0.15em] uppercase text-xs mb-3 block">
+            Blog
+          </span>
+          <h2 className="text-3xl md:text-4xl font-bold text-ctr-blue">Ultimele Articole</h2>
+        </div>
+        <div className="flex gap-2">
           <button
             onClick={prevSlide}
-            className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+            className="w-12 h-12 flex items-center justify-center border border-ctr-blue/20 text-ctr-blue hover:bg-ctr-blue hover:text-white transition-all"
           >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 19l-7-7 7-7"
-              />
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
           <button
             onClick={nextSlide}
-            className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+            className="w-12 h-12 flex items-center justify-center border border-ctr-blue/20 text-ctr-blue hover:bg-ctr-blue hover:text-white transition-all"
           >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5l7 7-7 7"
-              />
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>
         </div>
       </div>
 
-      <div className="relative h-[400px] overflow-hidden">
+      <div className="relative h-[420px] overflow-hidden">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentIndex}
-            initial={{ opacity: 0, x: 100 }}
+            initial={{ opacity: 0, x: 80 }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -100 }}
-            transition={{ duration: 0.5 }}
+            exit={{ opacity: 0, x: -80 }}
+            transition={{ duration: 0.4 }}
             className="absolute inset-0"
           >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -82,32 +67,32 @@ const ArticleSlider = ({ articles }: ArticleSliderProps) => {
                   href={`/blog/${article.slug}`}
                   className="group block"
                 >
-                  <div className="bg-white rounded-lg shadow-md overflow-hidden h-full transform transition-all duration-300 hover:shadow-lg">
-                    <div className="relative h-56 md:h-48">
+                  <div className="bg-white border border-gray-100 overflow-hidden h-full">
+                    <div className="relative h-56">
                       <Image
                         src={article.coverImage}
                         alt={article.title}
                         fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        className="object-cover group-hover:scale-[1.03] transition-transform duration-500"
                         sizes="(max-width: 768px) 100vw, 50vw"
                       />
                     </div>
                     <div className="p-6">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <span className="text-sm text-primary font-semibold">
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="text-xs font-semibold text-ctr-red tracking-wide uppercase">
                           {article.category}
                         </span>
-                        <span className="text-gray-400">•</span>
-                        <span className="text-sm text-gray-500">
+                        <span className="text-gray-300">|</span>
+                        <span className="text-xs text-gray-400">
                           {new Date(article.publishedAt).toLocaleDateString('ro-RO')}
                         </span>
                       </div>
-                      <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors line-clamp-2">
+                      <h3 className="text-lg font-bold text-ctr-blue mb-2 group-hover:text-ctr-red transition-colors line-clamp-2">
                         {article.title}
                       </h3>
-                      <p className="text-gray-600 line-clamp-2">{article.excerpt}</p>
-                      <div className="flex items-center mt-4">
-                        <div className="relative w-8 h-8 rounded-full overflow-hidden mr-2">
+                      <p className="text-gray-500 text-sm line-clamp-2">{article.excerpt}</p>
+                      <div className="flex items-center mt-5 pt-4 border-t border-gray-100">
+                        <div className="relative w-7 h-7 rounded-full overflow-hidden mr-2.5">
                           <Image
                             src={article.author.avatar}
                             alt={article.author.name}
@@ -115,7 +100,7 @@ const ArticleSlider = ({ articles }: ArticleSliderProps) => {
                             className="object-cover"
                           />
                         </div>
-                        <span className="text-sm text-gray-600">{article.author.name}</span>
+                        <span className="text-xs text-gray-500 font-medium">{article.author.name}</span>
                       </div>
                     </div>
                   </div>
@@ -129,4 +114,4 @@ const ArticleSlider = ({ articles }: ArticleSliderProps) => {
   );
 };
 
-export default ArticleSlider; 
+export default ArticleSlider;
