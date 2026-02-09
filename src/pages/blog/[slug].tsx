@@ -46,7 +46,6 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ article }) => {
   return (
     <MainLayout>
       <article className="min-h-screen">
-        {/* Hero Section */}
         <div className="relative">
           <div className="relative h-[60vh] w-full">
             <Image
@@ -60,7 +59,6 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ article }) => {
             <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
           </div>
           
-          {/* Content Section */}
           <div className="relative -mt-20 z-10">
             <div className="container mx-auto px-4">
               <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-8 md:p-12">
@@ -106,7 +104,6 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ article }) => {
           </div>
         </div>
 
-        {/* Article Content */}
         <div className="container mx-auto px-4 py-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -125,13 +122,10 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ article }) => {
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               components={{
-                // Convert consecutive [-] items into a proper list
                 p: ({ children }) => {
                   const text = children?.toString() || '';
                   
-                  // If this is a bullet point
                   if (text.startsWith('[-]')) {
-                    // Get all siblings that are also bullet points
                     const bulletPoint = text.replace('[-]', '').trim();
                     return (
                       <ul className="list-disc pl-6 my-4">
@@ -142,20 +136,17 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ article }) => {
                   
                   return <p className="text-gray-700 leading-relaxed mb-4">{children}</p>;
                 },
-                // Style headings
                 h1: ({ children }) => (
                   <h1 className="text-4xl font-bold text-gray-900 mb-6 mt-12">{children}</h1>
                 ),
                 h2: ({ children }) => (
                   <h2 className="text-3xl font-bold text-gray-900 mb-4 mt-8">{children}</h2>
                 ),
-                // Style links
                 a: ({ children, href }) => (
                   <a href={href} className="text-blue-600 no-underline hover:underline">
                     {children}
                   </a>
                 ),
-                // Ensure proper list styling
                 ul: ({ children }) => (
                   <ul className="list-disc pl-6 my-4 space-y-2">
                     {children}
@@ -171,7 +162,6 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ article }) => {
           </motion.div>
         </div>
 
-        {/* Related Articles Section */}
         <div className="bg-gray-50 py-16">
           <div className="container mx-auto px-4">
             <motion.div
@@ -213,6 +203,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       props: {
         article,
       },
+      revalidate: 60,
     };
   } catch (error) {
     console.error('Error fetching article:', error);
@@ -229,17 +220,17 @@ export const getStaticPaths = async () => {
       params: { slug: article.slug },
     }));
 
-    console.log('Generated paths:', paths); // Debug log
+    console.log('Generated paths:', paths);
 
     return {
       paths,
-      fallback: true, // Changed to true to handle articles that might be added later
+      fallback: 'blocking',
     };
   } catch (error) {
     console.error('Error generating paths:', error);
     return {
       paths: [],
-      fallback: true,
+      fallback: 'blocking',
     };
   }
 };

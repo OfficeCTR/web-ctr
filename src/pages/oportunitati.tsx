@@ -16,14 +16,13 @@ interface OpportunitiesProps {
 export const getStaticProps: GetStaticProps = async () => {
   try {
     const data = await getOpportunities();
-    // Serialize data to remove undefined values which Next.js does not support in getStaticProps
     const serializedData = JSON.parse(JSON.stringify(data));
     
     return {
       props: {
         initialOpportunities: serializedData,
       },
-      revalidate: 3600, // Revalidate every hour
+      revalidate: 60,
     };
   } catch (err) {
     console.error('Error loading opportunities:', err);
