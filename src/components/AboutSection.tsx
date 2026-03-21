@@ -76,7 +76,7 @@ const AboutSection = () => {
           >
             <div className="relative h-[350px] md:h-[450px] overflow-hidden">
               <Image
-                src="/assets/cover.jpg"
+                src="/assets/home1.jpg"
                 alt="Viziunea noastră"
                 fill
                 className="object-cover"

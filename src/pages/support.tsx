@@ -74,7 +74,7 @@ const Support: NextPage = () => {
               
               <div className="relative h-64 md:h-80">
                 <Image 
-                  src="/assets/cover.jpg" 
+                  src="/assets/3_5_perc.jpg"
                   alt="Susține tinerii prin redirecționarea a 3.5% din impozit"
                   fill
                   className="object-cover"

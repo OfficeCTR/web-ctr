@@ -206,7 +206,28 @@ export const organizations: Organization[] = [
     type: 'regional',
     region: 'IALOMIȚA',
     logo: '/assets/organizations/fjt_il.jpg'
+  },
+  {
+    id: 22,
+    name: 'Uniunea Organizațiilor Studențești Maghiare din România (OMDSZ)',
+    type: 'national',
+    logo: '/assets/organizations/OMDSZ.png'
+  },
+  {
+    id: 23,
+    name: 'Federația Organizațiilor Neguvernamentale de Tineret Constanța',
+    type: 'regional',
+    region: 'CONSTANȚA',
+    logo: '/assets/organizations/Font_CT.png'
+  },
+  {
+    id: 24,
+    name: 'Federația Tinerilor din Vaslui',
+    type: 'regional',
+    region: 'VASLUI',
+    logo: '/assets/organizations/vaslui_intineresti.png'
   }
+
 ];
 
 export interface TeamMember {
@@ -254,10 +275,10 @@ export const teamMembers: TeamMember[] = [
 ];
 
 export const carouselImages = [
-  '/assets/carousel/placeholder1.jpg',
-  '/assets/carousel/placeholder2.jpg',
-  '/assets/carousel/placeholder3.jpg',
-  '/assets/carousel/placeholder4.jpg',
+  '/assets/carousel/carousel1.jpg',
+  '/assets/carousel/carousel2.jpg',
+  '/assets/carousel/carousel3.jpg',
+  '/assets/carousel/carousel4.jpg',
 ];
 
 export interface Project {
