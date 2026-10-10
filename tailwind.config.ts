@@ -5,16 +5,22 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: "#0B1C3D",
-        secondary: "#00b4d8",
         ctr: {
-          blue: "#0B1C3D",
-          yellow: "#FACC15",
-          red: "#FF0000",
+          blue: "#5B8FFF",
+          pink: "#FE558E",
+          yellow: "#FED653",
+          ink: "#0A0A0A",
+          paper: "#F6F6F4",
         },
       },
       fontFamily: {
-        sans: ["var(--font-space-grotesk)", "system-ui", "sans-serif"],
+        sans: ["var(--font-barlow)", "system-ui", "sans-serif"],
+        cond: ["var(--font-barlow-condensed)", "var(--font-barlow)", "sans-serif"],
+        script: ["var(--font-pacifico)", "cursive"],
+        poppins: ["var(--font-poppins)", "var(--font-barlow)", "sans-serif"],
+      },
+      boxShadow: {
+        card: "0 22px 45px -18px rgba(0,0,0,0.35)",
       },
     },
   },

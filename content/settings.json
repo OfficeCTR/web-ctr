@@ -1,0 +1,48 @@
+{
+  "email": "office@ctr.ro",
+  "phone": "+40 757 629 646",
+  "address": "Strada Turturelelor nr. 11A, București",
+  "vat": "18375593",
+  "form230Url": "https://formular230.ro/consiliul-tineretului-din-romania",
+  "socials": {
+    "instagramUrl": "https://www.instagram.com/ctromania",
+    "instagramHandle": "@ctromania",
+    "facebookUrl": "https://www.facebook.com/consiliultineretului",
+    "facebookHandle": "@consiliultineretului",
+    "linkedinUrl": "https://www.linkedin.com/company/ctr---romania-youth-council",
+    "linkedinHandle": "CTR - Consiliul Tineretului din România",
+    "tiktokUrl": "https://www.tiktok.com/@consiliultineretului_ro",
+    "tiktokHandle": "@consiliultineretului_ro"
+  },
+  "bank": {
+    "beneficiary": "Federația Consiliul Tineretului din România",
+    "name": "Banca Comercială Română (BCR)",
+    "ibanRon": "unknown",
+    "ibanEur": "unknown",
+    "swift": "unknown"
+  },
+  "sponsors": [
+    {
+      "name": "Banca Comercială Română",
+      "logo": "/uploads/settings/sponsors/1.png",
+      "url": ""
+    },
+    {
+      "name": "MSD",
+      "logo": "/uploads/settings/sponsors/2.png",
+      "url": ""
+    },
+    {
+      "name": "Funded by the European Union",
+      "logo": "/uploads/settings/sponsors/3.png",
+      "url": ""
+    }
+  ],
+  "partners": [
+    {
+      "name": "Ministerul Muncii, Familiei, Tineretului și Solidarității Sociale",
+      "logo": "/uploads/settings/partners/1.png",
+      "url": ""
+    }
+  ]
+}

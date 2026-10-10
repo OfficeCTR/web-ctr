@@ -1,131 +1,151 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
-import { Project } from '~/content/data';
+import { useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
+import type { Project } from "~/lib/types";
+import Cover from "./ui/Cover";
+import { TabLabel } from "./ui/Sheet";
 
 interface ProjectModalProps {
   project: Project | null;
   onClose: () => void;
 }
 
-export default function ProjectModal({ project, onClose }: ProjectModalProps) {
-  if (!project) return null;
-
-  // Validate if the imageUrl is a valid URL
-  const isValidImageUrl = project.imageUrl?.startsWith('http://') || 
-                          project.imageUrl?.startsWith('https://') ||
-                          project.imageUrl?.startsWith('/');
+export const ModalShell = ({
+  open,
+  onClose,
+  children,
+}: {
+  open: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
+}) => {
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [open, onClose]);
 
   return (
     <AnimatePresence>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-        onClick={onClose}
-      >
+      {open && (
         <motion.div
-          initial={{ scale: 0.95, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          exit={{ scale: 0.95, opacity: 0 }}
-          className="bg-white rounded-2xl shadow-xl max-w-5xl w-full max-h-[90vh] overflow-y-auto"
-          onClick={e => e.stopPropagation()}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-[60] flex items-end justify-center bg-black/70 backdrop-blur-sm sm:items-center sm:p-6"
+          onClick={onClose}
         >
-          {/* Header with Image */}
-          <div className="relative h-64 md:h-80 rounded-t-2xl overflow-hidden">
-            {project.imageUrl && isValidImageUrl ? (
-              <Image
-                src={project.imageUrl}
-                alt={project.title}
-                fill
-                className="object-cover"
-              />
-            ) : (
-              <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary" />
-            )}
-            {/* Black gradient at the bottom for readability */}
-            <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black/70 via-black/30 to-transparent pointer-events-none" />
-            <div className="absolute inset-0 bg-black/30" />
-            
-            <div className="absolute inset-0 p-6 flex flex-col justify-between">
-              <div className="flex justify-between items-start">
-                <span className="px-3 py-1 rounded-full text-xs font-medium bg-white/90 backdrop-blur-sm text-primary">
-                  {project.year}
-                </span>
-                <button
-                  onClick={onClose}
-                  className="text-white hover:text-gray-200 transition-colors"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-              <h2 className="text-2xl md:text-3xl font-bold text-white">
-                {project.title}
-              </h2>
+          <motion.div
+            initial={{ y: 60, opacity: 0, rotate: 1 }}
+            animate={{ y: 0, opacity: 1, rotate: 0 }}
+            exit={{ y: 60, opacity: 0 }}
+            transition={{ type: "spring", stiffness: 160, damping: 20 }}
+            className="relative max-h-[92vh] w-full max-w-4xl overflow-y-auto rounded-t-[28px] bg-white shadow-2xl sm:rounded-[28px]"
+            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+          >
+            <button
+              onClick={onClose}
+              className="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-white text-black shadow-lg transition-transform hover:rotate-90"
+              aria-label="Închide"
+            >
+              <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.4} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            {children}
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+
+const Fact = ({ label, value }: { label: string; value?: string }) =>
+  value ? (
+    <div className="rounded-2xl bg-ctr-paper p-4">
+      <span className="block text-xs font-semibold uppercase tracking-[0.15em] text-black/45">{label}</span>
+      <span className="mt-1 block font-bold">{value}</span>
+    </div>
+  ) : null;
+
+export default function ProjectModal({ project, onClose }: ProjectModalProps) {
+  const partners = project?.partners?.filter(Boolean) ?? [];
+  const gallery = project?.galleryImages?.filter((g) => g && !/placeholder/i.test(g)) ?? [];
+
+  return (
+    <ModalShell open={!!project} onClose={onClose}>
+      {project && (
+        <>
+          <div className="relative">
+            <Cover
+              src={project.imageUrl}
+              alt={project.title}
+              index={project.year}
+              sizes="900px"
+              className="h-56 sm:h-72"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
+              <TabLabel tone="yellow">{project.year}</TabLabel>
+              <h2 className="mt-3 text-2xl font-bold leading-tight text-white sm:text-4xl">{project.title}</h2>
             </div>
           </div>
 
-          {/* Content */}
-          <div className="p-6 space-y-6">
-            {/* Project Quick Info */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-gray-50 rounded-xl">
-              <div className="flex flex-col">
-                <span className="text-sm text-gray-500">Locație</span>
-                <span className="font-medium text-gray-900">{project.location}</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-sm text-gray-500">Durată</span>
-                <span className="font-medium text-gray-900">{project.duration}</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-sm text-gray-500">Participanți</span>
-                <span className="font-medium text-gray-900">{project.participants}</span>
-              </div>
+          <div className="space-y-8 p-6 sm:p-8">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+              <Fact label="Locație" value={project.location} />
+              <Fact label="Durată" value={project.duration} />
+              <Fact label="Participanți" value={project.participants} />
             </div>
 
-            {/* Project Description */}
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">Despre Proiect</h3>
-              <p className="text-gray-600 whitespace-pre-line">{project.fullDescription}</p>
-            </div>
-            
-            {/* Impact */}
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">Impact</h3>
-              <p className="text-gray-600">{project.impact}</p>
+              <h3 className="mb-3 text-xl font-bold">Despre proiect</h3>
+              <p className="whitespace-pre-line leading-relaxed text-black/70">
+                {project.fullDescription ||
+                  project.shortDescription ||
+                  "Detaliile despre acest proiect vor fi publicate în curând."}
+              </p>
             </div>
 
-            {/* Partners */}
-            {project.partners && project.partners.length > 0 && (
+            {project.impact && (
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Parteneri</h3>
+                <h3 className="mb-3 text-xl font-bold">Impact</h3>
+                <p className="leading-relaxed text-black/70">{project.impact}</p>
+              </div>
+            )}
+
+            {partners.length > 0 && (
+              <div>
+                <h3 className="mb-3 text-xl font-bold">Parteneri</h3>
                 <div className="flex flex-wrap gap-2">
-                  {project.partners.map((partner, idx) => (
-                    <span 
-                      key={idx} 
-                      className="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm"
-                    >
-                      {partner}
-                    </span>
+                  {partners.map((p, i) => (
+                    <TabLabel key={p} tone={(["blue", "pink", "yellow"] as const)[i % 3]}>
+                      {p}
+                    </TabLabel>
                   ))}
                 </div>
               </div>
             )}
 
-            {/* Gallery */}
-            {project.galleryImages && project.galleryImages.length > 0 && (
+            {gallery.length > 0 && (
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Galerie</h3>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  {project.galleryImages.map((image, idx) => (
-                    <div key={idx} className="relative h-40 rounded-lg overflow-hidden">
+                <h3 className="mb-3 text-xl font-bold">Galerie</h3>
+                <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
+                  {gallery.map((image, idx) => (
+                    <div key={idx} className="relative h-40 overflow-hidden rounded-2xl">
                       <Image
                         src={image}
-                        alt={`${project.title} - Image ${idx + 1}`}
+                        alt={`${project.title} — ${idx + 1}`}
                         fill
-                        className="object-cover hover:scale-105 transition-transform duration-300"
+                        sizes="300px"
+                        className="object-cover transition-transform duration-300 hover:scale-105"
                       />
                     </div>
                   ))}
@@ -133,8 +153,8 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
               </div>
             )}
           </div>
-        </motion.div>
-      </motion.div>
-    </AnimatePresence>
+        </>
+      )}
+    </ModalShell>
   );
-} 
+}

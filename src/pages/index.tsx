@@ -1,41 +1,35 @@
-import { type GetStaticProps, type NextPage } from "next";
+import { type NextPage } from "next";
+import Head from "next/head";
 import MainLayout from "../components/layout/MainLayout";
-import AnimatedHero from "../components/AnimatedHero";
-import ArticleSlider from "../components/ArticleSlider";
-import AboutSection from "../components/AboutSection";
-import PartnersSection from "../components/Afilliations";
-import CapitalaTineretuluiSection from "../components/CapitalaTineretuluiSection";
-import { getAllArticles, Article } from "../utils/markdown";
+import Hero from "../components/home/Hero";
+import Network from "../components/home/Network";
+import Mission from "../components/home/Mission";
+import Pillars from "../components/home/Pillars";
+import Projects from "../components/home/Projects";
+import Quote from "../components/home/Quote";
+import Advocacy from "../components/home/Advocacy";
+import Europe from "../components/home/Europe";
 
-interface HomeProps {
-  articles: Article[];
-}
-
-const Home: NextPage<HomeProps> = ({ articles }) => {
+const Home: NextPage = () => {
   return (
     <MainLayout>
-      <AnimatedHero />
-      <AboutSection />
-      <CapitalaTineretuluiSection />
-      <PartnersSection />
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-4">
-          <ArticleSlider articles={articles} />
-        </div>
-      </section>
+      <Head>
+        <title>CTR — Vocea tinerilor din România</title>
+        <meta
+          name="description"
+          content="Consiliul Tineretului din România reprezintă tinerii acolo unde se iau deciziile și transformă nevoile acestora în politici publice, programe și oportunități."
+        />
+      </Head>
+      <Hero />
+      <Network />
+      <Mission />
+      <Pillars />
+      <Projects />
+      <Quote />
+      <Advocacy />
+      <Europe />
     </MainLayout>
   );
-};
-
-export const getStaticProps: GetStaticProps = async () => {
-  const articles = await getAllArticles();
-
-  return {
-    props: {
-      articles,
-    },
-    revalidate: 60,
-  };
 };
 
 export default Home;

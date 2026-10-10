@@ -2,19 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body {
+html {
+  scroll-behavior: smooth;
+}
+
+:root {
+  --u: calc(min(100vw, 1366px) / 1366);
+}
+
+html,
+body {
   max-width: 100%;
   overflow-x: hidden;
 }
 
 body {
-  color: #1a1a1a;
+  color: #0a0a0a;
   background: #ffffff;
+  -webkit-font-smoothing: antialiased;
 }
 
 ::selection {
-  background-color: #FACC15;
-  color: #0B1C3D;
+  background-color: #fed653;
+  color: #0a0a0a;
+}
+
+@layer components {
+  .shell {
+    @apply mx-auto w-full max-w-[1366px] px-5 sm:px-8 lg:px-[6.5%];
+  }
+
+  .btn-pill {
+    @apply inline-flex items-center justify-center gap-3 rounded-full px-8 py-3.5 font-poppins text-base font-bold transition-all duration-300 will-change-transform hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  .paper-card {
+    @apply rounded-[28px] bg-white shadow-card;
+  }
+
+  .scribble-underline {
+    background: url("/assets/design/underline-gray.png") center / 100% 100% no-repeat;
+  }
 }
 
 @layer utilities {
@@ -24,5 +52,31 @@ body {
   }
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .bg-dots-white {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.9) 1.6px, transparent 1.8px);
+    background-size: 14px 14px;
+  }
+  .bg-dots-black {
+    background-image: radial-gradient(rgba(0, 0, 0, 0.12) 1.4px, transparent 1.6px);
+    background-size: 14px 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

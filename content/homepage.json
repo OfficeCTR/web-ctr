@@ -1,0 +1,83 @@
+{
+  "statFederations": 14,
+  "statOrganizations": 600,
+  "featuredProjects": [
+    {
+      "logo": "/uploads/homepage/featured/1.png",
+      "logoAlt": "Summitul Tinerilor 11",
+      "text": "Locul de întâlnire al tinerilor care schimbă comunitățile din România.",
+      "link": "/blog/summitul-tinerilor-editia-x-vaslui"
+    },
+    {
+      "logo": "/uploads/homepage/featured/2.png",
+      "logoAlt": "București HPV Free City",
+      "text": "Coaliția pentru educație, sănătate publică și prevenția HPV.",
+      "link": "/blog/ctr-bucuresti-hpv-free-city"
+    },
+    {
+      "logo": "/uploads/homepage/featured/3.png",
+      "logoAlt": "Capitala Tineretului din România",
+      "text": "365 de zile de proiecte, spații de dialog și investiții dedicate tinerilor.",
+      "link": "/capitala-tineretului"
+    },
+    {
+      "logo": "/uploads/homepage/featured/4.png",
+      "logoAlt": "Gala Tineretului din România",
+      "text": "Celebrarea celor mai valoroase inițiative civice din România.",
+      "link": "https://www.galatineretului.ro"
+    }
+  ],
+  "carouselPhotos": [
+    "/uploads/homepage/carousel/1.jpg",
+    "/uploads/homepage/carousel/2.jpg",
+    "/uploads/homepage/carousel/3.jpg",
+    "/uploads/homepage/carousel/4.jpg",
+    "/uploads/homepage/carousel/5.jpg",
+    "/uploads/homepage/carousel/6.jpg",
+    "/uploads/homepage/carousel/7.jpg",
+    "/uploads/homepage/carousel/8.jpg",
+    "/uploads/homepage/carousel/9.jpg",
+    "/uploads/homepage/carousel/10.jpg",
+    "/uploads/homepage/carousel/11.jpg",
+    "/uploads/homepage/carousel/12.jpg"
+  ],
+  "advocacyPosters": [
+    {
+      "image": "/uploads/homepage/posters/1.jpg",
+      "alt": "Tinerii și votul la prezidențiale"
+    },
+    {
+      "image": "/uploads/homepage/posters/2.jpg",
+      "alt": "Pe 18 mai — mergi la vot"
+    },
+    {
+      "image": "/uploads/homepage/posters/3.jpg",
+      "alt": "Propunerile tinerilor, studenților și elevilor pentru noul guvern"
+    },
+    {
+      "image": "/uploads/homepage/posters/4.jpg",
+      "alt": "Bugete locale adecvate nevoilor tinerilor"
+    },
+    {
+      "image": "/uploads/homepage/posters/5.jpg",
+      "alt": "Festivalul Democrației, 5–6 aprilie 2024"
+    }
+  ],
+  "advocacyButtons": [
+    {
+      "line1": "Bugete Locale Adecvate",
+      "line2": "Pentru Tineri",
+      "link": "/blog/bugete-locale-adecvate-nevoilor-tinerilor"
+    },
+    {
+      "line1": "Prioritățile Tinerilor pe",
+      "line2": "Agenda Politică",
+      "link": "/blog/ce-propun-viitorii-europarlamentari-pentru-tineri"
+    },
+    {
+      "line1": "Implicare Electorală",
+      "line2": "& Observatori Independenți",
+      "link": "/proiecte"
+    }
+  ]
+}

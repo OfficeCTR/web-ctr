@@ -1,206 +1,232 @@
-import { useState, useEffect, useRef } from 'react';
-import Head from 'next/head';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
-import MainLayout from '../components/layout/MainLayout';
-import PageHero from '../components/PageHero';
-import { teamMembers, carouselImages } from '../content/data';
+import { useMemo, useState } from "react";
+import type { GetStaticProps } from "next";
+import Head from "next/head";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import MainLayout from "../components/layout/MainLayout";
+import PageHero from "../components/PageHero";
+import { PillTabs, SectionTitle, Sheet, TabLabel } from "../components/ui/Sheet";
+import { PhotoCarousel } from "../components/home/Quote";
+import { stickers } from "../components/ui/sticker";
+import { getTeam } from "../lib/content";
+import type { TeamMember } from "../lib/types";
 
-export default function DesprePage() {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [activeTab, setActiveTab] = useState<'leadership' | 'executive' | 'media'>('leadership');
+type Department = TeamMember["department"];
 
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+const departmentLabels: Record<Department, string> = {
+  leadership: "Conducere",
+  executive: "Executiv",
+  media: "Media",
+};
 
-  const startAutoSlide = () => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
+const frameColors = ["#5B8FFF", "#FE558E", "#FED653", "#0A0A0A"];
 
-    intervalRef.current = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % carouselImages.length);
-    }, 5000);
-  };
+const affiliations = {
+  national: [
+    { name: "Consiliul Național pentru Tineret", logo: "/assets/afiliere/cnpt.png" },
+    { name: "Grupul Național de Lucru Dialogul UE cu Tinerii", logo: "/assets/afiliere/GNL_color.png" },
+    {
+      name: "Comitetul de monitorizare a programului Tranziție Justă 2021-2027",
+      logo: "/assets/afiliere/tranzitie_justa.jpg",
+    },
+    {
+      name: "Comitetul interinstituțional de monitorizare și implementare a SNOFM",
+      logo: "/assets/afiliere/anofm.png",
+    },
+  ],
+  international: [
+    { name: "Forumul European de Tineret (European Youth Forum)", logo: "/assets/afiliere/youth_forum.png" },
+    { name: "World Assembly of Youth", logo: "/assets/afiliere/way.png" },
+    { name: "The European Youth Advisory Board", logo: "/assets/afiliere/youth-4-europe.webp" },
+    { name: "EU Youth Stakeholders Group", logo: "/assets/afiliere/EU-Youth-Stakeholders-Group-1.png" },
+  ],
+};
 
-  useEffect(() => {
-    startAutoSlide();
+const AffiliationGrid = ({ items }: { items: Array<{ name: string; logo: string }> }) => (
+  <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
+    {items.map((a, i) => (
+      <motion.div
+        key={a.name}
+        initial={{ opacity: 0, y: 30, rotate: i % 2 ? 3 : -3 }}
+        whileInView={{ opacity: 1, y: 0, rotate: i % 2 ? 1.5 : -1.5 }}
+        whileHover={{ rotate: 0, y: -8, scale: 1.03 }}
+        viewport={{ once: true }}
+        transition={{ type: "spring", stiffness: 140, damping: 16, delay: i * 0.06 }}
+        className="flex flex-col items-center rounded-[24px] bg-white p-5 text-center shadow-[0_18px_30px_-14px_rgba(120,90,0,.45)] sm:p-6"
+      >
+        <div className="relative mb-4 h-20 w-full sm:h-24">
+          <Image src={a.logo} alt={a.name} fill sizes="200px" className="object-contain" />
+        </div>
+        <p className="text-sm font-semibold leading-snug sm:text-base">{a.name}</p>
+      </motion.div>
+    ))}
+  </div>
+);
 
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    };
-  }, []);
+export const getStaticProps: GetStaticProps = async () => ({ props: { teamMembers: await getTeam() } });
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % carouselImages.length);
-    startAutoSlide();
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + carouselImages.length) % carouselImages.length);
-    startAutoSlide();
-  };
-
-  const goToSlide = (index: number) => {
-    setCurrentSlide(index);
-    startAutoSlide();
-  };
-
-  const filteredMembers = teamMembers.filter(member => member.department === activeTab);
+export default function DesprePage({ teamMembers }: { teamMembers: TeamMember[] }) {
+  const departments = useMemo(
+    () => (Object.keys(departmentLabels) as Department[]).filter((d) => teamMembers.some((m) => m.department === d)),
+    [teamMembers],
+  );
+  const [activeTab, setActiveTab] = useState<Department>(departments[0] ?? "leadership");
+  const members = teamMembers.filter((m) => m.department === activeTab);
 
   return (
     <MainLayout>
       <Head>
-        <title>Despre Noi | CTR</title>
-        <meta name="description" content="Aflați mai multe despre Consiliul Tinerilor din România și echipa noastră" />
+        <title>Despre noi | CTR</title>
+        <meta
+          name="description"
+          content="Află mai multe despre Consiliul Tineretului din România, misiunea, viziunea și echipa noastră."
+        />
       </Head>
 
-      {/* Hero Section */}
       <PageHero
-        title="Despre Noi"
-        description="Consiliul Tinerilor din România (CTR) este o organizație dedicată reprezentării intereselor tinerilor și dezvoltării de politici și proiecte care să îmbunătățească calitatea vieții acestora. Prin activitățile noastre, vizăm să creăm un mediu în care tinerii să își poată atinge potențialul maxim."
+        title="Despre"
+        script="noi"
+        accent="blue"
+        image="/assets/design/photos/capitala-group.jpg"
+        imageAlt="Tineri la un eveniment Capitala Tineretului din România"
+        description="Consiliul Tineretului din România reprezintă interesele tinerilor și dezvoltă politici și proiecte care îmbunătățesc calitatea vieții acestora — de 20 de ani, cu și despre tineri."
       />
 
-      {/* Photo Carousel */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-10">Activitățile Noastre</h2>
+      <Sheet>
+        <section className="pb-16 pt-16 lg:pt-20">
+          <div className="shell">
+            <SectionTitle before="Din" script="activitatea" after="noastră" tone="pink" />
+          </div>
+          <div className="mt-8">
+            <PhotoCarousel />
+          </div>
+        </section>
 
-          <div className="relative w-full max-w-5xl mx-auto h-[400px] md:h-[500px] overflow-hidden rounded-xl shadow-lg">
-            {carouselImages.map((image, index) => (
-              <div
-                key={index}
-                className={`absolute w-full h-full transition-all duration-300 ease-in-out transform ${
-                  index === currentSlide ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'
-                }`}
-              >
-                <div className="relative w-full h-full">
-                  <Image
-                    src={image}
-                    alt={`CTR Activity ${index + 1}`}
-                    fill
-                    style={{ objectFit: 'cover' }}
-                  />
-                </div>
-              </div>
-            ))}
-
-            {/* Prev */}
-            <button
-              onClick={prevSlide}
-              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 shadow-md z-10"
-              aria-label="Previous slide"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-            
-            <button
-              onClick={nextSlide}
-              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 shadow-md z-10"
-              aria-label="Next slide"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-
-            {/* Dots */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
-              {carouselImages.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => goToSlide(index)}
-                  className={`w-2.5 h-2.5 rounded-full ${
-                    index === currentSlide ? 'bg-primary' : 'bg-gray-300'
-                  }`}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
+        <section className="relative bg-ctr-blue py-20 text-white lg:py-28">
+          <div className="pointer-events-none absolute -right-6 -top-10 w-[30%] max-w-[300px]" aria-hidden>
+            <Image src="/assets/design/splatter-black.png" alt="" width={716} height={992} className="h-auto w-full" />
+          </div>
+          <div className="shell relative">
+            <SectionTitle before="Ce ne" script="motivează" after="?" tone="ink" light />
+            <div className="mt-16 grid gap-14 md:grid-cols-2 md:gap-10 lg:gap-16">
+              {[
+                {
+                  label: "Misiunea noastră",
+                  tone: "yellow" as const,
+                  rotate: -3,
+                  text: "Să reprezentăm vocea tinerilor în procesele decizionale și să implementăm proiecte care contribuie la dezvoltarea socială, educațională și profesională a acestora.",
+                },
+                {
+                  label: "Viziunea noastră",
+                  tone: "pink" as const,
+                  rotate: 3,
+                  text: "O societate în care tinerii sunt implicați activ în dezvoltarea comunităților, având acces la oportunități și resurse pentru a-și împlini potențialul.",
+                },
+              ].map((c, i) => (
+                <motion.div
+                  key={c.label}
+                  initial={{ opacity: 0, y: 50, rotate: 0 }}
+                  whileInView={{ opacity: 1, y: 0, rotate: c.rotate }}
+                  whileHover={{ rotate: 0, y: -8 }}
+                  viewport={{ once: true }}
+                  transition={{ type: "spring", stiffness: 110, damping: 15, delay: i * 0.12 }}
+                  className="paper-card relative px-8 pb-10 pt-14 text-ctr-ink sm:px-10"
+                >
+                  <h3 className={`absolute -top-5 text-2xl sm:text-[1.7rem] ${i ? "-right-3" : "-left-3"}`}>
+                    <TabLabel tone={c.tone}>{c.label}</TabLabel>
+                  </h3>
+                  <p className="text-lg leading-relaxed tracking-[0.02em] text-[#3a3a3a] sm:text-xl">{c.text}</p>
+                  <div className="scribble-underline mx-auto mt-8 h-3 w-[70%] opacity-70" aria-hidden />
+                </motion.div>
               ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Mission and Vision */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.4 }}
-              viewport={{ once: true }}
-              className="bg-white p-8 rounded-lg shadow-md"
-            >
-              <h3 className="text-2xl font-bold text-primary mb-4">Misiunea Noastră</h3>
-              <p className="text-gray-700">
-                Misiunea noastră este de a reprezenta vocea tinerilor în procesele decizionale și de a implementa proiecte ce contribuie la dezvoltarea socială, educațională și profesională a acestora.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.4, delay: 0.1 }}
-              viewport={{ once: true }}
-              className="bg-white p-8 rounded-lg shadow-md"
-            >
-              <h3 className="text-2xl font-bold text-primary mb-4">Viziunea Noastră</h3>
-              <p className="text-gray-700">
-                Viziunea noastră este o societate în care tinerii sunt implicați activ în dezvoltarea comunităților, având acces la oportunități și resurse pentru a-și împlini potențialul.
-              </p>
-            </motion.div>
+        <section className="relative overflow-hidden py-20 lg:py-28">
+          <div className="pointer-events-none absolute -left-10 top-10 w-[40%] max-w-[420px] opacity-60" aria-hidden>
+            <Image
+              src="/assets/design/ctr-pattern-faded.png"
+              alt=""
+              width={1400}
+              height={1350}
+              className="h-auto w-full"
+            />
           </div>
-        </div>
-      </section>
-
-      {/* Team Section */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-10">Echipa Noastră</h2>
-
-          {/* Tabs */}
-          <div className="flex justify-center mb-12">
-            <div className="inline-flex bg-gray-100 rounded-full p-1">
-              <button onClick={() => setActiveTab('leadership')} className={`px-6 py-2 rounded-full text-sm font-medium ${activeTab === 'leadership' ? 'bg-primary text-white' : 'text-gray-700'}`}>
-                Conducere
-              </button>
-              <button onClick={() => setActiveTab('executive')} className={`px-6 py-2 rounded-full text-sm font-medium ${activeTab === 'executive' ? 'bg-primary text-white' : 'text-gray-700'}`}>
-                Executiv
-              </button>
-              <button onClick={() => setActiveTab('media')} className={`px-6 py-2 rounded-full text-sm font-medium ${activeTab === 'media' ? 'bg-primary text-white' : 'text-gray-700'}`}>
-                Media
-              </button>
+          <div className="shell relative">
+            <SectionTitle before="Echipa" script="noastră" tone="blue" />
+            {departments.length > 1 && (
+              <div className="mt-10">
+                <PillTabs
+                  options={departments.map((d) => ({ id: d, label: departmentLabels[d] }))}
+                  value={activeTab}
+                  onChange={setActiveTab}
+                />
+              </div>
+            )}
+            <div className="mt-14 grid grid-cols-2 gap-x-5 gap-y-10 lg:grid-cols-4 lg:gap-8">
+              {members.map((member, i) => (
+                <motion.article
+                  key={member.id}
+                  initial={{ opacity: 0, y: 40, rotate: 0 }}
+                  whileInView={{ opacity: 1, y: 0, rotate: i % 2 ? 2.5 : -2.5 }}
+                  whileHover={{ rotate: 0, y: -10, scale: 1.02 }}
+                  viewport={{ once: true }}
+                  transition={{ type: "spring", stiffness: 120, damping: 15, delay: i * 0.08 }}
+                  className="mx-auto w-full max-w-[320px] rounded-[18px] bg-white p-2 pb-4 shadow-card sm:rounded-[22px] sm:p-3 sm:pb-6"
+                  style={{
+                    boxShadow: `0 0 0 6px ${frameColors[i % frameColors.length]}, 0 26px 40px -18px rgba(0,0,0,.4)`,
+                  }}
+                >
+                  <div className="relative aspect-[4/5] overflow-hidden rounded-[14px] bg-ctr-paper">
+                    <Image
+                      src={member.photo}
+                      alt={member.name}
+                      fill
+                      sizes="(max-width: 640px) 90vw, 25vw"
+                      className="object-cover grayscale transition-all duration-500 hover:grayscale-0"
+                      style={{ objectPosition: "center 30%" }}
+                    />
+                  </div>
+                  <div className="px-1 pt-3 text-center sm:px-2 sm:pt-5">
+                    <h3 className="text-base font-bold leading-tight sm:text-2xl">{member.name}</h3>
+                    <p className="mt-2 text-xs sm:text-lg">
+                      <TabLabel tone={(["blue", "pink", "yellow"] as const)[i % 3]}>{member.position}</TabLabel>
+                    </p>
+                    <a
+                      href={`mailto:${member.email}`}
+                      className="mt-3 inline-block break-all text-[10px] text-black/55 sm:text-sm underline-offset-4 hover:text-ctr-blue hover:underline"
+                    >
+                      {member.email}
+                    </a>
+                  </div>
+                </motion.article>
+              ))}
             </div>
           </div>
+        </section>
 
-          {/* Members */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {filteredMembers.map((member) => (
-              <div key={member.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:-translate-y-2 transition">
-                <div className="relative h-64 w-full bg-gray-200">
-                  <Image
-                    src={member.photo}
-                    alt={member.name}
-                    fill
-                    style={{ objectFit: 'cover', objectPosition: 'center 30%' }}
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold">{member.name}</h3>
-                  <p className="text-primary">{member.position}</p>
-                  <a href={`mailto:${member.email}`} className="text-sm text-gray-600">
-                    {member.email}
-                  </a>
-                </div>
-              </div>
-            ))}
+        <section
+          id="afilieri"
+          className="relative scroll-mt-28 rounded-t-[50%_48px] bg-ctr-yellow pb-24 pt-20 lg:rounded-t-[50%_70px] lg:pt-28"
+        >
+          <div
+            className="bg-dots-white pointer-events-none absolute right-0 top-24 h-48 w-40 opacity-70 [mask-image:linear-gradient(270deg,#000,transparent)]"
+            aria-hidden
+          />
+          <div className="shell relative">
+            <SectionTitle before="Afilierea" script="CTR" tone="ink" />
+            <h3 className="mb-6 mt-14 text-center font-cond text-4xl font-black" style={stickers.blackOnWhite}>
+              La nivel național
+            </h3>
+            <AffiliationGrid items={affiliations.national} />
+            <h3 className="mb-6 mt-16 text-center font-cond text-4xl font-black" style={stickers.blueLabel}>
+              La nivel internațional
+            </h3>
+            <AffiliationGrid items={affiliations.international} />
           </div>
-        </div>
-      </section>
+        </section>
+      </Sheet>
     </MainLayout>
   );
 }

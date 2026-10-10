@@ -1,22 +1,35 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaFacebook, FaInstagram, FaLinkedin } from 'react-icons/fa';
-import MainLayout from '../components/layout/MainLayout';
-import PageHero from '../components/PageHero';
-import { dataInfo } from "../content/data";
+import { useState } from "react";
+import Head from "next/head";
+import { motion } from "framer-motion";
+import {
+  FaEnvelope,
+  FaFacebookF,
+  FaInstagram,
+  FaLinkedinIn,
+  FaMapMarkerAlt,
+  FaPhoneAlt,
+  FaTiktok,
+} from "react-icons/fa";
+import MainLayout from "../components/layout/MainLayout";
+import PageHero from "../components/PageHero";
+import { Sheet, TabLabel } from "../components/ui/Sheet";
+import { settings, socialLinks } from "../lib/site";
+
+const socialIcons = {
+  Facebook: FaFacebookF,
+  Instagram: FaInstagram,
+  LinkedIn: FaLinkedinIn,
+  TikTok: FaTiktok,
+} as const;
+const socialColors = ["#5B8FFF", "#FE558E", "#FED653", "#0A0A0A"];
+
+const inputClass =
+  "w-full rounded-2xl border-2 border-black/10 bg-ctr-paper px-5 py-3.5 text-lg outline-none transition-all placeholder:text-black/35 focus:border-ctr-blue focus:bg-white focus:shadow-[0_0_0_4px_rgba(91,143,255,.2)] disabled:opacity-60";
 
 const ContactPage = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
+  const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<{
-    success?: boolean;
-    message?: string;
-  }>({});
+  const [submitStatus, setSubmitStatus] = useState<{ success?: boolean; message?: string }>({});
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,194 +37,170 @@ const ContactPage = () => {
     setSubmitStatus({});
 
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
       const data = await response.json();
-      
+
       if (response.ok) {
-        setSubmitStatus({
-          success: true,
-          message: data.message || 'Mesajul a fost trimis cu succes!',
-        });
-        // Reset form on success
-        setFormData({
-          name: '',
-          email: '',
-          subject: '',
-          message: ''
-        });
+        setSubmitStatus({ success: true, message: data.message || "Mesajul a fost trimis cu succes!" });
+        setFormData({ name: "", email: "", subject: "", message: "" });
       } else {
         setSubmitStatus({
           success: false,
-          message: data.message || 'A apărut o eroare. Vă rugăm să încercați din nou.',
+          message: data.message || "A apărut o eroare. Vă rugăm să încercați din nou.",
         });
       }
     } catch (error) {
-      setSubmitStatus({
-        success: false,
-        message: 'A apărut o eroare de conexiune. Vă rugăm să încercați din nou.',
-      });
-      console.error('Error submitting form:', error);
+      setSubmitStatus({ success: false, message: "A apărut o eroare de conexiune. Vă rugăm să încercați din nou." });
+      console.error("Error submitting form:", error);
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  const details = [
+    { icon: FaEnvelope, label: "Email", value: settings.email, href: `mailto:${settings.email}` },
+    { icon: FaPhoneAlt, label: "Telefon", value: settings.phone, href: `tel:${settings.phone.replace(/\s/g, "")}` },
+    { icon: FaMapMarkerAlt, label: "Adresă", value: settings.address },
+  ];
 
   return (
     <MainLayout>
-      <PageHero 
-        title="Contactează-ne"
-        description="Suntem aici să răspundem la întrebările tale și să te ajutăm cu orice informații ai nevoie."
+      <Head>
+        <title>Contact | CTR</title>
+        <meta name="description" content="Contactează Consiliul Tineretului din România." />
+      </Head>
+
+      <PageHero
+        title="Hai să"
+        script="vorbim!"
+        accent="yellow"
+        description="Suntem aici să răspundem la întrebările tale și să te ajutăm cu orice informație ai nevoie."
       />
-      
-      <div className="min-h-screen pb-16 relative z-10">
-        <div className="container mx-auto px-6 pt-16">
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-            {/* Contact Information - Increase padding and font sizes */}
+      <Sheet>
+        <section className="relative py-16 lg:py-24">
+          <div className="shell grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12">
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="bg-white rounded-2xl shadow-xl p-10"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="relative overflow-hidden rounded-[30px] bg-ctr-blue p-8 text-white shadow-card sm:p-10"
             >
-              <h2 className="text-3xl font-bold text-gray-900 mb-8">Informații de Contact</h2>
-              
-              <div className="space-y-8">
-                <div className="flex items-start space-x-5">
-                  <div className="bg-red-100 p-4 rounded-full">
-                    <FaEnvelope className="text-red-600 text-2xl" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 text-xl">Email</h3>
-                    <p className="text-gray-600 text-lg">{dataInfo.email}</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-5">
-                  <div className="bg-yellow-100 p-4 rounded-full">
-                    <FaPhone className="text-yellow-600 text-2xl" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 text-xl">Telefon</h3>
-                    <p className="text-gray-600 text-lg">{dataInfo.phone}</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-5">
-                  <div className="bg-red-100 p-4 rounded-full">
-                    <FaMapMarkerAlt className="text-red-600 text-2xl" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 text-xl">Adresă</h3>
-                    <p className="text-gray-600 text-lg">{dataInfo.address}</p>
-                  </div>
-                </div>
+              <div className="pointer-events-none absolute -bottom-6 -right-6 w-44 opacity-80" aria-hidden>
+                <img src="/assets/design/scribble-white.png" alt="" className="h-auto w-full" />
               </div>
+              <h2 className="text-3xl font-bold sm:text-4xl">
+                <TabLabel tone="yellow">Date de contact</TabLabel>
+              </h2>
+              <ul className="mt-10 space-y-7">
+                {details.map((d) => (
+                  <li key={d.label} className="flex items-start gap-5">
+                    <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white text-2xl text-ctr-ink shadow-lg">
+                      <d.icon />
+                    </span>
+                    <div>
+                      <span className="block text-sm font-semibold uppercase tracking-[0.15em] text-white/70">
+                        {d.label}
+                      </span>
+                      {d.href ? (
+                        <a href={d.href} className="text-xl font-bold hover:underline">
+                          {d.value}
+                        </a>
+                      ) : (
+                        <span className="text-xl font-bold">{d.value}</span>
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ul>
 
-              <div className="mt-10">
-                <h3 className="font-semibold text-gray-900 text-xl mb-5">Urmărește-ne</h3>
-                  <div className="flex space-x-5">
-                      {dataInfo.socials.map((social) => {
-                          const Icon =
-                              social.name === "Facebook"
-                                  ? FaFacebook
-                                  : social.name === "Instagram"
-                                      ? FaInstagram
-                                      : FaLinkedin;
-
-                          const hoverColor =
-                              social.name === "Facebook"
-                                  ? "hover:bg-red-100 hover:text-red-600"
-                                  : social.name === "Instagram"
-                                      ? "hover:bg-yellow-100 hover:text-yellow-600"
-                                      : "hover:bg-red-100 hover:text-red-600";
-
-                          return (
-                              <a
-                                  key={social.name}
-                                  href={social.url}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className={`bg-gray-100 p-4 rounded-full transition-colors ${hoverColor}`}
-                              >
-                                  <Icon className="text-gray-600 text-2xl" />
-                              </a>
-                          );
-                      })}
-                  </div>
+              <h3 className="mt-12 text-sm font-semibold uppercase tracking-[0.15em] text-white/70">Urmărește-ne</h3>
+              <div className="mt-4 flex flex-wrap gap-3">
+                {socialLinks.map((social, i) => {
+                  const Icon = socialIcons[social.name as keyof typeof socialIcons] ?? FaLinkedinIn;
+                  return (
+                    <a
+                      key={social.name}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={social.name}
+                      className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-xl text-ctr-ink transition-all duration-300 hover:-translate-y-1 hover:rotate-[-8deg]"
+                      style={{ boxShadow: `0 6px 0 ${socialColors[i % socialColors.length]}` }}
+                    >
+                      <Icon />
+                    </a>
+                  );
+                })}
               </div>
             </motion.div>
 
-            {/* Contact Form - Increase padding, font sizes, and input heights */}
             <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="bg-white rounded-2xl shadow-xl p-10"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="paper-card p-8 sm:p-10"
             >
-              <h2 className="text-3xl font-bold text-gray-900 mb-8">Trimite-ne un mesaj</h2>
-              
-              {submitStatus.success && (
-                <div className="bg-green-50 border border-green-200 text-green-700 px-6 py-4 rounded-lg mb-6">
-                  <p className="font-medium">{submitStatus.message}</p>
+              <h2 className="text-3xl font-bold sm:text-4xl">
+                Trimite-ne un <span className="font-script font-normal text-ctr-pink">mesaj</span>
+              </h2>
+
+              {submitStatus.message && (
+                <div
+                  className={`mt-6 rounded-2xl px-5 py-4 font-semibold ${
+                    submitStatus.success ? "bg-ctr-blue/10 text-ctr-blue" : "bg-ctr-pink/10 text-ctr-pink"
+                  }`}
+                  role="status"
+                >
+                  {submitStatus.message}
                 </div>
               )}
 
-              {submitStatus.success === false && (
-                <div className="bg-red-50 border border-red-200 text-red-700 px-6 py-4 rounded-lg mb-6">
-                  <p className="font-medium">{submitStatus.message}</p>
+              <form onSubmit={handleSubmit} className="mt-8 space-y-5">
+                <div className="grid gap-5 sm:grid-cols-2">
+                  <div>
+                    <label htmlFor="name" className="mb-2 block font-bold">
+                      Nume
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      className={inputClass}
+                      required
+                      disabled={isSubmitting}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="mb-2 block font-bold">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      className={inputClass}
+                      required
+                      disabled={isSubmitting}
+                    />
+                  </div>
                 </div>
-              )}
-              
-              <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="name" className="block text-lg font-medium text-gray-700 mb-2">
-                    Nume
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="w-full px-5 py-3 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors"
-                    required
-                    disabled={isSubmitting}
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="email" className="block text-lg font-medium text-gray-700 mb-2">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-full px-5 py-3 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors"
-                    required
-                    disabled={isSubmitting}
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="subject" className="block text-lg font-medium text-gray-700 mb-2">
+                  <label htmlFor="subject" className="mb-2 block font-bold">
                     Subiect
                   </label>
                   <input
@@ -220,14 +209,13 @@ const ContactPage = () => {
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    className="w-full px-5 py-3 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors"
+                    className={inputClass}
                     required
                     disabled={isSubmitting}
                   />
                 </div>
-
                 <div>
-                  <label htmlFor="message" className="block text-lg font-medium text-gray-700 mb-2">
+                  <label htmlFor="message" className="mb-2 block font-bold">
                     Mesaj
                   </label>
                   <textarea
@@ -236,7 +224,7 @@ const ContactPage = () => {
                     value={formData.message}
                     onChange={handleChange}
                     rows={5}
-                    className="w-full px-5 py-3 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors"
+                    className={inputClass}
                     required
                     disabled={isSubmitting}
                   />
@@ -244,30 +232,39 @@ const ContactPage = () => {
 
                 <button
                   type="submit"
-                  className={`w-full bg-gradient-to-r from-red-600 to-yellow-500 text-white font-semibold py-4 px-6 text-lg rounded-lg transition-colors transform hover:scale-[1.02] mt-4 ${
-                    isSubmitting ? 'opacity-70 cursor-not-allowed from-red-400 to-yellow-400' : 'hover:from-red-700 hover:to-yellow-600'
-                  }`}
+                  className="btn-pill group w-full bg-ctr-pink py-4 text-lg text-white shadow-[0_16px_30px_-12px_rgba(254,85,142,.7)] hover:bg-ctr-ink disabled:cursor-not-allowed disabled:opacity-70"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (
-                    <span className="flex items-center justify-center">
-                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    <>
+                      <svg
+                        className="h-5 w-5 animate-spin"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                        />
                       </svg>
                       Se trimite...
-                    </span>
+                    </>
                   ) : (
-                    'Trimite Mesajul'
+                    <>
+                      Trimite mesajul <span className="transition-transform group-hover:translate-x-1">→</span>
+                    </>
                   )}
                 </button>
               </form>
             </motion.div>
           </div>
-        </div>
-      </div>
+        </section>
+      </Sheet>
     </MainLayout>
   );
 };
 
-export default ContactPage; 
+export default ContactPage;

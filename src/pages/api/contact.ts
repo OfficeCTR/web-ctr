@@ -1,5 +1,5 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-import nodemailer from 'nodemailer';
+import type { NextApiRequest, NextApiResponse } from "next";
+import nodemailer from "nodemailer";
 
 type ContactFormData = {
   name: string;
@@ -14,36 +14,31 @@ type ResponseData = {
   debug?: any;
 };
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<ResponseData>
-) {
-  // Only allow POST requests
-  if (req.method !== 'POST') {
-    return res.status(405).json({ success: false, message: 'Method not allowed' });
+export default async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ success: false, message: "Method not allowed" });
   }
 
   try {
     const { name, email, subject, message } = req.body as ContactFormData;
 
-    // Validate input
     if (!name || !email || !subject || !message) {
-      return res.status(400).json({ 
-        success: false, 
-        message: 'Toate câmpurile sunt obligatorii' 
+      return res.status(400).json({
+        success: false,
+        message: "Toate câmpurile sunt obligatorii",
       });
     }
 
-    console.log('Creating email transporter with settings:', {
+    console.log("Creating email transporter with settings:", {
       host: process.env.EMAIL_SERVER,
       port: Number(process.env.EMAIL_PORT),
-      secure: process.env.EMAIL_PORT === '465',
+      secure: process.env.EMAIL_PORT === "465",
     });
 
     const transporter = nodemailer.createTransport({
       host: process.env.EMAIL_SERVER,
       port: Number(process.env.EMAIL_PORT),
-      secure: process.env.EMAIL_PORT === '465', // true for 465, false for other ports
+      secure: process.env.EMAIL_PORT === "465",
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASSWORD,
@@ -51,18 +46,18 @@ export default async function handler(
       debug: true,
       connectionTimeout: 10000,
       tls: {
-        rejectUnauthorized: false 
-      }
+        rejectUnauthorized: false,
+      },
     });
 
-    console.log('Verifying mail server connection...');
+    console.log("Verifying mail server connection...");
     await transporter.verify();
-    console.log('Mail server connection verified successfully.');
+    console.log("Mail server connection verified successfully.");
 
     const mailOptions = {
       from: `"Formular de Contact CTR" <${process.env.EMAIL_USER}>`,
       replyTo: email,
-      to: 'office@ctr.ro',
+      to: "office@ctr.ro",
       subject: `Mesaj nou pe ctr.ro: ${subject}`,
       text: `
 Nume: ${name}
@@ -91,31 +86,31 @@ ${message}
   </table>
   <div style="margin-top: 20px;">
     <h3 style="color: #333;">Mesaj:</h3>
-    <p style="line-height: 1.6; background: #f9f9f9; padding: 15px; border-radius: 4px;">${message.replace(/\n/g, '<br>')}</p>
+    <p style="line-height: 1.6; background: #f9f9f9; padding: 15px; border-radius: 4px;">${message.replace(/\n/g, "<br>")}</p>
   </div>
 </div>
-      `
+      `,
     };
 
-    console.log('Attempting to send email...');
+    console.log("Attempting to send email...");
     const info = await transporter.sendMail(mailOptions);
-    console.log('Email sent successfully:', info.response);
+    console.log("Email sent successfully:", info.response);
 
-    return res.status(200).json({ 
-      success: true, 
-      message: 'Mesajul a fost trimis cu succes!' 
+    return res.status(200).json({
+      success: true,
+      message: "Mesajul a fost trimis cu succes!",
     });
   } catch (error: any) {
-    console.error('Error sending email:', error);
+    console.error("Error sending email:", error);
 
-    return res.status(500).json({ 
-      success: false, 
-      message: 'A apărut o eroare la trimiterea mesajului. Vă rugăm să încercați din nou.',
+    return res.status(500).json({
+      success: false,
+      message: "A apărut o eroare la trimiterea mesajului. Vă rugăm să încercați din nou.",
       debug: {
-        error: error.message || 'Unknown error',
-        code: error.code || 'NO_CODE',
-        command: error.command || 'NO_COMMAND'
-      }
+        error: error.message || "Unknown error",
+        code: error.code || "NO_CODE",
+        command: error.command || "NO_COMMAND",
+      },
     });
   }
-} 
+}

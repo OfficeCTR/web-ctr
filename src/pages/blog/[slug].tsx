@@ -1,43 +1,40 @@
 import { type GetStaticProps, type NextPage } from "next";
+import Head from "next/head";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import MainLayout from "../../components/layout/MainLayout";
 import { motion } from "framer-motion";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { getArticleBySlug, getAllArticles, Article } from "../../utils/markdown";
+import MainLayout from "../../components/layout/MainLayout";
+import ArticleCards from "../../components/ArticleCards";
+import { SectionTitle, Sheet, TabLabel } from "../../components/ui/Sheet";
+import { getArticle, getArticles } from "../../lib/content";
+import type { Article } from "../../lib/types";
 
 interface ArticlePageProps {
   article: Article | null;
+  related: Omit<Article, "content">[];
 }
 
-const ArticlePage: NextPage<ArticlePageProps> = ({ article }) => {
+const ArticlePage: NextPage<ArticlePageProps> = ({ article, related }) => {
   const router = useRouter();
 
-  if (router.isFallback) {
+  if (router.isFallback || !article) {
     return (
       <MainLayout>
-        <div className="min-h-screen flex items-center justify-center">
-          <p className="text-xl">Se încarcă articolul...</p>
-        </div>
-      </MainLayout>
-    );
-  }
-
-  if (!article) {
-    return (
-      <MainLayout>
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="text-center">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">Articolul nu a fost găsit</h1>
-            <p className="text-gray-600 mb-8">Ne pare rău, dar articolul pe care îl cauți nu există.</p>
-            <button
-              onClick={() => router.push('/')}
-              className="bg-yellow-400 text-[#0B1C3D] px-8 py-4 rounded-full font-semibold hover:bg-yellow-300 transition-colors"
-            >
-              Înapoi la pagina principală
-            </button>
-          </div>
+        <div className="flex min-h-screen items-center justify-center bg-black px-5 text-center text-white">
+          {router.isFallback ? (
+            <p className="font-script text-4xl text-ctr-blue">Se încarcă articolul...</p>
+          ) : (
+            <div>
+              <h1 className="text-4xl font-bold">Articolul nu a fost găsit</h1>
+              <p className="mt-4 text-white/70">Ne pare rău, dar articolul pe care îl cauți nu există.</p>
+              <Link href="/" className="btn-pill mt-8 bg-ctr-yellow text-ctr-ink">
+                Înapoi acasă
+              </Link>
+            </div>
+          )}
         </div>
       </MainLayout>
     );
@@ -45,194 +42,144 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ article }) => {
 
   return (
     <MainLayout>
-      <article className="min-h-screen">
-        <div className="relative">
-          <div className="relative h-[60vh] w-full">
-            <Image
-              src={article.coverImage}
-              alt={article.title}
-              fill
-              className="object-cover"
-              priority
-              sizes="100vw"
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
+      <Head>
+        <title>{article.title} | CTR</title>
+        <meta name="description" content={article.excerpt} />
+      </Head>
+
+      <article>
+        <header className="relative overflow-hidden bg-black pb-48 pt-32 text-white sm:pt-40 lg:pb-60 lg:pt-48">
+          <Image src={article.coverImage} alt="" fill priority sizes="100vw" className="object-cover opacity-45" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black" />
+          <div className="pointer-events-none absolute -right-10 top-24 w-[34%] max-w-[360px] opacity-80" aria-hidden>
+            <Image src="/assets/design/hero-splatter.png" alt="" width={668} height={842} className="h-auto w-full" />
           </div>
-          
-          <div className="relative -mt-20 z-10">
-            <div className="container mx-auto px-4">
-              <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-8 md:p-12">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6 }}
-                >
-                  <div className="flex flex-wrap gap-4 mb-6">
-                    <span className="inline-block px-4 py-2 bg-yellow-400 text-[#0B1C3D] rounded-full text-sm font-semibold">
-                      {article.category}
-                    </span>
-                    <span className="inline-block px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm">
-                      {new Date(article.publishedAt).toLocaleDateString('ro-RO', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                      })}
-                    </span>
-                  </div>
-                  
-                  <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-8 leading-tight">
-                    {article.title}
-                  </h1>
-                  
-                  <div className="flex items-center space-x-4">
-                    <div className="relative w-12 h-12 rounded-full overflow-hidden">
-                      <Image
-                        src={article.author.avatar}
-                        alt={article.author.name}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div>
-                      <p className="font-medium text-gray-900">{article.author.name}</p>
-                      <p className="text-sm text-gray-500">Autor</p>
-                    </div>
-                  </div>
-                </motion.div>
+          <div className="relative mx-auto max-w-4xl px-5 sm:px-8">
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+              <div className="flex flex-wrap items-center gap-3 text-sm sm:text-base">
+                <TabLabel tone="yellow">{article.category}</TabLabel>
+                <span className="text-white/70">
+                  {new Date(article.publishedAt).toLocaleDateString("ro-RO", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </span>
               </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="container mx-auto px-4 py-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="max-w-4xl mx-auto prose prose-lg prose-yellow 
-              prose-headings:font-bold prose-headings:text-gray-900 prose-headings:mt-8 prose-headings:mb-4
-              prose-h1:text-4xl prose-h1:mb-6 prose-h1:mt-12
-              prose-h2:text-3xl prose-h2:mb-4 prose-h2:mt-8
-              prose-p:text-gray-700 prose-p:leading-relaxed prose-p:mb-4
-              prose-ul:list-disc prose-ul:pl-6 prose-ul:my-4
-              prose-li:text-gray-700 prose-li:mb-2
-              prose-strong:text-gray-900
-              prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline"
-          >
-            <ReactMarkdown
-              remarkPlugins={[remarkGfm]}
-              components={{
-                p: ({ children }) => {
-                  const text = children?.toString() || '';
-                  
-                  if (text.startsWith('[-]')) {
-                    const bulletPoint = text.replace('[-]', '').trim();
-                    return (
-                      <ul className="list-disc pl-6 my-4">
-                        <li className="text-gray-700 mb-2">{bulletPoint}</li>
-                      </ul>
-                    );
-                  }
-                  
-                  return <p className="text-gray-700 leading-relaxed mb-4">{children}</p>;
-                },
-                h1: ({ children }) => (
-                  <h1 className="text-4xl font-bold text-gray-900 mb-6 mt-12">{children}</h1>
-                ),
-                h2: ({ children }) => (
-                  <h2 className="text-3xl font-bold text-gray-900 mb-4 mt-8">{children}</h2>
-                ),
-                a: ({ children, href }) => (
-                  <a href={href} className="text-blue-600 no-underline hover:underline">
-                    {children}
-                  </a>
-                ),
-                ul: ({ children }) => (
-                  <ul className="list-disc pl-6 my-4 space-y-2">
-                    {children}
-                  </ul>
-                ),
-                li: ({ children }) => (
-                  <li className="text-gray-700">{children}</li>
-                ),
-              }}
-            >
-              {article.content}
-            </ReactMarkdown>
-          </motion.div>
-        </div>
-
-        <div className="bg-gray-50 py-16">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="max-w-4xl mx-auto"
-            >
-              <h2 className="text-3xl font-bold mb-8">Articole similare</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {/* Add related articles here */}
+              <h1 className="mt-6 text-4xl font-bold leading-[1.05] sm:text-5xl lg:text-6xl">{article.title}</h1>
+              <div className="mt-8 flex items-center gap-4">
+                <div className="relative h-12 w-12 overflow-hidden rounded-full ring-4 ring-ctr-blue">
+                  <Image src={article.author.avatar} alt={article.author.name} fill className="object-cover" />
+                </div>
+                <div>
+                  <p className="font-bold">{article.author.name}</p>
+                  <p className="text-sm text-white/60">Autor</p>
+                </div>
               </div>
             </motion.div>
           </div>
-        </div>
+        </header>
+
+        <Sheet>
+          <div className="mx-auto max-w-3xl px-5 py-16 sm:px-8 lg:py-20">
+            <div className="relative -mt-36 mb-12 aspect-[16/9] overflow-hidden rounded-[26px] border-[6px] border-white bg-white shadow-card lg:-mt-44">
+              <Image
+                src={article.coverImage}
+                alt={article.title}
+                fill
+                sizes="(max-width: 768px) 100vw, 768px"
+                className="object-cover"
+              />
+            </div>
+            <div className="text-lg leading-relaxed text-black/80">
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                components={{
+                  p: ({ children }) => {
+                    const text = children?.toString() || "";
+                    if (text.startsWith("[-]")) {
+                      return (
+                        <ul className="my-4 list-disc pl-6 marker:text-ctr-pink">
+                          <li className="mb-2">{text.replace("[-]", "").trim()}</li>
+                        </ul>
+                      );
+                    }
+                    return <p className="mb-5">{children}</p>;
+                  },
+                  h1: ({ children }) => (
+                    <h2 className="mb-5 mt-12 text-3xl font-bold leading-tight text-ctr-ink sm:text-4xl">{children}</h2>
+                  ),
+                  h2: ({ children }) => (
+                    <h2 className="mb-4 mt-10 text-2xl font-bold leading-tight text-ctr-ink sm:text-3xl">{children}</h2>
+                  ),
+                  h3: ({ children }) => <h3 className="mb-3 mt-8 text-xl font-bold text-ctr-ink">{children}</h3>,
+                  a: ({ children, href }) => (
+                    <a
+                      href={href}
+                      className="font-semibold text-ctr-blue underline decoration-ctr-yellow decoration-[3px] underline-offset-4 hover:text-ctr-pink"
+                    >
+                      {children}
+                    </a>
+                  ),
+                  strong: ({ children }) => <strong className="font-bold text-ctr-ink">{children}</strong>,
+                  ul: ({ children }) => (
+                    <ul className="my-5 list-disc space-y-2 pl-6 marker:text-ctr-pink">{children}</ul>
+                  ),
+                  ol: ({ children }) => (
+                    <ol className="my-5 list-decimal space-y-2 pl-6 marker:font-bold marker:text-ctr-blue">
+                      {children}
+                    </ol>
+                  ),
+                  img: ({ src, alt }) => (
+                    <span className="my-8 block">
+                      <img
+                        src={typeof src === "string" ? src : ""}
+                        alt={alt ?? ""}
+                        className="w-full rounded-[22px] shadow-card"
+                        loading="lazy"
+                      />
+                      {alt && <span className="mt-3 block text-center text-sm text-black/50">{alt}</span>}
+                    </span>
+                  ),
+                  blockquote: ({ children }) => (
+                    <blockquote className="my-8 rounded-[22px] border-l-[6px] border-ctr-yellow bg-ctr-paper px-6 py-4 text-xl font-semibold italic">
+                      {children}
+                    </blockquote>
+                  ),
+                }}
+              >
+                {article.content}
+              </ReactMarkdown>
+            </div>
+          </div>
+
+          {related.length > 0 && (
+            <section className="rounded-t-[50%_48px] bg-ctr-yellow pb-24 pt-20 lg:rounded-t-[50%_70px]">
+              <div className="shell">
+                <SectionTitle before="Citește și" script="altele" tone="ink" />
+                <div className="mt-12">
+                  <ArticleCards articles={related} />
+                </div>
+              </div>
+            </section>
+          )}
+        </Sheet>
       </article>
     </MainLayout>
   );
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  try {
-    const slug = params?.slug as string;
-    if (!slug) {
-      return {
-        notFound: true,
-      };
-    }
-
-    const article = await getArticleBySlug(slug);
-    if (!article) {
-      return {
-        notFound: true,
-      };
-    }
-
-    return {
-      props: {
-        article,
-      },
-      revalidate: 60,
-    };
-  } catch (error) {
-    console.error('Error fetching article:', error);
-    return {
-      notFound: true,
-    };
-  }
+  const slug = params?.slug as string;
+  const article = slug ? await getArticle(slug) : null;
+  if (!article) return { notFound: true };
+  const related = (await getArticles()).filter((a) => a.slug !== slug).slice(0, 3);
+  return { props: { article, related } };
 };
 
-export const getStaticPaths = async () => {
-  try {
-    const articles = await getAllArticles();
-    const paths = articles.map((article: Article) => ({
-      params: { slug: article.slug },
-    }));
+export const getStaticPaths = async () => ({
+  paths: (await getArticles()).map((a) => ({ params: { slug: a.slug } })),
+  fallback: false,
+});
 
-    console.log('Generated paths:', paths);
-
-    return {
-      paths,
-      fallback: 'blocking',
-    };
-  } catch (error) {
-    console.error('Error generating paths:', error);
-    return {
-      paths: [],
-      fallback: 'blocking',
-    };
-  }
-};
-
-export default ArticlePage; 
+export default ArticlePage;
