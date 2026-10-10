@@ -227,7 +227,7 @@ export const SiteFooter = () => (
           &copy; {new Date().getFullYear()} Federația Consiliul Tineretului din România · CUI {settings.vat}
         </p>
         <p>
-          Creat cu &#x2661; de{" "}
+          Cod scris cu &#x2661; de{" "}
           <a href="https://www.linkedin.com/in/crares/" className="text-white/70 hover:text-white">
             Rareș Cotoi
           </a>
