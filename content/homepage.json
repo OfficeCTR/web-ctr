@@ -3,63 +3,63 @@
   "statOrganizations": 600,
   "featuredProjects": [
     {
-      "logo": "/uploads/homepage/featured/1.png",
+      "logo": "/uploads/homepage/featuredProjects/0/logo.png",
       "logoAlt": "Summitul Tinerilor 11",
       "text": "Locul de întâlnire al tinerilor care schimbă comunitățile din România.",
       "link": "/blog/summitul-tinerilor-editia-x-vaslui"
     },
     {
-      "logo": "/uploads/homepage/featured/2.png",
-      "logoAlt": "București HPV Free City",
-      "text": "Coaliția pentru educație, sănătate publică și prevenția HPV.",
-      "link": "/blog/ctr-bucuresti-hpv-free-city"
-    },
-    {
-      "logo": "/uploads/homepage/featured/3.png",
+      "logo": "/uploads/homepage/featuredProjects/1/logo.png",
       "logoAlt": "Capitala Tineretului din România",
       "text": "365 de zile de proiecte, spații de dialog și investiții dedicate tinerilor.",
       "link": "/capitala-tineretului"
     },
     {
-      "logo": "/uploads/homepage/featured/4.png",
+      "logo": "/uploads/homepage/featuredProjects/2/logo.png",
       "logoAlt": "Gala Tineretului din România",
       "text": "Celebrarea celor mai valoroase inițiative civice din România.",
       "link": "https://www.galatineretului.ro"
+    },
+    {
+      "logo": "/uploads/homepage/featuredProjects/3/logo.png",
+      "logoAlt": "Romanian Youth Conference",
+      "text": "Spațiul de lucru al elaborării politicilor publice de tineret.",
+      "link": "/blog/romanian-youth-conference"
     }
   ],
   "carouselPhotos": [
-    "/uploads/homepage/carousel/1.jpg",
-    "/uploads/homepage/carousel/2.jpg",
-    "/uploads/homepage/carousel/3.jpg",
-    "/uploads/homepage/carousel/4.jpg",
-    "/uploads/homepage/carousel/5.jpg",
-    "/uploads/homepage/carousel/6.jpg",
-    "/uploads/homepage/carousel/7.jpg",
-    "/uploads/homepage/carousel/8.jpg",
-    "/uploads/homepage/carousel/9.jpg",
-    "/uploads/homepage/carousel/10.jpg",
-    "/uploads/homepage/carousel/11.jpg",
-    "/uploads/homepage/carousel/12.jpg"
+    "/uploads/homepage/carouselPhotos/0.jpg",
+    "/uploads/homepage/carouselPhotos/1.jpg",
+    "/uploads/homepage/carouselPhotos/2.jpg",
+    "/uploads/homepage/carouselPhotos/3.jpg",
+    "/uploads/homepage/carouselPhotos/4.jpg",
+    "/uploads/homepage/carouselPhotos/5.jpg",
+    "/uploads/homepage/carouselPhotos/6.jpg",
+    "/uploads/homepage/carouselPhotos/7.jpg",
+    "/uploads/homepage/carouselPhotos/8.jpg",
+    "/uploads/homepage/carouselPhotos/9.jpg",
+    "/uploads/homepage/carouselPhotos/10.jpg",
+    "/uploads/homepage/carouselPhotos/11.jpg"
   ],
   "advocacyPosters": [
     {
-      "image": "/uploads/homepage/posters/1.jpg",
+      "image": "/uploads/homepage/advocacyPosters/0/image.jpg",
       "alt": "Tinerii și votul la prezidențiale"
     },
     {
-      "image": "/uploads/homepage/posters/2.jpg",
+      "image": "/uploads/homepage/advocacyPosters/1/image.jpg",
       "alt": "Pe 18 mai — mergi la vot"
     },
     {
-      "image": "/uploads/homepage/posters/3.jpg",
+      "image": "/uploads/homepage/advocacyPosters/2/image.jpg",
       "alt": "Propunerile tinerilor, studenților și elevilor pentru noul guvern"
     },
     {
-      "image": "/uploads/homepage/posters/4.jpg",
+      "image": "/uploads/homepage/advocacyPosters/3/image.jpg",
       "alt": "Bugete locale adecvate nevoilor tinerilor"
     },
     {
-      "image": "/uploads/homepage/posters/5.jpg",
+      "image": "/uploads/homepage/advocacyPosters/4/image.jpg",
       "alt": "Festivalul Democrației, 5–6 aprilie 2024"
     }
   ],
