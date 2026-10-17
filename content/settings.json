@@ -24,25 +24,21 @@
   "sponsors": [
     {
       "name": "Banca Comercială Română",
-      "logo": "/uploads/settings/sponsors/1.png",
-      "url": ""
+      "logo": "/uploads/settings/sponsors/0/logo.png"
     },
     {
       "name": "MSD",
-      "logo": "/uploads/settings/sponsors/2.png",
-      "url": ""
+      "logo": "/uploads/settings/sponsors/1/logo.png"
     },
     {
       "name": "Funded by the European Union",
-      "logo": "/uploads/settings/sponsors/3.png",
-      "url": ""
+      "logo": "/uploads/settings/sponsors/2/logo.png"
     }
   ],
   "partners": [
     {
       "name": "Ministerul Muncii, Familiei, Tineretului și Solidarității Sociale",
-      "logo": "/uploads/settings/partners/1.png",
-      "url": ""
+      "logo": "/uploads/settings/partners/0/logo.png"
     }
   ]
 }
