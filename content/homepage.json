@@ -10,21 +10,21 @@
     },
     {
       "logo": "/uploads/homepage/featuredProjects/1/logo.png",
+      "logoAlt": "Romanian Youth Conference",
+      "text": "Spațiul de lucru al elaborării politicilor publice de tineret.",
+      "link": "/blog/romanian-youth-conference"
+    },
+    {
+      "logo": "/uploads/homepage/featuredProjects/2/logo.png",
       "logoAlt": "Capitala Tineretului din România",
       "text": "365 de zile de proiecte, spații de dialog și investiții dedicate tinerilor.",
       "link": "/capitala-tineretului"
     },
     {
-      "logo": "/uploads/homepage/featuredProjects/2/logo.png",
+      "logo": "/uploads/homepage/featuredProjects/3/logo.png",
       "logoAlt": "Gala Tineretului din România",
       "text": "Celebrarea celor mai valoroase inițiative civice din România.",
       "link": "https://www.galatineretului.ro"
-    },
-    {
-      "logo": "/uploads/homepage/featuredProjects/3/logo.png",
-      "logoAlt": "Romanian Youth Conference",
-      "text": "Spațiul de lucru al elaborării politicilor publice de tineret.",
-      "link": "/blog/romanian-youth-conference"
     }
   ],
   "carouselPhotos": [
