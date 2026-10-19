@@ -71,7 +71,7 @@ export default config({
     navigation: {
       "📰 Conținut": ["articles", "opportunities", "projects"],
       "👥 Organizație": ["team", "organizations"],
-      "🏠 Pagini": ["homepage", "settings"],
+      "🏠 Pagini": ["homepage", "archive", "settings"],
     },
   },
 
@@ -290,7 +290,7 @@ export default config({
         }),
         region: fields.select({
           label: "Județ",
-          description: "Pentru organizațiile regionale — apare pe harta de pe pagina Membri.",
+          description: "Pentru organizațiile regionale — apare pe cardul organizației de pe pagina Membri.",
           options: [{ label: "— Fără județ —", value: "" }, ...counties.map((c) => ({ label: c, value: c }))],
           defaultValue: "",
         }),
@@ -324,10 +324,10 @@ export default config({
             link: fields.text({ label: "Link", description: linkHint }),
           }),
           {
-            label: "Secțiunea „Proiectele noastre” (4 carduri roz)",
-            description: "Exact 4 carduri, în ordinea în care apar pe site.",
+            label: "Secțiunea „Proiectele noastre” (carduri roz)",
+            description: "Între 1 și 5 carduri, în ordinea în care apar pe site. Logo-ul se centrează automat.",
             itemLabel: (p) => p.fields.logoAlt.value || "Card proiect",
-            validation: { length: { min: 4, max: 4 } },
+            validation: { length: { min: 1, max: 5 } },
           },
         ),
         carouselPhotos: fields.array(fields.image({ label: "Fotografie", ...uploads("homepage") }), {
@@ -347,17 +347,34 @@ export default config({
             validation: { length: { min: 5, max: 5 } },
           },
         ),
-        advocacyButtons: fields.array(
+        advocacyButton: fields.object(
+          {
+            label: fields.text({ label: "Text buton", defaultValue: "Descoperă inițiativele noastre" }),
+            link: fields.text({ label: "Link", description: linkHint, defaultValue: "/proiecte#blog" }),
+          },
+          { label: "Butonul galben „Inițiative de advocacy”" },
+        ),
+      },
+    }),
+
+    archive: singleton({
+      label: "Arhivă proiecte 2006–2016",
+      path: "content/archive",
+      format: { data: "json" },
+      previewUrl: "/proiecte",
+      schema: {
+        title: fields.text({ label: "Titlu", defaultValue: "Înainte de 2016" }),
+        description: fields.text({ label: "Text introductiv", multiline: true }),
+        photos: fields.array(
           fields.object({
-            line1: fields.text({ label: "Text — rândul 1" }),
-            line2: fields.text({ label: "Text — rândul 2" }),
-            link: fields.text({ label: "Link", description: linkHint }),
+            image: fields.image({ label: "Fotografie", ...uploads("archive") }),
+            caption: fields.text({ label: "Descriere (ex: Summitul Tinerilor 2012)" }),
+            year: fields.integer({ label: "Anul", validation: { min: 2000, max: 2016 } }),
           }),
           {
-            label: "Butoane galbene „Inițiative de advocacy”",
-            description: "Exact 3 butoane.",
-            itemLabel: (p) => `${p.fields.line1.value} ${p.fields.line2.value}`.trim() || "Buton",
-            validation: { length: { min: 3, max: 3 } },
+            label: "Galerie foto",
+            description: "Fotografii din proiectele CTR din perioada 2006–2016. Apar sub anul 2016 pe pagina Programe.",
+            itemLabel: (p) => [p.fields.year.value, p.fields.caption.value].filter(Boolean).join(" · ") || "Fotografie",
           },
         ),
       },

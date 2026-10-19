@@ -10,9 +10,9 @@
     },
     {
       "logo": "/uploads/homepage/featuredProjects/1/logo.png",
-      "logoAlt": "Romanian Youth Conference",
-      "text": "Spațiul de lucru al elaborării politicilor publice de tineret.",
-      "link": "/blog/romanian-youth-conference"
+      "logoAlt": "București HPV Free City",
+      "text": "Coaliția pentru educație, sănătate publică și prevenția HPV.",
+      "link": "/blog/ctr-bucuresti-hpv-free-city"
     },
     {
       "logo": "/uploads/homepage/featuredProjects/2/logo.png",
@@ -25,6 +25,12 @@
       "logoAlt": "Gala Tineretului din România",
       "text": "Celebrarea celor mai valoroase inițiative civice din România.",
       "link": "https://www.galatineretului.ro"
+    },
+    {
+      "logo": "/uploads/homepage/featuredProjects/4/logo.png",
+      "logoAlt": "Romanian Youth Conference",
+      "text": "Spațiul de lucru al elaborării politicilor publice de tineret.",
+      "link": "/blog/romanian-youth-conference"
     }
   ],
   "carouselPhotos": [
@@ -63,21 +69,8 @@
       "alt": "Festivalul Democrației, 5–6 aprilie 2024"
     }
   ],
-  "advocacyButtons": [
-    {
-      "line1": "Bugete Locale Adecvate",
-      "line2": "Pentru Tineri",
-      "link": "/blog/bugete-locale-adecvate-nevoilor-tinerilor"
-    },
-    {
-      "line1": "Prioritățile Tinerilor pe",
-      "line2": "Agenda Politică",
-      "link": "/blog/ce-propun-viitorii-europarlamentari-pentru-tineri"
-    },
-    {
-      "line1": "Implicare Electorală",
-      "line2": "& Observatori Independenți",
-      "link": "/proiecte"
-    }
-  ]
+  "advocacyButton": {
+    "label": "Descoperă inițiativele noastre",
+    "link": "/proiecte#blog"
+  }
 }

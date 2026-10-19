@@ -163,18 +163,15 @@ export const SocialWall = () => (
   </section>
 );
 
-const LogoRow = ({ items, height }: { items: typeof settings.sponsors; height: number }) => (
-  <div className="mt-8 flex flex-wrap items-center justify-center gap-5">
+const LogoRow = ({ items }: { items: typeof settings.sponsors }) => (
+  <div className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:flex-nowrap">
     {items
       .filter((s) => s.logo)
       .map((s) => {
         const img = (
-          <img
-            src={s.logo!}
-            alt={s.name}
-            style={{ height }}
-            className="w-auto transition-transform duration-300 hover:-translate-y-1"
-          />
+          <span className="flex h-[56px] w-[124px] items-center justify-center transition-transform duration-300 hover:-translate-y-1">
+            <img src={s.logo!} alt={s.name} className="max-h-full max-w-full object-contain" />
+          </span>
         );
         return s.url ? (
           <a key={s.name} href={s.url} target="_blank" rel="noopener noreferrer">
@@ -201,13 +198,13 @@ export const SiteFooter = () => (
           <h3 className="font-cond text-[44px] font-extrabold leading-none tracking-tight" style={stickers.inkLabel}>
             Sponsori
           </h3>
-          <LogoRow items={settings.sponsors} height={46} />
+          <LogoRow items={settings.sponsors} />
         </div>
         <div className="flex flex-col items-center">
           <h3 className="font-cond text-[44px] font-extrabold leading-none tracking-tight" style={stickers.inkLabel}>
             Parteneri
           </h3>
-          <LogoRow items={settings.partners} height={110} />
+          <LogoRow items={settings.partners} />
         </div>
       </div>
 

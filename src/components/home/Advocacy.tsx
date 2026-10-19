@@ -13,10 +13,7 @@ const posterLayout = [
 ];
 const posters = homepage.advocacyPosters.slice(0, 5).map((p, i) => ({ src: p.image, alt: p.alt, ...posterLayout[i] }));
 
-const buttonX = [148, 512, 877];
-const initiatives = homepage.advocacyButtons
-  .slice(0, 3)
-  .map((b, i) => ({ label: [b.line1, b.line2], href: b.link || "/", x: buttonX[i] }));
+const button = { label: homepage.advocacyButton.label, href: homepage.advocacyButton.link || "/proiecte#blog" };
 
 const Advocacy = () => (
   <section className="relative z-10 rounded-t-[50%_48px] bg-ctr-yellow lg:rounded-t-[50%_calc(var(--u)*70)]">
@@ -75,31 +72,24 @@ const Advocacy = () => (
         ))}
       </div>
 
-      <ul className="relative mx-auto mt-12 flex max-w-[480px] flex-col gap-5 lg:static lg:mt-0 lg:max-w-none">
-        {initiatives.map((it, i) => (
-          <motion.li
-            key={i}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.15 * i }}
-            className={`lg:h-[var(--h)] ${placed}`}
-            style={at(it.x, 579, 341, 90)}
-          >
-            <Link
-              href={it.href}
-              className="flex h-full min-h-[80px] items-center justify-center rounded-full bg-ctr-yellow px-6 text-center text-xl font-bold leading-[1.12] shadow-[0_16px_30px_-10px_rgba(150,110,0,.45),inset_0_0_0_1px_rgba(255,255,255,.35)] transition-all duration-300 hover:-translate-y-1.5 hover:bg-black hover:text-ctr-yellow lg:min-h-0 lg:text-[length:var(--fs)]"
-              style={fs(24)}
-            >
-              <span>
-                {it.label[0]}
-                <br />
-                {it.label[1]}
-              </span>
-            </Link>
-          </motion.li>
-        ))}
-      </ul>
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className={`relative mx-auto mt-12 max-w-[560px] lg:mt-0 lg:h-[var(--h)] lg:max-w-none ${placed}`}
+        style={at(148, 579, 1070, 90)}
+      >
+        <Link
+          href={button.href}
+          className="group flex h-full min-h-[72px] items-center justify-center gap-4 whitespace-nowrap rounded-full bg-ctr-yellow px-8 text-center text-lg font-bold shadow-[0_16px_30px_-10px_rgba(150,110,0,.45),inset_0_0_0_1px_rgba(255,255,255,.35)] transition-all duration-300 hover:-translate-y-1.5 hover:bg-black hover:text-ctr-yellow sm:text-xl lg:min-h-0 lg:text-[length:var(--fs)]"
+          style={fs(28)}
+        >
+          {button.label}
+          <span className="transition-transform duration-300 group-hover:translate-x-2" aria-hidden>
+            →
+          </span>
+        </Link>
+      </motion.div>
     </div>
   </section>
 );

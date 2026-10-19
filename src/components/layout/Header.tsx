@@ -41,7 +41,7 @@ const Header = () => {
     <>
       <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-[1.5%] sm:pt-4">
         <nav
-          className={`relative mx-auto flex max-w-[1326px] items-center justify-between overflow-hidden rounded-[18px] bg-gradient-to-r from-black via-[#1d1d1d] to-[#6b6b6b] pl-5 pr-4 text-white shadow-[0_18px_40px_-20px_rgba(0,0,0,0.6)] transition-all duration-500 sm:pl-[3.7%] sm:pr-[6%] ${
+          className={`relative mx-auto flex max-w-[1326px] items-center justify-between overflow-hidden rounded-[18px] bg-gradient-to-r from-black via-[#1d1d1d] to-[#6b6b6b] pl-5 pr-4 text-white shadow-[0_18px_40px_-20px_rgba(0,0,0,0.6)] transition-all duration-500 sm:pl-[3.7%] sm:pr-[3%] xl:pr-[4.5%] ${
             scrolled ? "h-[66px] lg:h-[78px]" : "h-[72px] lg:h-[118px] xl:h-[134px]"
           }`}
         >
@@ -53,19 +53,19 @@ const Header = () => {
               height={154}
               priority
               className={`h-auto transition-all duration-500 ${
-                scrolled ? "w-[170px] lg:w-[210px]" : "w-[170px] lg:w-[260px] xl:w-[315px]"
+                scrolled ? "w-[170px] lg:w-[clamp(170px,16vw,215px)]" : "w-[170px] lg:w-[clamp(190px,23vw,315px)]"
               }`}
             />
           </Link>
 
-          <ul className="hidden items-center gap-6 lg:flex xl:gap-10">
+          <ul className="ml-6 hidden items-center gap-[clamp(14px,2.2vw,40px)] lg:flex">
             {navItems.map((item) => {
               const active = pathname === item.path || pathname.startsWith(item.path + "/");
               return (
                 <li key={item.path}>
                   <Link
                     href={item.path}
-                    className="group relative font-cond text-[19px] font-semibold tracking-wide xl:text-[21px]"
+                    className="group relative whitespace-nowrap font-cond text-[clamp(16px,1.5vw,21px)] font-semibold tracking-wide"
                   >
                     {item.name}
                     <span
@@ -80,7 +80,7 @@ const Header = () => {
             <li>
               <Link
                 href={ctaItem.path}
-                className={`ml-2 inline-flex items-center rounded-full border-2 border-white px-6 font-cond text-[19px] font-semibold tracking-wide transition-all duration-300 hover:bg-white hover:text-black xl:text-[21px] ${
+                className={`ml-[clamp(0px,0.6vw,8px)] inline-flex items-center whitespace-nowrap rounded-full border-2 border-white px-[clamp(16px,1.8vw,24px)] font-cond text-[clamp(16px,1.5vw,21px)] font-semibold tracking-wide transition-all duration-300 hover:bg-white hover:text-black ${
                   scrolled ? "py-2" : "py-3"
                 } ${pathname === ctaItem.path ? "bg-white text-black" : ""}`}
               >

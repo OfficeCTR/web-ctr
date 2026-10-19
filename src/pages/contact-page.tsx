@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Head from "next/head";
 import { motion } from "framer-motion";
 import {
@@ -27,7 +27,12 @@ const inputClass =
   "w-full rounded-2xl border-2 border-black/10 bg-ctr-paper px-5 py-3.5 text-lg outline-none transition-all placeholder:text-black/35 focus:border-ctr-blue focus:bg-white focus:shadow-[0_0_0_4px_rgba(91,143,255,.2)] disabled:opacity-60";
 
 const ContactPage = () => {
-  const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
+  const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "", website: "" });
+  const startedAt = useRef(0);
+
+  useEffect(() => {
+    startedAt.current = Date.now();
+  }, []);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{ success?: boolean; message?: string }>({});
 
@@ -40,14 +45,15 @@ const ContactPage = () => {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, startedAt: startedAt.current }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
         setSubmitStatus({ success: true, message: data.message || "Mesajul a fost trimis cu succes!" });
-        setFormData({ name: "", email: "", subject: "", message: "" });
+        setFormData({ name: "", email: "", subject: "", message: "", website: "" });
+        startedAt.current = Date.now();
       } else {
         setSubmitStatus({
           success: false,
@@ -167,6 +173,18 @@ const ContactPage = () => {
               )}
 
               <form onSubmit={handleSubmit} className="mt-8 space-y-5">
+                <div className="absolute -left-[9999px] h-px w-px overflow-hidden" aria-hidden="true">
+                  <label htmlFor="website">Website</label>
+                  <input
+                    type="text"
+                    id="website"
+                    name="website"
+                    value={formData.website}
+                    onChange={handleChange}
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+                </div>
                 <div className="grid gap-5 sm:grid-cols-2">
                   <div>
                     <label htmlFor="name" className="mb-2 block font-bold">
@@ -176,6 +194,7 @@ const ContactPage = () => {
                       type="text"
                       id="name"
                       name="name"
+                      maxLength={100}
                       value={formData.name}
                       onChange={handleChange}
                       className={inputClass}
@@ -191,6 +210,7 @@ const ContactPage = () => {
                       type="email"
                       id="email"
                       name="email"
+                      maxLength={200}
                       value={formData.email}
                       onChange={handleChange}
                       className={inputClass}
@@ -207,6 +227,7 @@ const ContactPage = () => {
                     type="text"
                     id="subject"
                     name="subject"
+                    maxLength={150}
                     value={formData.subject}
                     onChange={handleChange}
                     className={inputClass}
@@ -221,6 +242,7 @@ const ContactPage = () => {
                   <textarea
                     id="message"
                     name="message"
+                    maxLength={5000}
                     value={formData.message}
                     onChange={handleChange}
                     rows={5}

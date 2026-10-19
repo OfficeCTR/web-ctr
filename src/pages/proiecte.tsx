@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import Head from "next/head";
+import Image from "next/image";
 import { type GetStaticProps } from "next";
 import { AnimatePresence, motion } from "framer-motion";
 import MainLayout from "~/components/layout/MainLayout";
@@ -10,7 +11,13 @@ import Cover from "~/components/ui/Cover";
 import { PillTabs, SectionTitle, Sheet, TabLabel } from "~/components/ui/Sheet";
 import { stickers } from "~/components/ui/sticker";
 import { getArticles, getProjects } from "~/lib/content";
+import { archive } from "~/lib/site";
 import type { Article, Project } from "~/lib/types";
+
+const archivePhotos = archive.photos
+  .filter((p): p is { image: string; caption: string; year: number | null } => !!p.image)
+  .sort((a, b) => (a.year ?? 0) - (b.year ?? 0));
+const archiveFrames = ["#5B8FFF", "#FE558E", "#FED653"];
 
 const tones = ["blue", "pink", "yellow"] as const;
 const yearSticker = [stickers.blueStat, stickers.pinkStat, stickers.yellowStat];
@@ -99,7 +106,16 @@ export default function Projects({
         image="/assets/design/photos/summit-x-stage.jpg"
         imageAlt="Scena Summitului Tinerilor X"
         description="Descoperă proiectele prin care facem o diferență în comunitățile din România — din 2016 până azi."
-      />
+      >
+        {articles.length > 0 && (
+          <a href="#blog" className="btn-pill group bg-ctr-yellow text-ctr-ink hover:bg-white">
+            Noutăți din blog
+            <span className="transition-transform group-hover:translate-y-1" aria-hidden>
+              ↓
+            </span>
+          </a>
+        )}
+      </PageHero>
 
       <Sheet>
         <section className="relative py-16 lg:py-20">
@@ -151,12 +167,60 @@ export default function Projects({
                   </motion.div>
                 ))}
               </AnimatePresence>
+
+              {activeYear === "all" && (
+                <motion.div layout initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                  <div className="mb-10 flex items-center gap-5">
+                    <span
+                      className="inline-block -skew-x-6 font-cond text-6xl font-black leading-none sm:text-8xl"
+                      style={stickers.blueStat}
+                    >
+                      2006–2016
+                    </span>
+                    <span className="h-[3px] flex-1 rounded-full bg-black/10" />
+                  </div>
+                  <div className="paper-card px-7 py-8 sm:px-10">
+                    <h3 className="text-2xl font-bold sm:text-3xl">{archive.title}</h3>
+                    {archive.description && (
+                      <p className="mt-4 max-w-3xl text-lg leading-relaxed text-black/70">{archive.description}</p>
+                    )}
+                    {archivePhotos.length > 0 && (
+                      <ul className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+                        {archivePhotos.map((photo, i) => (
+                          <li key={photo.image} className="group">
+                            <div
+                              className="relative aspect-[4/3] overflow-hidden rounded-[14px] shadow-[0_10px_24px_-10px_rgba(0,0,0,.35)]"
+                              style={{ border: `6px solid ${archiveFrames[i % archiveFrames.length]}` }}
+                            >
+                              <Image
+                                src={photo.image}
+                                alt={photo.caption || "Proiect CTR"}
+                                fill
+                                sizes="(max-width: 640px) 50vw, 25vw"
+                                className="object-cover grayscale-[30%] transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0"
+                              />
+                            </div>
+                            {(photo.year || photo.caption) && (
+                              <p className="mt-2 text-sm font-semibold text-black/60">
+                                {[photo.year, photo.caption].filter(Boolean).join(" · ")}
+                              </p>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                </motion.div>
+              )}
             </div>
           </div>
         </section>
 
         {articles.length > 0 && (
-          <section className="relative rounded-t-[50%_48px] bg-ctr-yellow pb-24 pt-20 lg:rounded-t-[50%_70px] lg:pt-24">
+          <section
+            id="blog"
+            className="relative scroll-mt-24 rounded-t-[50%_48px] bg-ctr-yellow pb-24 pt-20 lg:rounded-t-[50%_70px] lg:pt-24"
+          >
             <div className="shell">
               <SectionTitle before="Noutăți din" script="blog" tone="ink" />
               <div className="mt-12">

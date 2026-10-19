@@ -1,12 +1,15 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { at, fs, placed, u } from "../ui/canvas";
+import Highlight from "../ui/Highlight";
 
 type Pillar = {
   title: [string, string];
   tab: string;
   align: "left" | "center" | "right";
   paragraphs: string[];
+  highlight: string;
+  underline: boolean;
   box: { x: number; y: number; w: number; h: number; rotate: number };
   tabPos: { x: number; y: number; w: number };
 };
@@ -17,10 +20,12 @@ const pillars: Pillar[] = [
     tab: "bg-ctr-yellow",
     align: "left",
     paragraphs: [
-      "Proiecte naționale și sprijin pentru inițiativele locale cu impact social direct.",
-      "Programe de formare pentru dezvoltarea competențelor civice și de leadership.",
-      "Susținere pentru tinerii lideri, organizațiile emergente și cooperarea între actorii din sector.",
+      "**Proiecte naționale** și sprijin pentru **inițiativele locale** cu impact social direct.",
+      "**Programe de formare** pentru dezvoltarea **competențelor civice** și de **leadership**.",
+      "Susținere pentru **tinerii lideri**, **organizațiile emergente** și cooperarea între actorii din sector.",
     ],
+    highlight: "text-ctr-blue",
+    underline: false,
     box: { x: 182, y: 266, w: 330, h: 430, rotate: -6 },
     tabPos: { x: 128, y: 282, w: 290 },
   },
@@ -29,10 +34,12 @@ const pillars: Pillar[] = [
     tab: "bg-ctr-blue",
     align: "center",
     paragraphs: [
-      "Spații reale de dialog între tineri și organizațiile din ecosistemul de tineret.",
-      "Asigurare a prezenței tinerilor în structuri consultative, grupuri de lucru și dezbateri publice.",
-      "Apărare a drepturilor și intereselor generației tinere în raport cu instituțiile publice.",
+      "Spații reale de **dialog** între tineri și organizațiile din **ecosistemul de tineret**.",
+      "Asigurare a **prezenței tinerilor** în **structuri consultative**, grupuri de lucru și dezbateri publice.",
+      "**Apărare a drepturilor** și intereselor generației tinere în raport cu **instituțiile publice**.",
     ],
+    highlight: "text-ctr-blue",
+    underline: true,
     box: { x: 503, y: 183, w: 362, h: 475, rotate: 0 },
     tabPos: { x: 520, y: 172, w: 330 },
   },
@@ -41,10 +48,12 @@ const pillars: Pillar[] = [
     tab: "bg-ctr-pink",
     align: "right",
     paragraphs: [
-      "Propuneri legislative, poziții publice și strategii de tineret fundamentate pe date.",
-      "Contribuire directă la politicile naționale și europene cu impact asupra generației tinere.",
-      "Monitorizare a deciziilor publice și presiune pentru aplicarea corectă a legislației.",
+      "**Propuneri legislative**, **poziții publice** și **strategii de tineret** fundamentate pe date.",
+      "Contribuire directă la **politicile naționale și europene** cu impact asupra generației tinere.",
+      "**Monitorizare a deciziilor publice** și presiune pentru **aplicarea corectă a legislației**.",
     ],
+    highlight: "text-ctr-pink",
+    underline: false,
     box: { x: 833, y: 273, w: 335, h: 440, rotate: 5 },
     tabPos: { x: 930, y: 305, w: 302 },
   },
@@ -78,13 +87,17 @@ const PillarCard = ({ p, i }: { p: Pillar; i: number }) => (
       style={fs(20)}
     >
       {p.paragraphs.map((t) => (
-        <p key={t}>{t}</p>
+        <p key={t}>
+          <Highlight text={t} className={p.highlight} />
+        </p>
       ))}
     </div>
-    <div
-      className="scribble-underline mx-auto mt-8 h-3 w-[78%] opacity-80 lg:absolute lg:bottom-[calc(var(--u)*46)] lg:left-[11%] lg:mt-0"
-      aria-hidden
-    />
+    {p.underline && (
+      <div
+        className="scribble-underline mx-auto mt-8 h-3 w-[78%] opacity-80 lg:absolute lg:bottom-[calc(var(--u)*46)] lg:left-[11%] lg:mt-0"
+        aria-hidden
+      />
+    )}
   </motion.article>
 );
 

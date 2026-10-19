@@ -1,23 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { at, fs, placed, u } from "../ui/canvas";
+import { at, fs, placed } from "../ui/canvas";
 import { homepage, isExternal } from "../../lib/site";
 
-const logoLayout = [
-  { x: 152, y: 174, width: 166 },
-  { x: 445, y: 177, width: 199 },
-  { x: 707, y: 163, width: 218 },
-  { x: 992, y: 136, width: 197 },
-];
-
-const projects = homepage.featuredProjects.slice(0, 4).map((p, i) => ({
-  logo: { src: p.logo, alt: p.logoAlt, ...logoLayout[i] },
+const projects = homepage.featuredProjects.slice(0, 5).map((p) => ({
+  logo: { src: p.logo, alt: p.logoAlt },
   text: p.text,
   href: p.link || "/proiecte",
 }));
 
-const cardX = [160, 432, 704, 976];
+const compact = projects.length > 4;
+const cardW = compact ? 204 : 230;
+const cardGap = compact ? 26 : 42;
+const firstX = (1366 - (projects.length * cardW + (projects.length - 1) * cardGap)) / 2;
+const cardX = projects.map((_, i) => firstX + i * (cardW + cardGap));
 
 const Arrow = () => (
   <svg
@@ -94,7 +91,7 @@ const Projects = () => (
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.6, delay: i * 0.1 }}
               className={`relative w-[72%] max-w-[260px] shrink-0 snap-center lg:h-[var(--h)] lg:max-w-none ${placed}`}
-              style={at(cardX[i], 205, 230, 338)}
+              style={at(cardX[i], 205, cardW, 338)}
             >
               <Link
                 href={p.href}
@@ -103,24 +100,24 @@ const Projects = () => (
                 className="group block h-full"
               >
                 <div className="relative flex h-full min-h-[300px] flex-col rounded-[28px] bg-ctr-pink px-7 pb-16 pt-24 shadow-[0_24px_40px_-14px_rgba(120,0,40,.45),0_0_0_1px_rgba(255,255,255,.06)] transition-all duration-500 group-hover:-translate-y-3 group-hover:shadow-[0_34px_50px_-14px_rgba(120,0,40,.6)] lg:min-h-0 lg:rounded-[calc(var(--u)*28)] lg:px-[calc(var(--u)*33)] lg:pb-0 lg:pt-[calc(var(--u)*97)]">
-                  <p className="text-lg leading-[1.15] tracking-[0.02em] lg:text-[length:var(--fs)]" style={fs(22)}>
+                  <p
+                    className="text-lg leading-[1.15] tracking-[0.02em] lg:text-[length:var(--fs)]"
+                    style={fs(compact ? 20 : 22)}
+                  >
                     {p.text}
                   </p>
                   <span className="absolute -bottom-6 left-1/2 flex h-[62px] w-[92px] -translate-x-1/2 items-center justify-center rounded-full bg-ctr-pink shadow-[0_14px_24px_-8px_rgba(120,0,40,.55)] transition-all duration-300 group-hover:w-[110px] group-hover:bg-white group-hover:text-ctr-pink lg:-bottom-[calc(var(--u)*25)] lg:h-[calc(var(--u)*62)] lg:w-[calc(var(--u)*92)]">
                     <Arrow />
                   </span>
                 </div>
-                <div
-                  className="absolute -top-10 left-1/2 w-[78%] -translate-x-1/2 transition-transform duration-500 group-hover:-rotate-3 group-hover:scale-105 lg:left-[var(--lx)] lg:top-[var(--ty)] lg:w-[var(--lw)] lg:translate-x-0"
-                  style={
-                    {
-                      "--lx": u(p.logo.x - cardX[i]),
-                      "--ty": u(p.logo.y - 205),
-                      "--lw": u(p.logo.width),
-                    } as React.CSSProperties
-                  }
-                >
-                  {p.logo.src && <img src={p.logo.src} alt={p.logo.alt} className="h-auto w-full drop-shadow-md" />}
+                <div className="absolute -top-10 left-1/2 flex h-[84px] w-[86%] -translate-x-1/2 items-center justify-center transition-transform duration-500 group-hover:-rotate-3 group-hover:scale-105 lg:-top-[calc(var(--u)*44)] lg:h-[calc(var(--u)*96)]">
+                  {p.logo.src && (
+                    <img
+                      src={p.logo.src}
+                      alt={p.logo.alt}
+                      className="max-h-full max-w-full object-contain drop-shadow-md"
+                    />
+                  )}
                 </div>
               </Link>
             </motion.li>

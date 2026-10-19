@@ -15,6 +15,13 @@ const bodies = [
 const Europe = () => (
   <section className="relative z-20 -mt-12 overflow-hidden rounded-t-[50%_48px] bg-white lg:-mt-[calc(var(--u)*70)] lg:rounded-t-[50%_calc(var(--u)*70)]">
     <div className="relative mx-auto max-w-[1366px] px-5 pb-16 pt-14 sm:px-8 lg:h-[calc(var(--u)*838)] lg:p-0">
+      <div
+        className="pointer-events-none absolute right-6 top-6 hidden w-[30%] lg:block lg:right-auto lg:left-[var(--l)] lg:top-[var(--t)] lg:w-[var(--w)]"
+        style={at(681, 139, 422)}
+        aria-hidden
+      >
+        <Image src="/assets/design/europe-symbols.png" alt="" width={844} height={650} className="h-auto w-full" />
+      </div>
       <motion.div
         initial={{ opacity: 0, scale: 1.06 }}
         whileInView={{ opacity: 1, scale: 1 }}
@@ -33,13 +40,6 @@ const Europe = () => (
           className="h-auto w-full"
         />
       </motion.div>
-      <div
-        className="pointer-events-none absolute right-6 top-6 hidden w-[30%] lg:block lg:right-auto lg:left-[var(--l)] lg:top-[var(--t)] lg:w-[var(--w)]"
-        style={at(681, 139, 422)}
-        aria-hidden
-      >
-        <Image src="/assets/design/europe-symbols.png" alt="" width={844} height={650} className="h-auto w-full" />
-      </div>
 
       <motion.div
         initial={{ opacity: 0, x: -40 }}

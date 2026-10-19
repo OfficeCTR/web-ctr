@@ -70,18 +70,3 @@ export const opportunityCategories: Array<{ id: "all" | OpportunityCategory; lab
   { id: "for_communities", label: "Pentru comunități" },
   { id: "other", label: "Altele" },
 ];
-
-export const organizationTypes: OrganizationType[] = ["international", "national", "regional"];
-
-export const typeDisplayLabels: Record<"all" | OrganizationType, string> = {
-  all: "Toate organizațiile",
-  international: "Afiliate internațional",
-  national: "Nivel național",
-  regional: "Regionale/Județene",
-};
-
-export const typeLabels: Record<OrganizationType, string> = {
-  international: "Structuri neguvernamentale de tineret afiliate internațional",
-  national: "Organizații neguvernamentale de tineret de nivel național",
-  regional: "Structuri neguvernamentale de tineret cu activitate și reprezentativitate regională sau județeană",
-};

@@ -8,6 +8,7 @@ import PageHero from "../components/PageHero";
 import { PillTabs, SectionTitle, Sheet, TabLabel } from "../components/ui/Sheet";
 import { PhotoCarousel } from "../components/home/Quote";
 import { stickers } from "../components/ui/sticker";
+import Highlight from "../components/ui/Highlight";
 import { getTeam } from "../lib/content";
 import type { TeamMember } from "../lib/types";
 
@@ -23,8 +24,8 @@ const frameColors = ["#5B8FFF", "#FE558E", "#FED653", "#0A0A0A"];
 
 const affiliations = {
   national: [
-    { name: "Consiliul Național pentru Tineret", logo: "/assets/afiliere/cnpt.png" },
-    { name: "Grupul Național de Lucru Dialogul UE cu Tinerii", logo: "/assets/afiliere/GNL_color.png" },
+    { name: "Consiliul Național Consultativ pentru Tineret", logo: "/assets/afiliere/mmftss.png" },
+    { name: "Grupul Național de Lucru Dialogul UE cu Tinerii", logo: "/assets/afiliere/eu-youth-dialogue.png" },
     {
       name: "Comitetul de monitorizare a programului Tranziție Justă 2021-2027",
       logo: "/assets/afiliere/tranzitie_justa.jpg",
@@ -37,7 +38,7 @@ const affiliations = {
   international: [
     { name: "Forumul European de Tineret (European Youth Forum)", logo: "/assets/afiliere/youth_forum.png" },
     { name: "World Assembly of Youth", logo: "/assets/afiliere/way.png" },
-    { name: "The European Youth Advisory Board", logo: "/assets/afiliere/youth-4-europe.webp" },
+    { name: "President's Youth Advisory Board — Comisia Europeană", logo: "/assets/afiliere/eu-flag.svg" },
     { name: "EU Youth Stakeholders Group", logo: "/assets/afiliere/EU-Youth-Stakeholders-Group-1.png" },
   ],
 };
@@ -114,13 +115,13 @@ export default function DesprePage({ teamMembers }: { teamMembers: TeamMember[] 
                   label: "Misiunea noastră",
                   tone: "yellow" as const,
                   rotate: -3,
-                  text: "Să reprezentăm vocea tinerilor în procesele decizionale și să implementăm proiecte care contribuie la dezvoltarea socială, educațională și profesională a acestora.",
+                  text: "Să reprezentăm **vocea tinerilor** în **procesele decizionale** și să implementăm proiecte care contribuie la **dezvoltarea socială, educațională și profesională** a acestora.",
                 },
                 {
                   label: "Viziunea noastră",
                   tone: "pink" as const,
                   rotate: 3,
-                  text: "O societate în care tinerii sunt implicați activ în dezvoltarea comunităților, având acces la oportunități și resurse pentru a-și împlini potențialul.",
+                  text: "O societate în care **tinerii sunt implicați activ** în **dezvoltarea comunităților**, având acces la **oportunități și resurse** pentru a-și împlini potențialul.",
                 },
               ].map((c, i) => (
                 <motion.div
@@ -135,7 +136,9 @@ export default function DesprePage({ teamMembers }: { teamMembers: TeamMember[] 
                   <h3 className={`absolute -top-5 text-2xl sm:text-[1.7rem] ${i ? "-right-3" : "-left-3"}`}>
                     <TabLabel tone={c.tone}>{c.label}</TabLabel>
                   </h3>
-                  <p className="text-lg leading-relaxed tracking-[0.02em] text-[#3a3a3a] sm:text-xl">{c.text}</p>
+                  <p className="text-lg leading-relaxed tracking-[0.02em] text-[#3a3a3a] sm:text-xl">
+                    <Highlight text={c.text} className={c.tone === "pink" ? "text-ctr-pink" : "text-ctr-blue"} />
+                  </p>
                   <div className="scribble-underline mx-auto mt-8 h-3 w-[70%] opacity-70" aria-hidden />
                 </motion.div>
               ))}
