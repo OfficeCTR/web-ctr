@@ -1,15 +1,21 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
-import type { Article } from "../lib/types";
+import type { ArticleSummary } from "../lib/types";
 import Cover from "./ui/Cover";
 import { TabLabel } from "./ui/Sheet";
 
 const tones = ["blue", "pink", "yellow"] as const;
 
-const ArticleCards = ({ articles }: { articles: Omit<Article, "content">[] }) => {
+const ArticleCards = ({ articles, stacked = false }: { articles: ArticleSummary[]; stacked?: boolean }) => {
   if (!articles.length) return null;
   return (
-    <ul className="scrollbar-hide -mx-5 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pb-6 pt-4 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 lg:grid-cols-3 lg:gap-8">
+    <ul
+      className={
+        stacked
+          ? "grid grid-cols-1 gap-8 pb-6 pt-4 sm:grid-cols-2 lg:grid-cols-3"
+          : "scrollbar-hide -mx-5 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pb-6 pt-4 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 lg:grid-cols-3 lg:gap-8"
+      }
+    >
       {articles.map((a, i) => (
         <motion.li
           key={a.id}
@@ -17,7 +23,7 @@ const ArticleCards = ({ articles }: { articles: Omit<Article, "content">[] }) =>
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: (i % 3) * 0.1 }}
-          className="w-[82%] shrink-0 snap-center sm:w-auto"
+          className={stacked ? "" : "w-[82%] shrink-0 snap-center sm:w-auto"}
         >
           <Link
             href={`/blog/${a.slug}`}

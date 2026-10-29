@@ -9,6 +9,7 @@ export const navItems = [
   { name: "Programe", path: "/proiecte" },
   { name: "Membri", path: "/membri" },
   { name: "Oportunități", path: "/oportunitati" },
+  { name: "Blog", path: "/blog" },
   { name: "Susține-ne", path: "/support" },
 ];
 

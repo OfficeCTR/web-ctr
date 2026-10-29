@@ -8,7 +8,15 @@ export interface Article {
   author: { name: string; avatar: string };
   publishedAt: string;
   category: string;
+  gallery: ArticlePhoto[];
 }
+
+export interface ArticlePhoto {
+  image: string;
+  caption: string;
+}
+
+export type ArticleSummary = Omit<Article, "content" | "gallery">;
 
 type OpportunityCategory = "for_youth" | "for_ngos" | "for_communities" | "other";
 

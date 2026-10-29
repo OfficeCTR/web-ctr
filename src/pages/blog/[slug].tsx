@@ -8,13 +8,14 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import MainLayout from "../../components/layout/MainLayout";
 import ArticleCards from "../../components/ArticleCards";
+import ArticleGallery from "../../components/ArticleGallery";
 import { SectionTitle, Sheet, TabLabel } from "../../components/ui/Sheet";
 import { getArticle, getArticles } from "../../lib/content";
-import type { Article } from "../../lib/types";
+import type { Article, ArticleSummary } from "../../lib/types";
 
 interface ArticlePageProps {
   article: Article | null;
-  related: Omit<Article, "content">[];
+  related: ArticleSummary[];
 }
 
 const ArticlePage: NextPage<ArticlePageProps> = ({ article, related }) => {
@@ -56,6 +57,15 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ article, related }) => {
           </div>
           <div className="relative mx-auto max-w-4xl px-5 sm:px-8">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+              <Link
+                href="/blog"
+                className="group mb-8 inline-flex items-center gap-2 font-cond text-lg font-semibold text-white/80 transition-colors hover:text-ctr-yellow"
+              >
+                <span className="transition-transform group-hover:-translate-x-1" aria-hidden>
+                  ←
+                </span>
+                Toate articolele
+              </Link>
               <div className="flex flex-wrap items-center gap-3 text-sm sm:text-base">
                 <TabLabel tone="yellow">{article.category}</TabLabel>
                 <span className="text-white/70">
@@ -152,6 +162,8 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ article, related }) => {
               </ReactMarkdown>
             </div>
           </div>
+
+          <ArticleGallery photos={article.gallery} title={article.title} />
 
           {related.length > 0 && (
             <section className="rounded-t-[50%_48px] bg-ctr-yellow pb-24 pt-20 lg:rounded-t-[50%_70px]">

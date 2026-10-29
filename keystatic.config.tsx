@@ -116,11 +116,25 @@ export default config({
           validation: { isRequired: true, length: { max: 500 } },
         }),
         coverImage: fields.image({
-          label: "Imagine de copertă",
-          description: "Format orizontal, ideal 1600 × 900 px (JPG sau PNG).",
+          label: "Imagine principală (copertă)",
+          description:
+            "Apare pe cardul articolului, sus pe pagina articolului și în Google. Format orizontal, ideal 1600 × 900 px (JPG sau PNG).",
           ...uploads("articles"),
           validation: { isRequired: true },
         }),
+        gallery: fields.array(
+          fields.object({
+            image: fields.image({ label: "Fotografie", ...uploads("articles"), validation: { isRequired: true } }),
+            caption: fields.text({ label: "Descriere (opțional)" }),
+          }),
+          {
+            label: "Galerie foto (opțional)",
+            description:
+              "Fotografii suplimentare, afișate sub textul articolului. Recomandat 5-6, maxim 10. Ordinea se schimbă trăgând de ⠿.",
+            itemLabel: (p) => p.fields.caption.value || "Fotografie",
+            validation: { length: { max: 10 } },
+          },
+        ),
         authorName: fields.text({ label: "Autor", defaultValue: "Echipa CTR" }),
         authorAvatar: fields.image({
           label: "Poza autorului (opțional)",
@@ -350,7 +364,7 @@ export default config({
         advocacyButton: fields.object(
           {
             label: fields.text({ label: "Text buton", defaultValue: "Descoperă inițiativele noastre" }),
-            link: fields.text({ label: "Link", description: linkHint, defaultValue: "/proiecte#blog" }),
+            link: fields.text({ label: "Link", description: linkHint, defaultValue: "/blog" }),
           },
           { label: "Butonul galben „Inițiative de advocacy”" },
         ),

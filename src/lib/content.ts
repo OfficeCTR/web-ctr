@@ -3,13 +3,13 @@ import path from "path";
 import matter from "gray-matter";
 import { createReader } from "@keystatic/core/reader";
 import keystaticConfig from "../../keystatic.config";
-import type { Article, Opportunity, Organization, Project, TeamMember } from "./types";
+import type { Article, ArticleSummary, Opportunity, Organization, Project, TeamMember } from "./types";
 
 const reader = createReader(process.cwd(), keystaticConfig);
 
 const FALLBACK_AVATAR = "/favicon.png";
 
-export async function getArticles(): Promise<Omit<Article, "content">[]> {
+export async function getArticles(): Promise<ArticleSummary[]> {
   const entries = await reader.collections.articles.all();
   return entries
     .map(({ slug, entry }) => ({
@@ -39,6 +39,9 @@ export async function getArticle(slug: string): Promise<Article | null> {
     author: { name: entry.authorName || "Echipa CTR", avatar: entry.authorAvatar || FALLBACK_AVATAR },
     publishedAt: entry.publishedAt ?? "",
     category: entry.category,
+    gallery: entry.gallery
+      .filter((photo): photo is { image: string; caption: string } => !!photo.image)
+      .map((photo) => ({ image: photo.image, caption: photo.caption })),
   };
 }
 

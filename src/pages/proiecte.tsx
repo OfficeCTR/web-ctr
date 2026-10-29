@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import { type GetStaticProps } from "next";
 import { AnimatePresence, motion } from "framer-motion";
 import MainLayout from "~/components/layout/MainLayout";
@@ -12,7 +13,7 @@ import { PillTabs, SectionTitle, Sheet, TabLabel } from "~/components/ui/Sheet";
 import { stickers } from "~/components/ui/sticker";
 import { getArticles, getProjects } from "~/lib/content";
 import { archive } from "~/lib/site";
-import type { Article, Project } from "~/lib/types";
+import type { ArticleSummary, Project } from "~/lib/types";
 
 const archivePhotos = archive.photos
   .filter((p): p is { image: string; caption: string; year: number | null } => !!p.image)
@@ -77,7 +78,7 @@ export default function Projects({
   articles,
   projects: sampleProjects,
 }: {
-  articles: Omit<Article, "content">[];
+  articles: ArticleSummary[];
   projects: Project[];
 }) {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -108,12 +109,12 @@ export default function Projects({
         description="Descoperă proiectele prin care facem o diferență în comunitățile din România — din 2016 până azi."
       >
         {articles.length > 0 && (
-          <a href="#blog" className="btn-pill group bg-ctr-yellow text-ctr-ink hover:bg-white">
+          <Link href="/blog" className="btn-pill group bg-ctr-yellow text-ctr-ink hover:bg-white">
             Noutăți din blog
-            <span className="transition-transform group-hover:translate-y-1" aria-hidden>
-              ↓
+            <span className="transition-transform group-hover:translate-x-1" aria-hidden>
+              →
             </span>
-          </a>
+          </Link>
         )}
       </PageHero>
 
@@ -224,7 +225,15 @@ export default function Projects({
             <div className="shell">
               <SectionTitle before="Noutăți din" script="blog" tone="ink" />
               <div className="mt-12">
-                <ArticleCards articles={articles} />
+                <ArticleCards articles={articles.slice(0, 6)} />
+              </div>
+              <div className="mt-10 flex justify-center">
+                <Link href="/blog" className="btn-pill group bg-ctr-ink text-white hover:bg-ctr-pink">
+                  Vezi toate articolele
+                  <span className="transition-transform group-hover:translate-x-1" aria-hidden>
+                    →
+                  </span>
+                </Link>
               </div>
             </div>
           </section>

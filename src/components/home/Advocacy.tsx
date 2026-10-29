@@ -13,7 +13,7 @@ const posterLayout = [
 ];
 const posters = homepage.advocacyPosters.slice(0, 5).map((p, i) => ({ src: p.image, alt: p.alt, ...posterLayout[i] }));
 
-const button = { label: homepage.advocacyButton.label, href: homepage.advocacyButton.link || "/proiecte#blog" };
+const button = { label: homepage.advocacyButton.label, href: homepage.advocacyButton.link || "/blog" };
 
 const Advocacy = () => (
   <section className="relative z-10 rounded-t-[50%_48px] bg-ctr-yellow lg:rounded-t-[50%_calc(var(--u)*70)]">
