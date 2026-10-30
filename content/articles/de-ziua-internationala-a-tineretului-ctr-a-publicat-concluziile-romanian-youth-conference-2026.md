@@ -10,7 +10,7 @@ excerpt: >-
   peste 50 de organizații. Documentul contribuie la elaborarea Rezoluției
   Tinerilor din România 2027–2030.
 coverImage: >-
-  /uploads/articles/de-ziua-internationala-a-tineretului-ctr-a-publicat-concluziile-romanian-youth-conference-2026/coverImage.png
+  /uploads/articles/de-ziua-internationala-a-tineretului-ctr-a-publicat-concluziile-romanian-youth-conference-2026/coverImage.jpg
 gallery:
   - image: >-
       /uploads/articles/de-ziua-internationala-a-tineretului-ctr-a-publicat-concluziile-romanian-youth-conference-2026/gallery/0/image.png
