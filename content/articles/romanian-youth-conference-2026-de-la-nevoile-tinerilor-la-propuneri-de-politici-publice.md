@@ -1,7 +1,7 @@
 ---
 title: >-
-  **Romanian Youth Conference 2026: de la nevoile tinerilor la propuneri de
-  politici publice**
+  Romanian Youth Conference 2026: de la nevoile tinerilor la propuneri de
+  politici publice
 publishedAt: 2026-07-12
 category: Evenimente CTR
 excerpt: >-
