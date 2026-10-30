@@ -22,13 +22,13 @@ authorName: Echipa CTR
 
 Conferința a oferit un cadru de consultare și colaborare în care experiențele din comunități au fost punctul de plecare pentru construirea unor recomandări de politici publice. Pe parcursul celor două zile de lucru, participanții au analizat problemele cu care se confruntă tinerii, au stabilit obiective și au propus măsuri pentru autoritățile locale, naționale și europene.
 
-Evenimentul a fost organizat în jurul a **cinci arii tematice**: \
+Evenimentul a fost organizat în jurul a **cinci arii tematice**:
 
-- democrație, societate și participare; \
-- bunăstare, sănătate și calitatea vieții; \
-- educație, competențe și potențialul tinerilor; \
-- viitorul muncii, ocupare și autonomie financiară; \
-- viitor sustenabil, cu accent pe tehnologie, mediu, inteligență artificială și transformări sociale. \
+- democrație, societate și participare;
+- bunăstare, sănătate și calitatea vieții;
+- educație, competențe și potențialul tinerilor;
+- viitorul muncii, ocupare și autonomie financiară;
+- viitor sustenabil, cu accent pe tehnologie, mediu, inteligență artificială și transformări sociale.
 
 Incluziunea, echitatea și drepturile fundamentale au fost integrate în abordarea tuturor celor cinci teme.
 
