@@ -16,6 +16,22 @@ gallery:
       /uploads/articles/romanian-youth-conference-2026-de-la-nevoile-tinerilor-la-propuneri-de-politici-publice/gallery/0/image.jpg
   - image: >-
       /uploads/articles/romanian-youth-conference-2026-de-la-nevoile-tinerilor-la-propuneri-de-politici-publice/gallery/1/image.jpg
+  - image: >-
+      /uploads/articles/romanian-youth-conference-2026-de-la-nevoile-tinerilor-la-propuneri-de-politici-publice/gallery/2/image.jpg
+  - image: >-
+      /uploads/articles/romanian-youth-conference-2026-de-la-nevoile-tinerilor-la-propuneri-de-politici-publice/gallery/3/image.jpg
+  - image: >-
+      /uploads/articles/romanian-youth-conference-2026-de-la-nevoile-tinerilor-la-propuneri-de-politici-publice/gallery/4/image.jpg
+  - image: >-
+      /uploads/articles/romanian-youth-conference-2026-de-la-nevoile-tinerilor-la-propuneri-de-politici-publice/gallery/5/image.jpg
+  - image: >-
+      /uploads/articles/romanian-youth-conference-2026-de-la-nevoile-tinerilor-la-propuneri-de-politici-publice/gallery/6/image.jpg
+  - image: >-
+      /uploads/articles/romanian-youth-conference-2026-de-la-nevoile-tinerilor-la-propuneri-de-politici-publice/gallery/7/image.jpg
+  - image: >-
+      /uploads/articles/romanian-youth-conference-2026-de-la-nevoile-tinerilor-la-propuneri-de-politici-publice/gallery/8/image.jpg
+  - image: >-
+      /uploads/articles/romanian-youth-conference-2026-de-la-nevoile-tinerilor-la-propuneri-de-politici-publice/gallery/9/image.jpg
 authorName: Echipa CTR
 ---
 În perioada **9–12 iulie 2026**, Consiliul Tineretului din România a organizat la Alba Iulia, Capitala Tineretului din România 2026, prima ediție a **Romanian Youth Conference (RYC)**. Peste 100 de delegați, reprezentând peste 50 de organizații de tineret din întreaga țară, au lucrat împreună pentru a identifica prioritățile generației lor și pentru a formula propuneri pentru viitoarea Rezoluție a Tinerilor din România.
