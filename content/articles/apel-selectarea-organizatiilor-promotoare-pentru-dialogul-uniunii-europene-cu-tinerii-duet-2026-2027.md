@@ -33,14 +33,9 @@ Opiniile tinerilor sunt colectate prin consultări organizate de **organizațiil
 **Responsabilități:**
 
 - organizarea consultărilor cu tinerii (fizic, online sau în cadrul activităților proprii), pe baza unor metode și instrumentelor comune de consultatea, puse la dispoziție de către CTR;
-
 - transmiterea rezultatelor în formatele și la termenele stabilite;
-
 - desemnarea unor persoane de legătură și participarea acestora la întâlnirile GNL, sesiunile de instruire și elaborarea rapoartelor consultărilor;
-
 - promovarea DUET și diseminarea&nbsp; rezultatelor consultărilor.
-
-  \
 
 **Beneficii:**
 
@@ -117,5 +112,3 @@ La începutul fiecărui ciclu, structura GNL este recompletată prin lansarea un
 ## **Contact**
 
 Pentru orice întrebare sau clarificare, ne puteți scrie la [duet@ctr.ro](mailto:duet@ctr.ro).&nbsp;
-
-\
