@@ -1,7 +1,7 @@
 ---
 title: >-
-  Apel selectarea Organizațiilor Promotoare pentru Dialogul Uniunii Europene cu
-  Tinerii (DUET), 2026-2027 
+  Apel pentru selectarea Organizațiilor Promotoare pentru Dialogul Uniunii
+  Europene cu Tinerii (DUET), 2026-2027 
 publishedAt: 2026-11-04
 category: Oportunități
 excerpt: >-
