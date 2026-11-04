@@ -63,35 +63,14 @@ O comisie mixtă, formată din reprezentanți ai CTR și ai MMFTSS, va analiza a
 
 ## **Calendar 2026**
 
-{% table %}
----
-- **Data**
-- **Ce se întâmplă**
----
-- 4 noiembrie
-- Lansarea apelului
----
-- 14 noiembrie
-- Termen-limită pentru aplicații
----
-- 15 noiembrie
-- Afișarea și comunicarea rezultatelor
----
-- 16 noiembrie
-- Întâlnire GNL, sesiunea de introducere pentru organizațiile selectate și instruire pe metode de consultare
----
-- 16 noiembrie – 10 decembrie
-- Consultările cu tinerii
----
-- 10 decembrie
-- Raportarea consultărilor efectuate de către organizațiile promotoare.
----
-- 10 decembrie – 15 decembrie
-- Elaborarea Raportului de țară
----
-- 16/20 decembrie
-- Eveniment de lansare a Raportului de țară (data exactă va fi anunțată ulterior)
-{% /table %}
+- 4 noiembrie: Lansarea apelului
+- 14 noiembrie: Termen-limită pentru aplicații
+- 15 noiembrie: Afișarea și comunicarea rezultatelor
+- 16 noiembrie: Întâlnire GNL, sesiunea de introducere pentru organizațiile selectate și instruire pe metode de consultare
+- 16 noiembrie - 10 decembrie:  Consultările cu tinerii
+- 10 decembrie: Raportarea consultărilor efectuate de către organizațiile promotoare.
+- 10 decembrie – 15 decembrie: Elaborarea Raportului de țară
+- 16/20 decembrie: Eveniment de lansare a Raportului de țară (data exactă va fi anunțată ulterior)
 
 ## **Ce urmează după runda de consultare din 2026**
 
