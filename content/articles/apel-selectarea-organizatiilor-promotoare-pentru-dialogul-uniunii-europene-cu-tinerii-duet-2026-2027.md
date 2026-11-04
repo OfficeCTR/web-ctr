@@ -51,7 +51,7 @@ Pot aplica organizațiile neguvernamentale de și pentru tineret și structurile
 
 ## **Modalitate de aplicare și criterii de evaluare**
 
-Aplicarea se face prin formularul online disponibil [aici](%5Bhttps://docs.google.com/forms/d/e/1FAIpQLScOrRSIKehNx2k6kPw0qKBgWToINn_jmAliiP7JscHK6-TUdw/viewform?usp=header%5D\(https://docs.google.com/forms/d/e/1FAIpQLScOrRSIKehNx2k6kPw0qKBgWToINn_jmAliiP7JscHK6-TUdw/viewform?usp=header\)).
+Aplicarea se face prin formularul online disponibil [aici](https://forms.gle/M6d8McehQpSgPAYP6).
 
 Pe lângă datele de contact ale organizației, formularul cuprinde o scurtă prezentare, un raport de activitate pe ultimii 3 ani (maximum 3 pagini, cu tipul și numărul tinerilor cu care lucrează organizația), nivelul de intervenție (național, urban mare, urban mic sau rural) și activitățile propuse în cadrul GNL pentru implementarea DUET.
 
