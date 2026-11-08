@@ -12,7 +12,7 @@ coverImage: /uploads/articles/ctr-bucuresti-hpv-free-city/coverImage.jpg
 gallery: []
 authorName: Echipa CTR
 ---
-Consiliul Tineretului din România se alătură parteneriatului dintre Federația Tinerilor din Cluj și MSD România în cadrul inițiativei **„HPV Free City”**, salutând decizia **Bucureștiului** de a deveni al treilea oraș din țară care se implică public în lupta împotriva infecției cu virusul Papiloma Uman (HPV).
+Consiliul Tineretului din România se alătură parteneriatului dintre Federația Tinerilor din Cluj și MSD România în cadrul inițiativei **„HPV Free City”**, activând **Bucureștiul** în a deveni al treilea oraș din țară care se implică public în lupta împotriva infecției cu virusul Papiloma Uman (HPV).
 
 ## Importanța angajamentului Bucureștiului
 
