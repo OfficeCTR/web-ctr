@@ -1,12 +1,19 @@
 ---
-title: 'CTR susține Bucureștiul în demersul „HPV Free City”: sănătatea tinerilor, o prioritate publică'
-publishedAt: '2025-10-08'
+title: >-
+  CTR inițiază demersul „București - HPV Free City”: sănătatea tinerilor, o
+  prioritate publică
+publishedAt: 2025-10-08
 category: Proiecte
-excerpt: Consiliul Tineretului din România sprijină inițiativa București – HPV Free City, un angajament civic-instituțional pentru prevenția infecției cu HPV și accesul tinerilor la informare și vaccinare.
+excerpt: >-
+  Consiliul Tineretului din România sprijină inițiativa București – HPV Free
+  City, un angajament civic-instituțional pentru prevenția infecției cu HPV și
+  accesul tinerilor la informare și vaccinare.
 coverImage: /uploads/articles/ctr-bucuresti-hpv-free-city/coverImage.jpg
+gallery: []
 authorName: Echipa CTR
 ---
 Consiliul Tineretului din România se alătură parteneriatului dintre Federația Tinerilor din Cluj și MSD România în cadrul inițiativei **„HPV Free City”**, salutând decizia **Bucureștiului** de a deveni al treilea oraș din țară care se implică public în lupta împotriva infecției cu virusul Papiloma Uman (HPV).
+
 ## Importanța angajamentului Bucureștiului
 
 Inițiativa „HPV Free City” urmărește transformarea prevenirii HPV într-o prioritate publică prin mobilizarea comunitară: ONG-uri, autorități publice, instituții medicale și tineri lucrează împreună pentru a crește informarea, a combate dezinformarea și a facilita accesul la vaccinare.
@@ -24,6 +31,7 @@ De la **1 octombrie 2025**, în România, vaccinarea împotriva HPV este **gratu
 Consiliul Tineretului din România consideră inițiativa „HPV Free City” un model de colaborare — între ONG-uri, instituții medicale și autorități — care poate fi replicat și în alte orașe.
 
 CTR își propune să contribuie la:
+
 - **Educație pentru sănătate**: dezvoltarea de programe adaptate tinerilor, cu materiale de informare clară despre HPV, riscuri și beneficiile vaccinării.
 - **Implicare tânără**: mobilizarea tinerilor pentru a participa ca ambasadori ai prevenției, organizând evenimente, ateliere sau campanii în școli și universități.
 - **Advocacy instituțional**: dialog cu autoritățile locale și centre medicale pentru a consolida capacitatea de vaccinare, a elimina barierele și a asigura sustenabilitatea inițiativei.
