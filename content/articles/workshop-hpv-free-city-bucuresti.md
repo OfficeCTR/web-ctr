@@ -22,7 +22,7 @@ authorName: Echipa CTR
 
 Pe 5 noiembrie 2026, atelierul „București - HPV Free City” a reunit la Zbor Hub Politehnica tineri, medici și reprezentanți ai administrației publice. Discuția a pornit de la situația vaccinării împotriva virusului papiloma uman (HPV) în București. Apoi, în grupurile de lucru, am identificat obstacolele pe care le întâmpină tinerii și am explorat ce acțiuni am putea desfășura împreună cu partenerii coaliției locale.
 
-Infecția cu HPV este frecventă, se transmite în principal prin contact sexual și poate afecta atât femeile, cât și bărbații. De cele mai multe ori, trece de la sine. Dacă persistă, infecția cu anumite tipuri de HPV poate cauza cancer de col uterin și alte tipuri de cancer. Vaccinarea reduce acest risc și oferă cea mai bună protecție când are loc înainte de expunerea la virus. În România, vaccinul este compensat integral pentru persoanele cu vârste între 11 și 26 de ani.\
+Infecția cu HPV este frecventă, se transmite în principal prin contact sexual și poate afecta atât femeile, cât și bărbații. De cele mai multe ori, trece de la sine. Dacă persistă, infecția cu anumite tipuri de HPV poate cauza cancer de col uterin și alte tipuri de cancer. Vaccinarea reduce acest risc și oferă cea mai bună protecție când are loc înainte de expunerea la virus. În România, vaccinul este compensat integral pentru persoanele cu vârste între 11 și 26 de ani.
 
 [Vezi mai multe InfoHPV.ro](https://www.infohpv.ro/ghid-de-vaccinare-anti-hpv/) \
 ![](/uploads/articles/workshop-hpv-free-city-bucuresti/AdobeExpressPhotos_30cc72c3ca134674b4bb0c01d7c7c30c_CopyEdited.jpg)
